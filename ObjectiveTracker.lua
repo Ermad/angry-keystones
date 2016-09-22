@@ -34,7 +34,6 @@ local function UpdateTime(self, elapsedTime)
 end
 
 local function StartTime(timerID, mapID, timeLimit, elapsedTime)
-	print("start")
 	TimerFrame.timerID = timerID
 	TimerFrame.timeLimit = timeLimit
 	TimerFrame.baseTime = elapsedTime
@@ -44,7 +43,6 @@ local function StartTime(timerID, mapID, timeLimit, elapsedTime)
 end	
 
 local function StopTime(timerID)
-	print("stop")
 	if ( (not timerID or TimerFrame.timerID == timerID) ) then
 		TimerFrame.timerID = nil
 		TimerFrame.baseTime = nil
@@ -55,8 +53,6 @@ local function StopTime(timerID)
 end
 
 local function CheckTime(...)
-	print("check")
-
 	for i = 1, select("#", ...) do
 		local timerID = select(i, ...);
 		local _, elapsedTime, type = GetWorldElapsedTime(timerID)
@@ -78,7 +74,7 @@ local function TimerFrame_OnUpdate(self, elapsed)
 	UpdateTime(TimerFrame, floor(self.baseTime + self.timeSinceBase))
 end
 
-function TimerFrame_OnEvent(self, event, ...)
+local function TimerFrame_OnEvent(self, event, ...)
 	if event == "PLAYER_ENTERING_WORLD" then
 		CheckTime(GetWorldElapsedTimers())
 	elseif event == "WORLD_STATE_TIMER_START" then
@@ -93,8 +89,7 @@ function TimerFrame_OnEvent(self, event, ...)
 end
 
 function Mod:CreateTime()
-	TimerFrame = CreateFrame("Frame", ADDON.."Frame", ScenarioChallengeModeBlock)--, nil, )
-	TimerFrame:SetSize(100, 100)
+	TimerFrame = CreateFrame("Frame", ADDON.."Frame", ScenarioChallengeModeBlock)
 	TimerFrame:SetAllPoints(ScenarioChallengeModeBlock)
 	-- TimerFrame:SetBackdrop({ bgFile = "Interface\\Tooltips\\UI-Tooltip-Background" })
 	-- TimerFrame:SetBackdropColor( 0.616, 0.149, 0.114, 0.9)
