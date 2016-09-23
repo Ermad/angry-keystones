@@ -20,6 +20,10 @@ local TimerFrame
 local function UpdateTime(self, elapsedTime)
 	local time3 = self.timeLimit * TIME_FOR_3
 	local time2 = self.timeLimit * TIME_FOR_2
+
+	TimerFrame.Bar3:SetShown(elapsedTime < time3)
+	TimerFrame.Bar2:SetShown(elapsedTime < time2)
+
 	if elapsedTime < time3 then
 		TimerFrame.Text:SetText( timeFormat(time3 - elapsedTime) )
 		TimerFrame.Text:SetTextColor(1, 0.843, 0)
@@ -40,6 +44,7 @@ local function StartTime(timerID, mapID, timeLimit, elapsedTime)
 	TimerFrame.timeSinceBase = 0
 	TimerFrame.mapID = mapID
 	TimerFrame:Show()
+	UpdateTime(TimerFrame, elapsedTime)
 end	
 
 local function StopTime(timerID)
@@ -95,7 +100,19 @@ function Mod:CreateTime()
 	-- TimerFrame:SetBackdropColor( 0.616, 0.149, 0.114, 0.9)
 	
 	TimerFrame.Text = TimerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
-	TimerFrame.Text:SetPoint("BOTTOMLEFT", ScenarioChallengeModeBlock.TimeLeft, "BOTTOMRIGHT", 2, 2)	
+	TimerFrame.Text:SetPoint("BOTTOMLEFT", ScenarioChallengeModeBlock.TimeLeft, "BOTTOMRIGHT", 2, 2)
+
+	TimerFrame.Bar3 = TimerFrame:CreateTexture(nil, "OVERLAY")
+	TimerFrame.Bar3:SetPoint("TOPLEFT", ScenarioChallengeModeBlock.StatusBar, "TOPLEFT", ScenarioChallengeModeBlock.StatusBar:GetWidth() * (1 - TIME_FOR_3) - 2, 0)
+	TimerFrame.Bar3:SetSize(3, 10)
+	TimerFrame.Bar3:SetTexture("Interface\\TargetingFrame\\UI-StatusBar")
+	TimerFrame.Bar3:SetVertexColor(1, 0.843, 0)
+
+	TimerFrame.Bar2 = TimerFrame:CreateTexture(nil, "OVERLAY")
+	TimerFrame.Bar2:SetPoint("TOPLEFT", ScenarioChallengeModeBlock.StatusBar, "TOPLEFT", ScenarioChallengeModeBlock.StatusBar:GetWidth() * (1 - TIME_FOR_2) - 2, 0)
+	TimerFrame.Bar2:SetSize(3, 10)
+	TimerFrame.Bar2:SetTexture("Interface\\TargetingFrame\\UI-StatusBar")
+	TimerFrame.Bar2:SetVertexColor(0.78, 0.78, 0.812)
 
 	-- TimerFrame:Show()
 	-- TimerFrame.Text:Show()
