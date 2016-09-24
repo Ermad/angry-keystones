@@ -109,7 +109,7 @@ function Mod:CreateTime()
 	TimerFrame.Bar3:SetTexCoord(0, 0.5, 0, 1)
 
 	TimerFrame.Bar2 = TimerFrame:CreateTexture(nil, "OVERLAY")
-	TimerFrame.Bar2:SetPoint("TOPLEFT", ScenarioChallengeModeBlock.StatusBar, "TOPLEFT", ScenarioChallengeModeBlock.StatusBar:GetWidth() * (1 - TIME_FOR_2) - 5, 0)
+	TimerFrame.Bar2:SetPoint("TOPLEFT", ScenarioChallengeModeBlock.StatusBar, "TOPLEFT", ScenarioChallengeModeBlock.StatusBar:GetWidth() * (1 - TIME_FOR_2) - 4, 0)
 	TimerFrame.Bar2:SetSize(8, 10)
 	TimerFrame.Bar2:SetTexture("Interface\\Addons\\AngryKeystones\\bar")
 	TimerFrame.Bar2:SetTexCoord(0.5, 1, 0, 1)
@@ -127,4 +127,15 @@ function Mod:CreateTime()
 	TimerFrame:RegisterEvent("CHALLENGE_MODE_START")
 end
 
+local function ProgressBar_SetValue(self, percent)
+	if self.criteriaIndex then
+		local _, _, _, _, totalQuantity, _, _, quantityString, _, _, _, _, _ = C_Scenario.GetCriteriaInfo(self.criteriaIndex)
+		local currentQuantity = quantityString and tonumber( strsub(quantityString, 1, -2) )
+		if currentQuantity and totalQuantity then
+			self.Bar.Label:SetFormattedText("%.1f%% - %d/%d", currentQuantity/totalQuantity*100, currentQuantity, totalQuantity)
+		end
+	end
+end
+
 Mod:CreateTime()
+hooksecurefunc("ScenarioTrackerProgressBar_SetValue", ProgressBar_SetValue)
