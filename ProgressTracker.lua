@@ -94,7 +94,6 @@ end
 local function OnTooltipSetUnit(tooltip)
 	local scenarioType = select(10, C_Scenario.GetInfo())
 	if scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE and Addon.Config.progressTooltip then
-
 		local name, unit = tooltip:GetUnit()
 		local guid = unit and UnitGUID(unit)
 		if guid then

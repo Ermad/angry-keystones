@@ -55,7 +55,6 @@ local function filter(self, event, msg, ...)
 	end
 end
 
-
 for _, v in pairs(events) do
 	ChatFrame_AddMessageEventFilter(v, filter)
 end
