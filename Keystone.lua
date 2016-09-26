@@ -20,10 +20,11 @@ local events = {
 }
 
 local function filter(self, event, msg, ...)
-	local msg2 = msg:gsub("(|cffa335ee|Hitem:138019:([0-9:]+)|h%[(Mythic Keystone)%]|h|r)", function(msg, itemString, itemName)
+	local msg2 = msg:gsub("(|cffa335ee|Hitem:138019:([0-9:]+)|h(%b[])|h|r)", function(msg, itemString, itemName)
 		local info = { strsplit(":", itemString) }
 		local mapID = tonumber(info[13])
 		local mapLevel = tonumber(info[14])
+		if not mapID or not mapLevel then return msg end
 
 		local offset = 15
 		if mapLevel >= 4 then offset = offset + 1 end
@@ -31,13 +32,20 @@ local function filter(self, event, msg, ...)
 		if mapLevel >= 10 then offset = offset + 1 end
 		local depleted = info[offset] ~= "1"
 
+		if depleted then
+			return msg:gsub("cffa335ee", "cff9b9b9b")
+		else
+			return msg
+		end
+	end)
+	msg2 = msg2:gsub("(|Hitem:138019:([0-9:]+)|h(%b[])|h)", function(msg, itemString, itemName)
+		local info = { strsplit(":", itemString) }
+		local mapID = tonumber(info[13])
+		local mapLevel = tonumber(info[14])
 
 		if mapID and mapLevel then
-			if depleted then
-				msg = msg:gsub("cffa335ee", "cff808080")
-			end
 			local mapName = C_ChallengeMode.GetMapInfo(mapID)
-			return msg:gsub(itemName, format("Keystone: %s - Level %d", mapName, mapLevel))
+			return msg:gsub(strsub(itemName, 2, -2), format("Keystone: %s - Level %d", mapName, mapLevel))
 		else
 			return msg
 		end
