@@ -7,3 +7,4 @@
 Core.lua
 ObjectiveTracker.lua
 ProgressTracker.lua
+Keystone.lua
