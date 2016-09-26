@@ -7,8 +7,8 @@ local current_locale
 local langs = {}
 langs.enUS = {
 	config_characterConfig = "Per-character configuration",
-	config_progressTooltip = "Show progress each mob gives on tooltip",
-	config_progressFormat = "Enemies Forces Progress Format",
+	config_progressTooltip = "Show progress each enemy gives on their tooltip",
+	config_progressFormat = "Enemies Forces Format",
 	config_progressFormat_1 = "24.19%",
 	config_progressFormat_2 = "90/372",
 	config_progressFormat_3 = "24.19% - 90/372",
