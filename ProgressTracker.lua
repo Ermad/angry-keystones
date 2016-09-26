@@ -3,7 +3,6 @@ local Mod = Addon:NewModule('ProgressTracker')
 
 local lastQuantity
 local lastTotalQuantity
-local started = false
 local lastDied
 local lastDiedName
 local lastDiedTime
@@ -61,7 +60,6 @@ function Mod:SCENARIO_CRITERIA_UPDATE()
 end
 
 local function StartTime()
-	started = true
 	Mod:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	local numCriteria = select(3, C_Scenario.GetStepInfo())
 	for criteriaIndex = 1, numCriteria do
@@ -75,7 +73,6 @@ local function StartTime()
 end
 
 local function StopTime()
-	started = false
 	Mod:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 end
 
@@ -95,7 +92,9 @@ local function CheckTime(...)
 end
 
 local function OnTooltipSetUnit(tooltip)
-	if started and Addon.Config.progressTooltip then
+	local scenarioType = select(10, C_Scenario.GetInfo())
+	if scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE and Addon.Config.progressTooltip then
+
 		local name, unit = tooltip:GetUnit()
 		local guid = unit and UnitGUID(unit)
 		if guid then
@@ -109,17 +108,26 @@ local function OnTooltipSetUnit(tooltip)
 						value = amount
 					end
 				end
-				if value then
+				if value and lastTotalQuantity then
 					local text
 					if Addon.Config.progressFormat == 1 then
-						text = format("%.2f%%", value/lastTotalQuantity*100)
+						text = format( format(Addon.Locale.forcesFormat, "+%.2f%%"), value/lastTotalQuantity*100)
 					elseif Addon.Config.progressFormat == 2 then
-						text = format("%d", value)
+						text = format( format(Addon.Locale.forcesFormat, "+%d"), value)
 					elseif Addon.Config.progressFormat == 3 then
-						text = format("%.2f%% - %d", value/lastTotalQuantity*100, value)
+						text = format( format(Addon.Locale.forcesFormat, "+%.2f%% - +%d"), value/lastTotalQuantity*100, value)
 					end
-					tooltip:AddLine( format(" - Progress: %s", text), HIGHLIGHT_FONT_COLOR:GetRGB())
-					tooltip:Show()
+
+					local matcher = format(Addon.Locale.forcesFormat, "%d+%%")
+					for i=3, tooltip:NumLines() do
+						local tiptext = _G["GameTooltipTextLeft"..i]
+						local linetext = tiptext:GetText()
+
+						if linetext:match(matcher) then
+							tiptext:SetText(text)
+							tooltip:Show()
+						end
+					end
 				end
 			end
 		end
@@ -143,3 +151,21 @@ function Mod:Startup()
 	CheckTime(GetWorldElapsedTimers())
 	GameTooltip:HookScript("OnTooltipSetUnit", OnTooltipSetUnit)
 end
+
+local function ProgressBar_SetValue(self, percent)
+	if self.criteriaIndex then
+		local _, _, _, _, totalQuantity, _, _, quantityString, _, _, _, _, _ = C_Scenario.GetCriteriaInfo(self.criteriaIndex)
+		local currentQuantity = quantityString and tonumber( strsub(quantityString, 1, -2) )
+		if currentQuantity and totalQuantity then
+			if Addon.Config.progressFormat == 1 then
+				self.Bar.Label:SetFormattedText("%.2f%%", currentQuantity/totalQuantity*100)
+			elseif Addon.Config.progressFormat == 2 then
+				self.Bar.Label:SetFormattedText("%d/%d", currentQuantity, totalQuantity)
+			elseif Addon.Config.progressFormat == 3 then
+				self.Bar.Label:SetFormattedText("%.2f%% - %d/%d", currentQuantity/totalQuantity*100, currentQuantity, totalQuantity)
+			end
+		end
+	end
+end
+
+hooksecurefunc("ScenarioTrackerProgressBar_SetValue", ProgressBar_SetValue)
