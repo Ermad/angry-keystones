@@ -2,6 +2,7 @@ local ADDON, Addon = ...
 local Mod = Addon:NewModule('ProgressTracker')
 
 local lastQuantity
+local lastTotalQuantity
 local started = false
 local lastDied
 local lastDiedName
@@ -19,7 +20,7 @@ local function ProcessLasts()
 			else
 				AngryKeystones_Data[lastDied][lastAmount] = 1
 			end
-			--print("credit", lastAmount, lastDiedName)
+			-- print("credit", lastAmount, lastDiedName)
 			lastDied, lastDiedTime, lastAmount, lastAmountTime, lastDiedName = nil, nil, nil, nil, nil
 		end
 	end
@@ -32,7 +33,7 @@ function Mod:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, hideCaster, sourceGUI
 			lastDied = tonumber(npc_id)
 			lastDiedTime = GetTime()
 			lastDiedName = destName
-			--print(lastDiedTime, "died", npc_id)
+			-- print(lastDiedTime, "died", npc_id)
 			ProcessLasts()
 		end
 	end
@@ -46,13 +47,14 @@ function Mod:SCENARIO_CRITERIA_UPDATE()
 			local criteriaString, criteriaType, _, quantity, totalQuantity, _, _, quantityString, _, _, _, _, isWeightedProgress = C_Scenario.GetCriteriaInfo(criteriaIndex)
 			if isWeightedProgress then
 				local currentQuantity = quantityString and tonumber( strsub(quantityString, 1, -2) )
-				if lastQuantity and currentQuantity > lastQuantity then
+				if lastQuantity and currentQuantity < totalQuantity and currentQuantity > lastQuantity then
 					lastAmount = currentQuantity - lastQuantity
 					lastAmountTime = GetTime()
-					--print(lastAmountTime, "update", lastAmount)
+					-- print(lastAmountTime, "update", lastAmount)
 					ProcessLasts()
 				end
 				lastQuantity = currentQuantity
+				lastTotalQuantity = totalQuantity
 			end
 		end
 	end
@@ -67,6 +69,7 @@ local function StartTime()
 		if isWeightedProgress then
 			local quantityString = select(8, C_Scenario.GetCriteriaInfo(criteriaIndex))
 			lastQuantity = quantityString and tonumber( strsub(quantityString, 1, -2) )
+			lastTotalQuantity = totalQuantity
 		end
 	end
 end
@@ -92,7 +95,7 @@ local function CheckTime(...)
 end
 
 local function OnTooltipSetUnit(tooltip)
-	if started then
+	if started and Addon.Config.progressTooltip then
 		local name, unit = tooltip:GetUnit()
 		local guid = unit and UnitGUID(unit)
 		if guid then
@@ -107,7 +110,15 @@ local function OnTooltipSetUnit(tooltip)
 					end
 				end
 				if value then
-					tooltip:AddLine( format(" - Progress: %d", value), HIGHLIGHT_FONT_COLOR:GetRGB())
+					local text
+					if Addon.Config.progressFormat == 1 then
+						text = format("%.2f%%", value/lastTotalQuantity*100)
+					elseif Addon.Config.progressFormat == 2 then
+						text = format("%d", value)
+					elseif Addon.Config.progressFormat == 3 then
+						text = format("%.2f%% - %d", value/lastTotalQuantity*100, value)
+					end
+					tooltip:AddLine( format(" - Progress: %s", text), HIGHLIGHT_FONT_COLOR:GetRGB())
 					tooltip:Show()
 				end
 			end

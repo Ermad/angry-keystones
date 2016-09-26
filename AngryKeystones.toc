@@ -1,10 +1,14 @@
 ## Interface: 70000
-## Title: Angry Keystone
+## Title: Angry Keystones
 ## Author: Ermad
 ## Version: v0.1
-## SavedVariables: AngryKeystones_Data
+## SavedVariables: AngryKeystones_Config, AngryKeystones_Data
+## SavedVariablesPerCharacter: AngryKeystones_CharacterConfig
 
 Core.lua
+Locale.lua
+Config.lua
+
 ObjectiveTracker.lua
 ProgressTracker.lua
 Keystone.lua

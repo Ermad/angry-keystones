@@ -33,7 +33,7 @@ local function filter(self, event, msg, ...)
 		local depleted = info[offset] ~= "1"
 
 		if depleted then
-			return msg:gsub("cffa335ee", "cff9b9b9b")
+			return msg:gsub("|cffa335ee", "|cff9d9d9d")
 		else
 			return msg
 		end

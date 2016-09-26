@@ -21,8 +21,13 @@ local function ProgressBar_SetValue(self, percent)
 		local _, _, _, _, totalQuantity, _, _, quantityString, _, _, _, _, _ = C_Scenario.GetCriteriaInfo(self.criteriaIndex)
 		local currentQuantity = quantityString and tonumber( strsub(quantityString, 1, -2) )
 		if currentQuantity and totalQuantity then
-			-- self.Bar.Label:SetFormattedText("%d/%d", currentQuantity, totalQuantity)
-			self.Bar.Label:SetFormattedText("%.2f%% - %d/%d", currentQuantity/totalQuantity*100, currentQuantity, totalQuantity)
+			if Addon.Config.progressFormat == 1 then
+				self.Bar.Label:SetFormattedText("%.2f%%", currentQuantity/totalQuantity*100)
+			elseif Addon.Config.progressFormat == 2 then
+				self.Bar.Label:SetFormattedText("%d/%d", currentQuantity, totalQuantity)
+			elseif Addon.Config.progressFormat == 3 then
+				self.Bar.Label:SetFormattedText("%.2f%% - %d/%d", currentQuantity/totalQuantity*100, currentQuantity, totalQuantity)
+			end
 		end
 	end
 end
