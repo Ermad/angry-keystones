@@ -12,6 +12,7 @@ langs.enUS = {
 	config_progressFormat_1 = "24.19%",
 	config_progressFormat_2 = "90/372",
 	config_progressFormat_3 = "24.19% - 90/372",
+	keystoneFormat = "Keystone: %s - Level %d",
 }
 
 function Locale:Get(key)
@@ -28,9 +29,7 @@ end
 
 setmetatable(Locale, {__index = Locale.Get})
 
-function Locale:Startup()
-	current_locale = GetLocale()
-	if langs[current_locale] == nil then
-		current_locale = default_locale
-	end
+current_locale = GetLocale()
+if langs[current_locale] == nil then
+	current_locale = default_locale
 end

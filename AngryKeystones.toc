@@ -1,7 +1,7 @@
 ## Interface: 70000
 ## Title: Angry Keystones
+## Notes: Displays additional information for Mythic Keystone dungeons
 ## Author: Ermad
-## Version: v0.1
 ## SavedVariables: AngryKeystones_Config, AngryKeystones_Data
 ## SavedVariablesPerCharacter: AngryKeystones_CharacterConfig
 

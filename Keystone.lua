@@ -45,7 +45,7 @@ local function filter(self, event, msg, ...)
 
 		if mapID and mapLevel then
 			local mapName = C_ChallengeMode.GetMapInfo(mapID)
-			return msg:gsub(strsub(itemName, 2, -2), format("Keystone: %s - Level %d", mapName, mapLevel))
+			return msg:gsub(strsub(itemName, 2, -2), format(Addon.Locale.keystoneFormat, mapName, mapLevel))
 		else
 			return msg
 		end
