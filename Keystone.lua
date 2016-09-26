@@ -7,6 +7,9 @@ local events = {
 	"CHAT_MSG_CHANNEL",
 	"CHAT_MSG_TEXT_EMOTE",
 	"CHAT_MSG_WHISPER",
+	"CHAT_MSG_WHISPER_INFORM",
+	"CHAT_MSG_BN_WHISPER",
+	"CHAT_MSG_BN_WHISPER_INFORM",
 	"CHAT_MSG_GUILD",
 	"CHAT_MSG_PARTY",
 	"CHAT_MSG_PARTY_LEADER",
@@ -21,9 +24,20 @@ local function filter(self, event, msg, ...)
 		local info = { strsplit(":", itemString) }
 		local mapID = tonumber(info[13])
 		local mapLevel = tonumber(info[14])
+
+		local offset = 15
+		if mapLevel >= 4 then offset = offset + 1 end
+		if mapLevel >= 7 then offset = offset + 1 end
+		if mapLevel >= 10 then offset = offset + 1 end
+		local depleted = info[offset] ~= "1"
+
+
 		if mapID and mapLevel then
+			if depleted then
+				msg = msg:gsub("cffa335ee", "cff808080")
+			end
 			local mapName = C_ChallengeMode.GetMapInfo(mapID)
-			return msg:gsub(itemName, format("Keystone: %s Level %d", mapName, mapLevel))
+			return msg:gsub(itemName, format("Keystone: %s - Level %d", mapName, mapLevel))
 		else
 			return msg
 		end
