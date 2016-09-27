@@ -2,7 +2,6 @@ local ADDON, Addon = ...
 local Mod = Addon:NewModule('ProgressTracker')
 
 local lastQuantity
-local lastTotalQuantity
 local lastDied
 local lastDiedName
 local lastDiedTime
@@ -27,7 +26,9 @@ end
 
 function Mod:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags)
 	if event == "UNIT_DIED" then
-		if bit.band(destFlags, COMBATLOG_OBJECT_TYPE_NPC) > 0 and bit.band(destFlags, COMBATLOG_OBJECT_CONTROL_NPC) > 0 and bit.band(destFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) > 0 then
+		if bit.band(destFlags, COMBATLOG_OBJECT_TYPE_NPC) > 0
+				and bit.band(destFlags, COMBATLOG_OBJECT_CONTROL_NPC) > 0
+				and (bit.band(destFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) > 0 or bit.band(destFlags, COMBATLOG_OBJECT_REACTION_NEUTRAL) > 0) then
 			local type, zero, server_id, instance_id, zone_uid, npc_id, spawn_uid = strsplit("-", destGUID)
 			lastDied = tonumber(npc_id)
 			lastDiedTime = GetTime()
@@ -53,7 +54,6 @@ function Mod:SCENARIO_CRITERIA_UPDATE()
 					ProcessLasts()
 				end
 				lastQuantity = currentQuantity
-				lastTotalQuantity = totalQuantity
 			end
 		end
 	end
@@ -67,7 +67,6 @@ local function StartTime()
 		if isWeightedProgress then
 			local quantityString = select(8, C_Scenario.GetCriteriaInfo(criteriaIndex))
 			lastQuantity = quantityString and tonumber( strsub(quantityString, 1, -2) )
-			lastTotalQuantity = totalQuantity
 		end
 	end
 end
@@ -101,20 +100,29 @@ local function OnTooltipSetUnit(tooltip)
 			npc_id = tonumber(npc_id)
 			local info = AngryKeystones_Data[npc_id]
 			if info then
+				local numCriteria = select(3, C_Scenario.GetStepInfo())
+				local total
+				for criteriaIndex = 1, numCriteria do
+					local _, _, _, quantity, totalQuantity, _, _, quantityString, _, _, _, _, isWeightedProgress = C_Scenario.GetCriteriaInfo(criteriaIndex)
+					if isWeightedProgress then
+						total = totalQuantity
+					end
+				end
+
 				local value, valueCount
 				for amount, count in pairs(info) do
 					if not valueCount or count > valueCount then
 						value = amount
 					end
 				end
-				if value and lastTotalQuantity then
+				if value and total then
 					local text
 					if Addon.Config.progressFormat == 1 then
-						text = format( format(Addon.Locale.forcesFormat, "+%.2f%%"), value/lastTotalQuantity*100)
+						text = format( format(Addon.Locale.forcesFormat, "+%.2f%%"), value/total*100)
 					elseif Addon.Config.progressFormat == 2 then
 						text = format( format(Addon.Locale.forcesFormat, "+%d"), value)
 					elseif Addon.Config.progressFormat == 3 then
-						text = format( format(Addon.Locale.forcesFormat, "+%.2f%% - +%d"), value/lastTotalQuantity*100, value)
+						text = format( format(Addon.Locale.forcesFormat, "+%.2f%% - +%d"), value/total*100, value)
 					end
 
 					local matcher = format(Addon.Locale.forcesFormat, "%d+%%")
