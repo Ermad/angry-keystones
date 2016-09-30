@@ -1,4 +1,4 @@
-Adds additional information the Mythic Keystone objective tracker. 
+Adds additional information to the Mythic Keystone objective tracker.
 
 ### Bonus Chest Timer
 
