@@ -12,7 +12,7 @@ langs.enUS = {
 	config_progressFormat_1 = "24.19%",
 	config_progressFormat_2 = "90/372",
 	config_progressFormat_3 = "24.19% - 90/372",
-	keystoneFormat = "Keystone: %s - Level %d",
+	keystoneFormat = "[Keystone: %s - Level %d]",
 	forcesFormat = " - Enemy Forces: %s",
 }
 

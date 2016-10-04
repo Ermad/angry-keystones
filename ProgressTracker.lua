@@ -111,7 +111,7 @@ local function OnTooltipSetUnit(tooltip)
 
 				local value, valueCount
 				for amount, count in pairs(info) do
-					if not valueCount or count > valueCount then
+					if not valueCount or count > valueCount or (count == valueCount and amount < value) then
 						value = amount
 						valueCount = count
 					end

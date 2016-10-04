@@ -1,6 +1,9 @@
 local ADDON, Addon = ...
 local Mod = Addon:NewModule('Keystone')
 
+local poorColor = select(4, GetItemQualityColor(LE_ITEM_QUALITY_POOR))
+local epicColor = select(4, GetItemQualityColor(LE_ITEM_QUALITY_EPIC))
+
 local events = {
 	"CHAT_MSG_SAY",
 	"CHAT_MSG_YELL",
@@ -10,6 +13,7 @@ local events = {
 	"CHAT_MSG_WHISPER_INFORM",
 	"CHAT_MSG_BN_WHISPER",
 	"CHAT_MSG_BN_WHISPER_INFORM",
+	"CHAT_MSG_BN_CONVERSATION",
 	"CHAT_MSG_GUILD",
 	"CHAT_MSG_PARTY",
 	"CHAT_MSG_PARTY_LEADER",
@@ -20,7 +24,7 @@ local events = {
 }
 
 local function filter(self, event, msg, ...)
-	local msg2 = msg:gsub("(|cffa335ee|Hitem:138019:([0-9:]+)|h(%b[])|h|r)", function(msg, itemString, itemName)
+	local msg2 = msg:gsub("(|c"..epicColor.."|Hitem:138019:([0-9:]+)|h(%b[])|h|r)", function(msg, itemString, itemName)
 		local info = { strsplit(":", itemString) }
 		local mapID = tonumber(info[13])
 		local mapLevel = tonumber(info[14])
@@ -33,7 +37,7 @@ local function filter(self, event, msg, ...)
 		local depleted = info[offset] ~= "1"
 
 		if depleted then
-			return msg:gsub("|cffa335ee", "|cff9d9d9d")
+			return msg:gsub("|c"..epicColor, "|c"..poorColor)
 		else
 			return msg
 		end
@@ -45,7 +49,7 @@ local function filter(self, event, msg, ...)
 
 		if mapID and mapLevel then
 			local mapName = C_ChallengeMode.GetMapInfo(mapID)
-			return msg:gsub(strsub(itemName, 2, -2), format(Addon.Locale.keystoneFormat, mapName, mapLevel))
+			return msg:gsub(itemName:gsub("(%W)","%%%1"), format(Addon.Locale.keystoneFormat, mapName, mapLevel))
 		else
 			return msg
 		end
