@@ -18,7 +18,6 @@ local function ProcessLasts()
 			else
 				AngryKeystones_Data[lastDied][lastAmount] = 1
 			end
-			-- print("credit", lastAmount, lastDiedName)
 			lastDied, lastDiedTime, lastAmount, lastAmountTime, lastDiedName = nil, nil, nil, nil, nil
 		end
 	end
@@ -33,7 +32,6 @@ function Mod:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, hideCaster, sourceGUI
 			lastDied = tonumber(npc_id)
 			lastDiedTime = GetTime()
 			lastDiedName = destName
-			-- print(lastDiedTime, "died", npc_id)
 			ProcessLasts()
 		end
 	end
@@ -50,7 +48,6 @@ function Mod:SCENARIO_CRITERIA_UPDATE()
 				if lastQuantity and currentQuantity < totalQuantity and currentQuantity > lastQuantity then
 					lastAmount = currentQuantity - lastQuantity
 					lastAmountTime = GetTime()
-					-- print(lastAmountTime, "update", lastAmount)
 					ProcessLasts()
 				end
 				lastQuantity = currentQuantity
@@ -126,15 +123,19 @@ local function OnTooltipSetUnit(tooltip)
 						text = format( format(Addon.Locale.forcesFormat, "+%.2f%% - +%d"), value/total*100, value)
 					end
 
-					local matcher = format(Addon.Locale.forcesFormat, "%d+%%")
-					for i=3, tooltip:NumLines() do
-						local tiptext = _G["GameTooltipTextLeft"..i]
-						local linetext = tiptext:GetText()
+					if Addon.Locale:Has("forcesFormat") then
+						local matcher = format(Addon.Locale.forcesFormat, "%d+%%")
+						for i=3, tooltip:NumLines() do
+							local tiptext = _G["GameTooltipTextLeft"..i]
+							local linetext = tiptext:GetText()
 
-						if linetext:match(matcher) then
-							tiptext:SetText(text)
-							tooltip:Show()
+							if linetext:match(matcher) then
+								tiptext:SetText(text)
+								tooltip:Show()
+							end
 						end
+					else
+						tooltip:AddLine(text, HIGHLIGHT_FONT_COLOR:GetRGB())
 					end
 				end
 			end

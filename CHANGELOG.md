@@ -1,3 +1,7 @@
+## v0.1.3
+
+* Adds progress tooltips at end of tooltips when translation for current language is missing
+
 ## v0.1.2
 
 * Bug fix for Keystone links from other languages

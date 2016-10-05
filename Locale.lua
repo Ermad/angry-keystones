@@ -24,6 +24,11 @@ function Locale:Get(key)
 	end
 end
 
+function Locale:Has(key)
+	local locale = GetLocale()
+	return langs[locale] and langs[locale][key] ~= nil
+end
+
 function Locale:Exists(key)
 	return langs[default_locale][key] ~= nil
 end
