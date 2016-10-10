@@ -1,3 +1,7 @@
+## v0.2.0
+
+* Added ruRU and deDE locales
+
 ## v0.1.3
 
 * Adds progress tooltips at end of tooltips when translation for current language is missing
