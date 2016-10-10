@@ -15,6 +15,7 @@ langs.enUS = {
 	keystoneFormat = "[Keystone: %s - Level %d]",
 	forcesFormat = " - Enemy Forces: %s",
 }
+langs.enGB = langs.enUS
 
 langs.esES = {
 	config_characterConfig = "Configuración por personaje",
@@ -39,6 +40,14 @@ langs.deDE = {
 	config_progressFormat = "Format für \"Feindliche Streitkräfte\"",
 	keystoneFormat = "[Schlüsselstein: %s - Level %d]",
 	forcesFormat = " - Feindliche Streitkräfte: %s",
+}
+
+langs.koKR = {
+	config_characterConfig = "캐릭터별로 설정하기",
+	config_progressTooltip = "각각의 적이 주는 퍼센트를 툴팁에 표시",
+	config_progressFormat = "적 병력 표시 방법",
+	keystoneFormat = "[쐐기돌: %s - %d 레벨]",
+	forcesFormat = " - 적 병력: %s",
 }
 
 function Locale:Get(key)

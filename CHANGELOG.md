@@ -1,3 +1,7 @@
+## v0.2.1
+
+* Added koKR locale
+
 ## v0.2.0
 
 * Added ruRU, deDE, and esES locales
