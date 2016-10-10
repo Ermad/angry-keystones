@@ -99,9 +99,11 @@ local function OnTooltipSetUnit(tooltip)
 			if info then
 				local numCriteria = select(3, C_Scenario.GetStepInfo())
 				local total
+				local progressName
 				for criteriaIndex = 1, numCriteria do
-					local _, _, _, quantity, totalQuantity, _, _, quantityString, _, _, _, _, isWeightedProgress = C_Scenario.GetCriteriaInfo(criteriaIndex)
+					local criteriaString, _, _, quantity, totalQuantity, _, _, quantityString, _, _, _, _, isWeightedProgress = C_Scenario.GetCriteriaInfo(criteriaIndex)
 					if isWeightedProgress then
+						progressName = criteriaString
 						total = totalQuantity
 					end
 				end
@@ -114,17 +116,18 @@ local function OnTooltipSetUnit(tooltip)
 					end
 				end
 				if value and total then
+					local forcesFormat = Addon.Locale:Local("forcesFormat") or format(" - %s: %%s", progressName)
 					local text
 					if Addon.Config.progressFormat == 1 then
-						text = format( format(Addon.Locale.forcesFormat, "+%.2f%%"), value/total*100)
+						text = format( format(forcesFormat, "+%.2f%%"), value/total*100)
 					elseif Addon.Config.progressFormat == 2 then
-						text = format( format(Addon.Locale.forcesFormat, "+%d"), value)
+						text = format( format(forcesFormat, "+%d"), value)
 					elseif Addon.Config.progressFormat == 3 then
-						text = format( format(Addon.Locale.forcesFormat, "+%.2f%% - +%d"), value/total*100, value)
+						text = format( format(forcesFormat, "+%.2f%% - +%d"), value/total*100, value)
 					end
 
-					if Addon.Locale:Has("forcesFormat") then
-						local matcher = format(Addon.Locale.forcesFormat, "%d+%%")
+					if forcesFormat then
+						local matcher = format(forcesFormat, "%d+%%")
 						for i=3, tooltip:NumLines() do
 							local tiptext = _G["GameTooltipTextLeft"..i]
 							local linetext = tiptext:GetText()

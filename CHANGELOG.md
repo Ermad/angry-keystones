@@ -1,6 +1,6 @@
 ## v0.2.0
 
-* Added ruRU and deDE locales
+* Added ruRU, deDE, and esES locales
 
 ## v0.1.3
 

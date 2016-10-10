@@ -16,24 +16,27 @@ langs.enUS = {
 	forcesFormat = " - Enemy Forces: %s",
 }
 
+langs.esES = {
+	config_characterConfig = "Configuración por personaje",
+	config_progressTooltip = "Mostrar cantidad de progreso de cada enemigo en su tooltip",
+	config_progressFormat = "Formato de \"Fuerzas enemigas\"",
+	keystoneFormat = "[Piedra angular: %s - Nivel %d]",
+	forcesFormat = " - Fuerzas enemigas: %s",
+}
+langs.esMX = langs.esES
+
 langs.ruRU = {
 	config_characterConfig = "Настройки персонажа",
 	config_progressTooltip = "Показывать прогресс за каждого врага в подсказках",
 	config_progressFormat = "Формат отображения прогресса",
-	config_progressFormat_1 = "24.19%",
-	config_progressFormat_2 = "90/372",
-	config_progressFormat_3 = "24.19% - 90/372",
 	keystoneFormat = "[Ключ: %s - Уровень %d]",
 	forcesFormat = " - Врагов убито: %s",
 }
 
 langs.deDE = {
-	config_characterConfig = "Charakter Konfiguration",
-	config_progressTooltip = "Zeige Fortschritt pro Gegner im Tooltip",
-	config_progressFormat = "Anzeigeformat Fortschrittsbalken",
-	config_progressFormat_1 = "24.19%",
-	config_progressFormat_2 = "90/372",
-	config_progressFormat_3 = "24.19% - 90/372",
+	config_characterConfig = "Charakterspezifische Konfiguration",
+	config_progressTooltip = "Zeige Fortschritt den Gegner geben in ihrem Tooltip",
+	config_progressFormat = "Format für \"Feindliche Streitkräfte\"",
 	keystoneFormat = "[Schlüsselstein: %s - Level %d]",
 	forcesFormat = " - Feindliche Streitkräfte: %s",
 }
@@ -46,9 +49,9 @@ function Locale:Get(key)
 	end
 end
 
-function Locale:Has(key)
+function Locale:Local(key)
 	local locale = GetLocale()
-	return langs[locale] and langs[locale][key] ~= nil
+	return langs[locale] and langs[locale][key]
 end
 
 function Locale:Exists(key)
