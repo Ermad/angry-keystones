@@ -4,12 +4,15 @@ local Mod = Addon:NewModule('Gossip')
 local staticPopupNPCs = {
 	[95676] = true, -- Odyn
 }
+local npcBlacklist = {
+	[107435] = true, [112697] = true, [112699] = true, -- Suspicous Noble
+}
 local cosRumorNPC = 107486
 
 local function GossipNPCID()
 	local guid = UnitGUID("npc")
-	local npc_id = guid and select(6, strsplit("-", guid))
-	return tonumber(npc_id)
+	local npcid = guid and select(6, strsplit("-", guid))
+	return tonumber(npcid)
 end
 
 local function IsStaticPopupShown()
@@ -46,10 +49,10 @@ function Mod:GOSSIP_SHOW()
 	if Addon.Config.cosRumors and npcId == cosRumorNPC and GetNumGossipOptions() == 0 then
 		self:CoSRumor()
 	end
-	
+
 	local scenarioType = select(10, C_Scenario.GetInfo())
-	if Addon.Config.autoGossip and scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE then
-		local popup_shown =  IsStaticPopupShown()
+	if Addon.Config.autoGossip and scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE and not npcBlacklist[npcId] then
+		local popupShown =  IsStaticPopupShown()
 
 		local options = {GetGossipOptions()}
 		for i = 1, GetNumGossipOptions() do
@@ -59,7 +62,7 @@ function Mod:GOSSIP_SHOW()
 			end
 		end
 
-		if npcId and staticPopupNPCs[npcId] and not popup_shown then
+		if npcId and staticPopupNPCs[npcId] and not popupShown then
 			StaticPopup1Button1:Click()
 		end
 	end
