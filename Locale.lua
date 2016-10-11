@@ -12,8 +12,26 @@ langs.enUS = {
 	config_progressFormat_1 = "24.19%",
 	config_progressFormat_2 = "90/372",
 	config_progressFormat_3 = "24.19% - 90/372",
+	config_autoGossip = "Automatically select gossip entries during Keystone dungeons (ex: Odyn)",
+	config_cosRumors = "Output to party chat clues from \"Chatty Rumormonger\" during Court of Stars",
+
 	keystoneFormat = "[Keystone: %s - Level %d]",
 	forcesFormat = " - Enemy Forces: %s",
+
+	rumorMale = MALE,
+	rumorFemale = FEMALE,
+	rumorLightVest = "Light Vest",
+	rumorDarkVest = "Dark Vest",
+	rumorShortSleeves = "Short Sleeves",
+	rumorLongSleeves = "Long Sleeves",
+	rumorCloak = "Cloak",
+	rumorNoCloak = "No Cloak",
+	rumorGloves = "Gloves",
+	rumorNoGloves = "No Gloves",
+	rumorNoBelt = "No Belt",
+	rumorBook = "Book",
+	rumorCoinpurse = "Coinpurse",
+	rumorPotion = "Potion",
 }
 langs.enGB = langs.enUS
 
@@ -51,7 +69,7 @@ langs.koKR = {
 }
 
 function Locale:Get(key)
-	if langs[current_locale][key] ~= nil then
+	if langs[current_locale] and langs[current_locale][key] ~= nil then
 		return langs[current_locale][key]
 	else
 		return langs[default_locale][key]
@@ -59,8 +77,7 @@ function Locale:Get(key)
 end
 
 function Locale:Local(key)
-	local locale = GetLocale()
-	return langs[locale] and langs[locale][key]
+	return langs[current_locale] and langs[current_locale][key]
 end
 
 function Locale:Exists(key)
@@ -69,7 +86,39 @@ end
 
 setmetatable(Locale, {__index = Locale.Get})
 
-current_locale = GetLocale()
-if langs[current_locale] == nil then
-	current_locale = default_locale
+
+local rumors = {}
+rumors.enUS = {
+	["I heard somewhere that the spy isn't female."]="rumorMale",
+	["I heard the spy is here and he's very good looking."]="rumorMale",
+	["A guest said she saw him entering the manor alongside the Grand Magistrix."]="rumorMale",
+	["One of the musicians said he would not stop asking questions about the district."]="rumorMale",
+
+	["The spy definitely prefers darker clothing."]="rumorDarkVest",
+	["I heard the spy's vest is a dark, rich shade this very night."]="rumorDarkVest",
+	["The spy enjoys darker colored vests... like the night."]="rumorDarkVest",
+	["Rumor has it the spy is avoiding light colored clothing to try and blend in more."]="rumorDarkVest",
+
+	["I heard the spy's outfit has long sleeves tonight."]="rumorLongSleeves",
+	["A friend of mine mentioned the spy has long sleeves on."]="rumorLongSleeves",
+	["Someone said the spy is covering up their arms with long sleeves tonight."]="rumorLongSleeves",
+	["I just barely caught a glimpse of the spy's long sleeves earlier in the evening."]="rumorLongSleeves",
+
+	["I heard that the spy left their cape in the palace before coming here."]="rumorNoCloak",
+	["I heard the spy dislikes capes and refuses to wear one."]="rumorNoCloak",
+
+	["There's a rumor that the spy always wears gloves."]="rumorGloves",
+	["I heard the spy carefully hides their hands."]="rumorGloves",
+	["Someone said the spy wears gloves to cover obvious scars."]="rumorGloves",
+	["I heard the spy always dons gloves."]="rumorGloves",
+}
+rumors.enGB = rumors
+
+function Locale:Rumor(gossip)
+	local locale = GetLocale()
+	if rumors[current_locale] and rumors[current_locale][gossip] then
+		return self:Get(rumors[current_locale][gossip])
+	end
 end
+
+current_locale = GetLocale()

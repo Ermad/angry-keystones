@@ -1,0 +1,74 @@
+local ADDON, Addon = ...
+local Mod = Addon:NewModule('Gossip')
+
+local staticPopupNPCs = {
+	[95676] = true, -- Odyn
+}
+local cosRumorNPC = 107486
+
+local function GossipNPCID()
+	local guid = UnitGUID("npc")
+	local npc_id = guid and select(6, strsplit("-", guid))
+	return tonumber(npc_id)
+end
+
+local function IsStaticPopupShown()
+	for index = 1, STATICPOPUP_NUMDIALOGS do
+		local frame = _G["StaticPopup"..index]
+		if frame and frame:IsShown() then
+			return true
+		end
+	end
+	return false
+end
+
+function Mod:CoSRumor()
+	local clue = GetGossipText()
+	local shortClue = Addon.Locale:Rumor(clue)
+	if not shortClue then
+		AngryKeystones_Data.rumors[clue] = true
+	end
+	SendChatMessage(shortClue or clue, "PARTY")
+end
+
+function Mod:RumorCleanup()
+	local new = {}
+	for clue,_ in pairs(AngryKeystones_Data.rumors) do
+		if not Addon.Locale:Rumor(clue) then
+			new[clue] = true
+		end
+	end
+	AngryKeystones_Data.rumors = new
+end
+
+function Mod:GOSSIP_SHOW()
+	local scenarioType = select(10, C_Scenario.GetInfo())
+	if true then -- Addon.Config.autoGossip and scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE then
+		local popup_shown =  IsStaticPopupShown()
+
+		local options = {GetGossipOptions()}
+		local count = GetNumGossipOptions()
+		for i = 1, GetNumGossipOptions() do
+			if options[i*2] == "gossip" then
+				SelectGossipOption(i)
+				break
+			end
+		end
+
+		local npc_id = GossipNPCID()
+		if npc_id and staticPopupNPCs[npc_id] and not popup_shown then
+			StaticPopup1Button1:Click()
+		end
+		if Addon.Config.cosRumors and npc_id == cosRumorNPC and count == 0 then
+			self:CoSRumor()
+		end
+	end
+end
+
+function Mod:Startup()
+	if not AngryKeystones_Data then AngryKeystones_Data = {} end
+	if not AngryKeystones_Data.rumors then AngryKeystones_Data.rumors = {} end
+	if Addon.Config.cosRumors then self:RumorCleanup() end
+
+	self:RegisterEvent("GOSSIP_SHOW")
+end

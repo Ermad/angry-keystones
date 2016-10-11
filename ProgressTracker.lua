@@ -155,6 +155,10 @@ function Mod:Startup()
 	if not AngryKeystones_Data then
 		AngryKeystones_Data = {}
 	end
+	if not AngryKeystones_Data.progress then
+		AngryKeystones_Data = { progress = AngryKeystones_Data }
+	end
+
 	self:RegisterEvent("SCENARIO_CRITERIA_UPDATE")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("WORLD_STATE_TIMER_START")

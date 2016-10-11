@@ -12,3 +12,4 @@ Config.lua
 ObjectiveTracker.lua
 ProgressTracker.lua
 Keystone.lua
+Gossip.lua

@@ -5,6 +5,8 @@ local configVersion = 1
 local configDefaults = {
 	progressTooltip = true,
 	progressFormat = 1,
+	autoGossip = true,
+	cosRumors = false,
 }
 local callbacks = {}
 
@@ -225,7 +227,7 @@ Panel_OnRefresh = function(self)
 		checkboxes = {}
 		dropdowns = {}
 
-		local checkboxes_order = { "progressTooltip" }
+		local checkboxes_order = { "autoGossip", "cosRumors", "progressTooltip" }
 
 		for i,key in ipairs(checkboxes_order) do
 			checkboxes[i] = CreateFrame("CheckButton", nil, self, "InterfaceOptionsCheckButtonTemplate")
