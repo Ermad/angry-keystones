@@ -42,12 +42,16 @@ function Mod:RumorCleanup()
 end
 
 function Mod:GOSSIP_SHOW()
+	local npcId = GossipNPCID()
+	if Addon.Config.cosRumors and npcId == cosRumorNPC and GetNumGossipOptions() == 0 then
+		self:CoSRumor()
+	end
+	
 	local scenarioType = select(10, C_Scenario.GetInfo())
-	if true then -- Addon.Config.autoGossip and scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE then
+	if Addon.Config.autoGossip and scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE then
 		local popup_shown =  IsStaticPopupShown()
 
 		local options = {GetGossipOptions()}
-		local count = GetNumGossipOptions()
 		for i = 1, GetNumGossipOptions() do
 			if options[i*2] == "gossip" then
 				SelectGossipOption(i)
@@ -55,12 +59,8 @@ function Mod:GOSSIP_SHOW()
 			end
 		end
 
-		local npc_id = GossipNPCID()
-		if npc_id and staticPopupNPCs[npc_id] and not popup_shown then
+		if npcId and staticPopupNPCs[npcId] and not popup_shown then
 			StaticPopup1Button1:Click()
-		end
-		if Addon.Config.cosRumors and npc_id == cosRumorNPC and count == 0 then
-			self:CoSRumor()
 		end
 	end
 end
