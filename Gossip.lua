@@ -60,7 +60,9 @@ function Mod:GOSSIP_SHOW()
 				if npcId and staticPopupNPCs[npcId] and not popupShown then
 					StaticPopup1Button1:Click()
 				end
-				GossipFrameGreetingGoodbyeButton:Click()
+				if npcId ~= cosRumorNPC or Addon.Config.cosRumors then
+					GossipFrameGreetingGoodbyeButton:Click()
+				end
 				break
 			end
 		end

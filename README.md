@@ -1,4 +1,4 @@
-Adds additional information to the Mythic Keystone objective tracker.
+Adds additional information to the Mythic Keystone objective tracker. 
 
 ### Bonus Chest Timer
 
@@ -12,6 +12,10 @@ Shows more exact information on how much Enemies Forces progress is needed. Eith
 
 Replaces Keystones links you see in chat from [Mythic Keystone] to [Keystone: The Arcway - Level 5], will also color it grey if it is depleted.
 
+### Auto Gossip
+
+During Mythic Keystone dungeons it will automatically select gossip entries for you. For example for starting Odyn and his trash, and Court of Stars buff objects.
+
 ### Options
 
-Configuration options can be accessed with /akeys, or in the addon interface options panel. There is an option for format of progress bar, and whether to show progress value on enemy tooltips.
+Configuration options can be accessed with /akeys, or in the addon interface options panel. There is an option for auto gossip, format of progress bar, and whether to show progress value on enemy tooltips.
