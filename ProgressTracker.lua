@@ -12,11 +12,11 @@ local lastQuantity
 local function ProcessLasts()
 	if lastDied and lastDiedTime and lastAmount and lastAmountTime then
 		if abs(lastAmountTime - lastDiedTime) < 0.1 then
-			if not AngryKeystones_Data[lastDied] then AngryKeystones_Data[lastDied] = {} end
-			if AngryKeystones_Data[lastDied][lastAmount] then
-				AngryKeystones_Data[lastDied][lastAmount] = AngryKeystones_Data[lastDied][lastAmount] + 1
+			if not AngryKeystones_Data.progress[lastDied] then AngryKeystones_Data.progress[lastDied] = {} end
+			if AngryKeystones_Data.progress[lastDied][lastAmount] then
+				AngryKeystones_Data.progress[lastDied][lastAmount] = AngryKeystones_Data.progress[lastDied][lastAmount] + 1
 			else
-				AngryKeystones_Data[lastDied][lastAmount] = 1
+				AngryKeystones_Data.progress[lastDied][lastAmount] = 1
 			end
 			lastDied, lastDiedTime, lastAmount, lastAmountTime, lastDiedName = nil, nil, nil, nil, nil
 		end
@@ -95,7 +95,7 @@ local function OnTooltipSetUnit(tooltip)
 		if guid then
 			local type, zero, server_id, instance_id, zone_uid, npc_id, spawn_uid = strsplit("-", guid)
 			npc_id = tonumber(npc_id)
-			local info = AngryKeystones_Data[npc_id]
+			local info = AngryKeystones_Data.progress[npc_id]
 			if info then
 				local numCriteria = select(3, C_Scenario.GetStepInfo())
 				local total

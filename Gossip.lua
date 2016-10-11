@@ -58,6 +58,7 @@ function Mod:GOSSIP_SHOW()
 		for i = 1, GetNumGossipOptions() do
 			if options[i*2] == "gossip" then
 				SelectGossipOption(i)
+				GossipFrameGreetingGoodbyeButton:Click()
 				break
 			end
 		end
