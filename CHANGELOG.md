@@ -1,3 +1,7 @@
+## v0.3.0
+
+* Added new feature to auto select gossip entries (ex: Odyn) during Keystone dungeons
+
 ## v0.2.1
 
 * Added koKR locale

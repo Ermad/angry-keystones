@@ -52,19 +52,17 @@ function Mod:GOSSIP_SHOW()
 
 	local scenarioType = select(10, C_Scenario.GetInfo())
 	if Addon.Config.autoGossip and scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE and not npcBlacklist[npcId] then
-		local popupShown =  IsStaticPopupShown()
-
 		local options = {GetGossipOptions()}
 		for i = 1, GetNumGossipOptions() do
 			if options[i*2] == "gossip" then
+				local popupShown =  IsStaticPopupShown()
 				SelectGossipOption(i)
+				if npcId and staticPopupNPCs[npcId] and not popupShown then
+					StaticPopup1Button1:Click()
+				end
 				GossipFrameGreetingGoodbyeButton:Click()
 				break
 			end
-		end
-
-		if npcId and staticPopupNPCs[npcId] and not popupShown then
-			StaticPopup1Button1:Click()
 		end
 	end
 end
