@@ -48,6 +48,7 @@ function Mod:GOSSIP_SHOW()
 	local npcId = GossipNPCID()
 	if Addon.Config.cosRumors and npcId == cosRumorNPC and GetNumGossipOptions() == 0 then
 		self:CoSRumor()
+		GossipFrameGreetingGoodbyeButton:Click()
 	end
 
 	local scenarioType = select(10, C_Scenario.GetInfo())
@@ -55,14 +56,12 @@ function Mod:GOSSIP_SHOW()
 		local options = {GetGossipOptions()}
 		for i = 1, GetNumGossipOptions() do
 			if options[i*2] == "gossip" then
-				local popupShown =  IsStaticPopupShown()
+				local popupShown = IsStaticPopupShown()
 				SelectGossipOption(i)
 				if npcId and staticPopupNPCs[npcId] and not popupShown then
 					StaticPopup1Button1:Click()
 				end
-				if npcId ~= cosRumorNPC or Addon.Config.cosRumors then
-					GossipFrameGreetingGoodbyeButton:Click()
-				end
+				GossipFrameGreetingGoodbyeButton:Click()
 				break
 			end
 		end

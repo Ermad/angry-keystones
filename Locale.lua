@@ -14,24 +14,8 @@ langs.enUS = {
 	config_progressFormat_3 = "24.19% - 90/372",
 	config_autoGossip = "Automatically select gossip entries during Mythic Keystone dungeons (ex: Odyn)",
 	config_cosRumors = "Output to party chat clues from \"Chatty Rumormonger\" during Court of Stars",
-
 	keystoneFormat = "[Keystone: %s - Level %d]",
 	forcesFormat = " - Enemy Forces: %s",
-
-	rumorMale = MALE,
-	rumorFemale = FEMALE,
-	rumorLightVest = "Light Vest",
-	rumorDarkVest = "Dark Vest",
-	rumorShortSleeves = "Short Sleeves",
-	rumorLongSleeves = "Long Sleeves",
-	rumorCloak = "Cloak",
-	rumorNoCloak = "No Cloak",
-	rumorGloves = "Gloves",
-	rumorNoGloves = "No Gloves",
-	rumorNoBelt = "No Belt",
-	rumorBook = "Book",
-	rumorCoinpurse = "Coinpurse",
-	rumorPotion = "Potion",
 }
 langs.enGB = langs.enUS
 
@@ -107,38 +91,84 @@ end
 
 setmetatable(Locale, {__index = Locale.Get})
 
+local clues = {}
+clues.enUS = {
+	male = MALE,
+	female = FEMALE,
+	lightVest = "Light Vest",
+	darkVest = "Dark Vest",
+	shortSleeves = "Short Sleeves",
+	longSleeves = "Long Sleeves",
+	cloak = "Cloak",
+	noCloak = "No Cloak",
+	gloves = "Gloves",
+	noGloves = "No Gloves",
+	noBelt = "No Belt",
+	book = "Book",
+	coinpurse = "Coinpurse",
+	potion = "Potion",
+}
+clues.enGB = clues
 
 local rumors = {}
 rumors.enUS = {
-	["I heard somewhere that the spy isn't female."]="rumorMale",
-	["I heard the spy is here and he's very good looking."]="rumorMale",
-	["A guest said she saw him entering the manor alongside the Grand Magistrix."]="rumorMale",
-	["One of the musicians said he would not stop asking questions about the district."]="rumorMale",
+	["I heard somewhere that the spy isn't female."]="male",
+	["I heard the spy is here and he's very good looking."]="male",
+	["A guest said she saw him entering the manor alongside the Grand Magistrix."]="male",
+	["One of the musicians said he would not stop asking questions about the district."]="male",
 
-	["The spy definitely prefers darker clothing."]="rumorDarkVest",
-	["I heard the spy's vest is a dark, rich shade this very night."]="rumorDarkVest",
-	["The spy enjoys darker colored vests... like the night."]="rumorDarkVest",
-	["Rumor has it the spy is avoiding light colored clothing to try and blend in more."]="rumorDarkVest",
+	["Someone's been saying that our new guest isn't male."]="female",
+	["A guest saw both her and Elisande arrive together earlier."]="female",
+	["They say that the spy is here and she's quite the sight to behold."]="female",
 
-	["I heard the spy's outfit has long sleeves tonight."]="rumorLongSleeves",
-	["A friend of mine mentioned the spy has long sleeves on."]="rumorLongSleeves",
-	["Someone said the spy is covering up their arms with long sleeves tonight."]="rumorLongSleeves",
-	["I just barely caught a glimpse of the spy's long sleeves earlier in the evening."]="rumorLongSleeves",
+	["The spy definitely prefers the style of light colored vests."]="lightVest",
+	["I heard that the spy is wearing a lighter vest to tonight's party."]="lightVest",
+	["People are saying the spy is not wearing a darker vest tonight."]="lightVest",
 
-	["I heard that the spy left their cape in the palace before coming here."]="rumorNoCloak",
-	["I heard the spy dislikes capes and refuses to wear one."]="rumorNoCloak",
+	["The spy definitely prefers darker clothing."]="darkVest",
+	["I heard the spy's vest is a dark, rich shade this very night."]="darkVest",
+	["The spy enjoys darker colored vests... like the night."]="darkVest",
+	["Rumor has it the spy is avoiding light colored clothing to try and blend in more."]="darkVest",
 
-	["There's a rumor that the spy always wears gloves."]="rumorGloves",
-	["I heard the spy carefully hides their hands."]="rumorGloves",
-	["Someone said the spy wears gloves to cover obvious scars."]="rumorGloves",
-	["I heard the spy always dons gloves."]="rumorGloves",
+	["Someone told me the spy hates wearing long sleeves."]="shortSleeves",
+	["I heard the spy wears short sleeves to keep their arms unencumbered."]="shortSleeves",
+	["I heard the spy enjoys the cool air and is not wearing long sleeves tonight."]="shortSleeves",
+	["A friend of mine said she saw the outfit the spy was wearing. It did not have long sleeves."]="shortSleeves",
+
+	["I heard the spy's outfit has long sleeves tonight."]="longSleeves",
+	["A friend of mine mentioned the spy has long sleeves on."]="longSleeves",
+	["Someone said the spy is covering up their arms with long sleeves tonight."]="longSleeves",
+	["I just barely caught a glimpse of the spy's long sleeves earlier in the evening."]="longSleeves",
+
+	["Someone mentioned the spy came in earlier wearing a cape."]="cloak",
+	["I heard the spy enjoys wearing capes."]="cloak",
+
+	["I heard that the spy left their cape in the palace before coming here."]="noCloak",
+	["I heard the spy dislikes capes and refuses to wear one."]="noCloak",
+
+	["There's a rumor that the spy always wears gloves."]="gloves",
+	["I heard the spy carefully hides their hands."]="gloves",
+	["Someone said the spy wears gloves to cover obvious scars."]="gloves",
+	["I heard the spy always dons gloves."]="gloves",
+
+	["Rumor has is the spy loves to read and always carries around at least one book."]="book",
+	["I heard the spy always has a book of written secrets at the belt."]="book",
+
+	["I'm pretty sure the spy has potions at the belt."]="potion",
+	["I heard the spy brought along potions, I wonder why?"]="potion",
+	["I heard the spy brought along some potions... just in case."]="potion",
+	["I didn't tell you this... but the spy is masquerading as an alchemist and carrying potions at the belt."]="potion",
+
+	["I heard the spy's belt pouch is lined with fancy threading."]="coinpurse",
+	["A friend said the spy loves gold and a belt pouch filled with it."]="coinpurse",
+	["I heard the spy's belt pouch is filled with gold to show off extravagance."]="coinpurse",
+	["I heard the spy carries a magical pouch around at all times."]="coinpurse",
 }
-rumors.enGB = rumors
+rumors.enGB = rumors.enUS
 
 function Locale:Rumor(gossip)
-	local locale = GetLocale()
 	if rumors[current_locale] and rumors[current_locale][gossip] then
-		return self:Get(rumors[current_locale][gossip])
+		return clues[current_locale] and clues[current_locale][rumors[current_locale][gossip]]
 	end
 end
 
