@@ -66,6 +66,10 @@ local function UpdateTime(block, elapsedTime)
 	else
 		TimerFrame.Text:Hide()
 	end
+
+	if elapsedTime > block.timeLimit then
+		block.TimeLeft:SetText(GetTimeStringFromSeconds(elapsedTime - block.timeLimit, false, true))
+	end
 end
 
 hooksecurefunc("Scenario_ChallengeMode_ShowBlock", StartTime)

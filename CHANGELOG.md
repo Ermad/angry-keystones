@@ -1,6 +1,7 @@
 ## v0.3.1
 
 * Added new feature to output to chat clues from Chatty Rumormongers during the Court of Stars event. Disabled by default, and currently only available in English locales.
+* When you go pass the time limit, the counter will now start counting up for how far past you are
 * Added zhCN and zhTW locales
 
 ## v0.3.0
