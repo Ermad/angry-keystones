@@ -68,6 +68,27 @@ langs.koKR = {
 	forcesFormat = " - 적 병력: %s",
 }
 
+langs.zhCN = {
+    config_characterConfig = "为角色进行独立的配置",
+    config_progressTooltip = "聊天中的史诗钥匙直接显示副本名称和层数",
+    config_progressFormat = "敌方部队进度格式",
+    config_autoGossip = "奥丁战斗中提示选择符文阵",
+    config_cosRumors = "群星庭院造谣者线索输出到小队聊天中",
+    keystoneFormat = "[%s - 等级 %d]",
+    forcesFormat = " - 敌方部队 %s",
+}
+
+langs.zhTW = {
+    config_characterConfig = "為角色進行獨立的配置",
+    config_progressTooltip = "聊天中的史詩鑰匙直接顯示副本名稱和層數",
+    config_progressFormat = "敵方部隊進度格式",
+    config_autoGossip = "奧丁戰鬥中提示選擇符文陣",
+    config_cosRumors = "群星庭院造謠者線索輸出到小隊聊天中",
+    keystoneFormat = "[%s - 等級 %d]",
+    forcesFormat = " - 敵方部隊 %s",
+}
+
+
 function Locale:Get(key)
 	if langs[current_locale] and langs[current_locale][key] ~= nil then
 		return langs[current_locale][key]
