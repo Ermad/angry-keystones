@@ -227,7 +227,8 @@ Panel_OnRefresh = function(self)
 		checkboxes = {}
 		dropdowns = {}
 
-		local checkboxes_order = { "autoGossip", "cosRumors", "progressTooltip" }
+		local checkboxes_order = { "autoGossip", "progressTooltip" }
+		if Addon.Locale:HasRumors() then table.insert(checkboxes_order, 2, "cosRumors") end
 
 		for i,key in ipairs(checkboxes_order) do
 			checkboxes[i] = CreateFrame("CheckButton", nil, self, "InterfaceOptionsCheckButtonTemplate")

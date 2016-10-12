@@ -166,6 +166,10 @@ rumors.enUS = {
 }
 rumors.enGB = rumors.enUS
 
+function Locale:HasRumors()
+	return rumors[current_locale] ~= nil and clues[current_locale] ~= nil
+end
+
 function Locale:Rumor(gossip)
 	if rumors[current_locale] and rumors[current_locale][gossip] then
 		return clues[current_locale] and clues[current_locale][rumors[current_locale][gossip]]

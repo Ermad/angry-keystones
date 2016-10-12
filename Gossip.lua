@@ -46,7 +46,7 @@ end
 
 function Mod:GOSSIP_SHOW()
 	local npcId = GossipNPCID()
-	if Addon.Config.cosRumors and npcId == cosRumorNPC and GetNumGossipOptions() == 0 then
+	if Addon.Config.cosRumors and Addon.Locale:HasRumors() and npcId == cosRumorNPC and GetNumGossipOptions() == 0 then
 		self:CoSRumor()
 		GossipFrameGreetingGoodbyeButton:Click()
 	end

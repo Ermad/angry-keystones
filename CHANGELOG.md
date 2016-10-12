@@ -1,5 +1,6 @@
 ## v0.3.1
 
+* Added new feature to output to chat clues from Chatty Rumormongers during the Court of Stars event. Disabled by default, and currently only available in English locales.
 * Added zhCN and zhTW locales
 
 ## v0.3.0
