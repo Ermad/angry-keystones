@@ -2,6 +2,7 @@ local ADDON, Addon = ...
 local Mod = Addon:NewModule('Splits')
 
 local splits
+local affixes
 
 local function timeFormat(seconds)
 	local hours = floor(seconds / 3600)
@@ -26,7 +27,6 @@ local function GetElapsedTime()
 end
 
 local function UpdateSplits(self, numCriteria, block)
-	-- splits = { [1] = 123, [2] = 234 }
 	local scenarioType = select(10, C_Scenario.GetInfo())
 	if not self:ShouldShowCriteria() or not splits or scenarioType ~= LE_SCENARIO_TYPE_CHALLENGE_MODE then return end
 
@@ -53,20 +53,19 @@ local function UpdateSplits(self, numCriteria, block)
 	end
 end
 
-local affixes
 function Mod:CHALLENGE_MODE_START()
 	affixes = select(2, C_ChallengeMode.GetActiveKeystoneInfo())
 	splits = nil
 end
 
 function Mod:CHALLENGE_MODE_COMPLETED()
-	local mapID, level, time, onTime, keystoneUpgradeLevels = C_ChallengeMode.GetCompletionInfo()
+	local mapID, level, timeElapsed, onTime, keystoneUpgradeLevels = C_ChallengeMode.GetCompletionInfo()
  	local name, _, timeLimit = C_ChallengeMode.GetMapInfo(mapID)
 
 	local missingCount = 0
 	for index,elapsed in pairs(splits) do
 		if elapsed == false then
-			splits[index] = floor(time / 1000)
+			splits[index] = floor(timeElapsed / 1000)
 			missingCount = missingCount + 1
 		end
 	end
@@ -75,7 +74,7 @@ function Mod:CHALLENGE_MODE_COMPLETED()
 		splits.date = time()
 		splits.level = level
 		splits.mapID = mapID
-		splits.time = time
+		splits.timeElapsed = timeElapsed / 1000
 		splits.timeLimit = timeLimit
 		splits.affixes = affixes
 
@@ -91,7 +90,7 @@ function Mod:SCENARIO_CRITERIA_UPDATE()
 		if not splits then splits = {} end
 		local numCriteria = select(3, C_Scenario.GetStepInfo())
 		for criteriaIndex = 1, numCriteria do
-			local criteriaString, criteriaType, completed, quantity, totalQuantity, flags, assetID, quantityString, criteriaID, duration, elapsed, _, isWeightedProgress = C_Scenario.GetCriteriaInfo(criteriaIndex)
+			local criteriaString, criteriaType, completed, quantity, totalQuantity, flags, _, quantityString, criteriaID, _, _, _, isWeightedProgress = C_Scenario.GetCriteriaInfo(criteriaIndex)
 			if not isWeightedProgress then
 				if splits[criteriaIndex] == nil then splits[criteriaIndex] = false end
 
