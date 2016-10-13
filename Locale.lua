@@ -14,7 +14,7 @@ langs.enUS = {
 	config_progressFormat_3 = "24.19% - 90/372",
 	config_autoGossip = "Automatically select gossip entries during Mythic Keystone dungeons (ex: Odyn)",
 	config_cosRumors = "Output to party chat clues from \"Chatty Rumormonger\" during Court of Stars",
-	config_goldSilverTimer = "Show timer for both 2 and 3 bonus chests at same time",
+	config_silverGoldTimer = "Show timer for both 2 and 3 bonus chests at same time",
 	keystoneFormat = "[Keystone: %s - Level %d]",
 	forcesFormat = " - Enemy Forces: %s",
 }
