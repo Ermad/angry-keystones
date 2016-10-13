@@ -17,15 +17,19 @@ local function timeFormat(seconds)
 end
 
 local TimerFrame
+local keystoneLevel
 local function StartTime()
+	keystoneLevel = C_ChallengeMode.GetActiveKeystoneInfo()
+
 	if not TimerFrame then
 		TimerFrame = CreateFrame("Frame", ADDON.."Frame", ScenarioChallengeModeBlock)
 		TimerFrame:SetAllPoints(ScenarioChallengeModeBlock)
-		-- TimerFrame:SetBackdrop({ bgFile = "Interface\\Tooltips\\UI-Tooltip-Background" })
-		-- TimerFrame:SetBackdropColor( 0.616, 0.149, 0.114, 0.9)
 		
 		TimerFrame.Text = TimerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
 		TimerFrame.Text:SetPoint("BOTTOMLEFT", ScenarioChallengeModeBlock.TimeLeft, "BOTTOMRIGHT", 2, 2)
+		
+		TimerFrame.Text2 = TimerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+		TimerFrame.Text2:SetPoint("BOTTOMLEFT", TimerFrame.Text, "BOTTOMRIGHT", 4, 1)
 
 		TimerFrame.Bar3 = TimerFrame:CreateTexture(nil, "OVERLAY")
 		TimerFrame.Bar3:SetPoint("TOPLEFT", ScenarioChallengeModeBlock.StatusBar, "TOPLEFT", ScenarioChallengeModeBlock.StatusBar:GetWidth() * (1 - TIME_FOR_3) - 4, 0)
@@ -59,12 +63,21 @@ local function UpdateTime(block, elapsedTime)
 		TimerFrame.Text:SetText( timeFormat(time3 - elapsedTime) )
 		TimerFrame.Text:SetTextColor(1, 0.843, 0)
 		TimerFrame.Text:Show()
+		if Addon.Config.silverGoldTimer and keystoneLevel and keystoneLevel < 10 then
+			TimerFrame.Text2:SetText( timeFormat(time2 - elapsedTime) )
+			TimerFrame.Text2:SetTextColor(0.78, 0.78, 0.812)
+			TimerFrame.Text2:Show()
+		else
+			TimerFrame.Text2:Hide()
+		end
 	elseif elapsedTime < time2 then
 		TimerFrame.Text:SetText( timeFormat(time2 - elapsedTime) )
 		TimerFrame.Text:SetTextColor(0.78, 0.78, 0.812)
 		TimerFrame.Text:Show()
+		TimerFrame.Text2:Hide()
 	else
 		TimerFrame.Text:Hide()
+		TimerFrame.Text2:Hide()
 	end
 
 	if elapsedTime > block.timeLimit then
