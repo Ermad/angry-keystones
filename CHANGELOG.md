@@ -1,6 +1,11 @@
+## v0.5.0
+
+* Added text output at end of runs showing final run time
+* Added display of how long each objective took to complete after previous objective
+
 ## v0.4.0
 
-* Added new feature to output to chat clues from Chatty Rumormongers during the Court of Stars event. Disabled by default, and currently only available in English locales.
+* Added new feature to output to chat clues from Chatty Rumormongers during the Court of Stars event. Disabled by default, and currently only available in English locales
 * When you go pass the time limit, the counter will now start counting up for how far past you are
 * Added option to show 2 bonus chest timer while 3 bonus chest timer is still active
 * Added zhCN and zhTW locales

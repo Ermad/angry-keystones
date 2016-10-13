@@ -16,6 +16,20 @@ local function timeFormat(seconds)
 	end
 end
 
+local function timeFormatMS(timeAmount)
+	local seconds = floor(timeAmount / 1000)
+	local ms = timeAmount - seconds * 1000
+	local hours = floor(seconds / 3600)
+	local minutes = floor((seconds / 60) - (hours * 60))
+	seconds = seconds - hours * 3600 - minutes * 60
+
+	if hours == 0 then
+		return format("%d:%.2d.%.3d", minutes, seconds, ms)
+	else
+		return format("%d:%.2d:%.2d.%.3d", hours, minutes, seconds. ms)
+	end
+end
+
 local TimerFrame
 local keystoneLevel
 local function StartTime()
@@ -59,7 +73,7 @@ local function UpdateTime(block, elapsedTime)
 	TimerFrame.Bar3:SetShown(elapsedTime < time3)
 	TimerFrame.Bar2:SetShown(elapsedTime < time2)
 
-	if elapsedTime < time3 then
+	if elapsedTime <= time3 then
 		TimerFrame.Text:SetText( timeFormat(time3 - elapsedTime) )
 		TimerFrame.Text:SetTextColor(1, 0.843, 0)
 		TimerFrame.Text:Show()
@@ -70,7 +84,7 @@ local function UpdateTime(block, elapsedTime)
 		else
 			TimerFrame.Text2:Hide()
 		end
-	elseif elapsedTime < time2 then
+	elseif elapsedTime <= time2 then
 		TimerFrame.Text:SetText( timeFormat(time2 - elapsedTime) )
 		TimerFrame.Text:SetTextColor(0.78, 0.78, 0.812)
 		TimerFrame.Text:Show()
@@ -87,3 +101,29 @@ end
 
 hooksecurefunc("Scenario_ChallengeMode_ShowBlock", StartTime)
 hooksecurefunc("Scenario_ChallengeMode_UpdateTime", UpdateTime)
+
+function Mod:CHALLENGE_MODE_COMPLETED()
+	local mapID, level, time, onTime, keystoneUpgradeLevels = C_ChallengeMode.GetCompletionInfo()
+	-- mapID = 1458
+ 	local name, _, timeLimit = C_ChallengeMode.GetMapInfo(mapID)
+ 	-- time = timeLimit * 0.95
+ 	-- onTime = time <= timeLimit
+
+ 	timeLimit = timeLimit * 1000
+ 	local timeLimit2 = timeLimit * TIME_FOR_2
+ 	local timeLimit3 = timeLimit * TIME_FOR_3
+
+ 	if time <= timeLimit3 then
+ 		print( format("|cff33ff99<%s>|r |cffffd700%s|r", ADDON, format(Addon.Locale.completion3, name, timeFormatMS(time), timeFormatMS(timeLimit3 - time))) )
+	elseif time <= timeLimit2 then
+ 		print( format("|cff33ff99<%s>|r |cffc7c7cf%s|r", ADDON, format(Addon.Locale.completion2, name, timeFormatMS(time), timeFormatMS(timeLimit2 - time), timeFormatMS(time - timeLimit3))) )
+ 	elseif onTime then
+ 		print( format("|cff33ff99<%s>|r |cffeda55f%s|r", ADDON, format(Addon.Locale.completion1, name, timeFormatMS(time), timeFormatMS(timeLimit - time), timeFormatMS(time - timeLimit2))) )
+ 	else
+ 		print( format("|cff33ff99<%s>|r |cffff2020%s|r", ADDON, format(Addon.Locale.completion0, name, timeFormatMS(time), timeFormatMS(time - timeLimit))) )
+ 	end
+end
+
+function Mod:Startup()
+	self:RegisterEvent("CHALLENGE_MODE_COMPLETED")
+end

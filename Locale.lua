@@ -17,6 +17,10 @@ langs.enUS = {
 	config_silverGoldTimer = "Show timer for both 2 and 3 bonus chests at same time",
 	keystoneFormat = "[Keystone: %s - Level %d]",
 	forcesFormat = " - Enemy Forces: %s",
+	completion0 = "Timer expired for %s with %s, you were %s over the time limit.",
+	completion1 = "Beat the timer for %s in %s. You were %s ahead of the timer, and missed +2 by %s.",
+	completion2 = "Beat the timer for +2 %s in %s. You were %s ahead of the +2 timer, and missed +3 by %s.",
+	completion3 = "Beat the timer for +3 %s in %s. You were %s ahead of the +3 timer.",
 }
 langs.enGB = langs.enUS
 
@@ -49,28 +53,31 @@ langs.koKR = {
 	config_characterConfig = "캐릭터별로 설정하기",
 	config_progressTooltip = "각각의 적이 주는 퍼센트를 툴팁에 표시",
 	config_progressFormat = "적 병력 표시 방법",
+	config_autoGossip = "쐐기돌 던전에서 대화창의 선택지를 자동으로 선택 (예: 오딘)",
+	config_cosRumors = "별의 궁정의 \"수다쟁이 호사가\" 로 부터 얻은 단서를 파티대화로 알리기",
+	config_silverGoldTimer = "2개, 3개의 보너스 상자 타이머를 동시에 보여주기",
 	keystoneFormat = "[쐐기돌: %s - %d 레벨]",
 	forcesFormat = " - 적 병력: %s",
 }
 
 langs.zhCN = {
-    config_characterConfig = "为角色进行独立的配置",
-    config_progressTooltip = "聊天中的史诗钥匙直接显示副本名称和层数",
-    config_progressFormat = "敌方部队进度格式",
-    config_autoGossip = "奥丁战斗中提示选择符文阵",
-    config_cosRumors = "群星庭院造谣者线索输出到小队聊天中",
-    keystoneFormat = "[%s - 等级 %d]",
-    forcesFormat = " - 敌方部队 %s",
+	config_characterConfig = "为角色进行独立的配置",
+	config_progressTooltip = "聊天中的史诗钥匙直接显示副本名称和层数",
+	config_progressFormat = "敌方部队进度格式",
+	config_autoGossip = "奥丁战斗中提示选择符文阵",
+	config_cosRumors = "群星庭院造谣者线索输出到小队聊天中",
+	keystoneFormat = "[%s - 等级 %d]",
+	forcesFormat = " - 敌方部队 %s",
 }
 
 langs.zhTW = {
-    config_characterConfig = "為角色進行獨立的配置",
-    config_progressTooltip = "聊天中的史詩鑰匙直接顯示副本名稱和層數",
-    config_progressFormat = "敵方部隊進度格式",
-    config_autoGossip = "奧丁戰鬥中提示選擇符文陣",
-    config_cosRumors = "群星庭院造謠者線索輸出到小隊聊天中",
-    keystoneFormat = "[%s - 等級 %d]",
-    forcesFormat = " - 敵方部隊 %s",
+	config_characterConfig = "為角色進行獨立的配置",
+	config_progressTooltip = "聊天中的傳奇鑰匙直接顯示副本名稱和層數",
+	config_progressFormat = "敵方部隊進度格式",
+	config_autoGossip = "歐丁戰鬥中提示選擇符文陣",
+	config_cosRumors = "衆星之廷造謠者線索輸出到小隊聊天中",
+	keystoneFormat = "[%s - 等級 %d]",
+	forcesFormat = " - 敵方部隊 %s",
 }
 
 
@@ -151,6 +158,10 @@ rumors.enUS = {
 	["I heard the spy carefully hides their hands."]="gloves",
 	["Someone said the spy wears gloves to cover obvious scars."]="gloves",
 	["I heard the spy always dons gloves."]="gloves",
+
+	["You know... I found an extra pair of gloves in the back room. The spy is likely to be bare handed somewhere around here."]="noGloves",
+	["There's a rumor that the spy never has gloves on."]="noGloves",
+	["I heard the spy avoids having gloves on, in case some quick actions are needed."]="noGloves",
 
 	["Rumor has is the spy loves to read and always carries around at least one book."]="book",
 	["I heard the spy always has a book of written secrets at the belt."]="book",
