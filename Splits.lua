@@ -32,11 +32,11 @@ local function UpdateSplits(self, numCriteria, block)
 
 	for index, elapsed in pairs(splits) do
 		local criteriaString, criteriaType, completed, quantity, totalQuantity, flags, _, _, _, _, _, _, isWeightedProgress = C_Scenario.GetCriteriaInfo(index)
-		if elapsed and criteriaString then
+		if elapsed and elapsed ~= true and criteriaString then
 
 			local prev = 0
 			for i, e in pairs(splits) do
-				if e and e < elapsed and e > prev then
+				if e and e ~= true and e < elapsed and e > prev then
 					prev = e
 				end
 			end
@@ -56,6 +56,7 @@ end
 function Mod:CHALLENGE_MODE_START()
 	affixes = select(2, C_ChallengeMode.GetActiveKeystoneInfo())
 	splits = nil
+	Mod.splits = nil
 end
 
 function Mod:CHALLENGE_MODE_COMPLETED()
@@ -66,6 +67,8 @@ function Mod:CHALLENGE_MODE_COMPLETED()
 	for index,elapsed in pairs(splits) do
 		if elapsed == false then
 			splits[index] = floor(timeElapsed / 1000)
+			missingCount = missingCount + 1
+		elseif elapse == true then
 			missingCount = missingCount + 1
 		end
 	end
@@ -80,14 +83,20 @@ function Mod:CHALLENGE_MODE_COMPLETED()
 
 		table.insert(AngryKeystones_Data.splits, splits)
 	end
-	splits = nil
 	affixes = nil
+	splits = nil
+	Mod.splits = nil
 end
 
 function Mod:SCENARIO_CRITERIA_UPDATE()
 	local scenarioType = select(10, C_Scenario.GetInfo())
 	if scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE then
-		if not splits then splits = {} end
+		local fresh = false
+		if not splits then
+			splits = {}
+			Mod.splits = splits
+			fresh = true
+		end
 		local numCriteria = select(3, C_Scenario.GetStepInfo())
 		for criteriaIndex = 1, numCriteria do
 			local criteriaString, criteriaType, completed, quantity, totalQuantity, flags, _, quantityString, criteriaID, _, _, _, isWeightedProgress = C_Scenario.GetCriteriaInfo(criteriaIndex)
@@ -95,7 +104,7 @@ function Mod:SCENARIO_CRITERIA_UPDATE()
 				if splits[criteriaIndex] == nil then splits[criteriaIndex] = false end
 
 				if completed and not splits[criteriaIndex] then
-					splits[criteriaIndex] = GetElapsedTime()
+					splits[criteriaIndex] = fresh or GetElapsedTime()
 				end
 			end
 		end

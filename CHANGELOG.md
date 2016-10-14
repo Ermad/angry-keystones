@@ -1,7 +1,7 @@
 ## v0.5.0
 
-* Added text output at end of runs showing final run time
-* Added display of how long each objective took to complete after previous objective
+* Added option to show text output at completion of runs showing final run time
+* Added option to display of how long each objective took to complete in objective tracker
 
 ## v0.4.0
 

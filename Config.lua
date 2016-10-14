@@ -8,8 +8,8 @@ local configDefaults = {
 	autoGossip = true,
 	cosRumors = false,
 	silverGoldTimer = false,
-	showSplits = true,
-	completionMessage = true,
+	showSplits = false,
+	completionMessage = false,
 }
 local callbacks = {}
 
