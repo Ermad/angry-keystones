@@ -15,6 +15,8 @@ langs.enUS = {
 	config_autoGossip = "Automatically select gossip entries during Mythic Keystone dungeons (ex: Odyn)",
 	config_cosRumors = "Output to party chat clues from \"Chatty Rumormonger\" during Court of Stars",
 	config_silverGoldTimer = "Show timer for both 2 and 3 bonus chests at same time",
+	config_completionMessage = "Show message with final times on completion of Mythic Keystone dungeon",
+	config_showSplits = "Show how long each objective took to complete in the objective tracker",
 	keystoneFormat = "[Keystone: %s - Level %d]",
 	forcesFormat = " - Enemy Forces: %s",
 	completion0 = "Timer expired for %s with %s, you were %s over the time limit.",
@@ -128,6 +130,7 @@ rumors.enUS = {
 	["Someone's been saying that our new guest isn't male."]="female",
 	["A guest saw both her and Elisande arrive together earlier."]="female",
 	["They say that the spy is here and she's quite the sight to behold."]="female",
+	["I hear some woman has been constantly asking about the district..."]="female",
 
 	["The spy definitely prefers the style of light colored vests."]="lightVest",
 	["I heard that the spy is wearing a lighter vest to tonight's party."]="lightVest",
@@ -162,6 +165,7 @@ rumors.enUS = {
 	["You know... I found an extra pair of gloves in the back room. The spy is likely to be bare handed somewhere around here."]="noGloves",
 	["There's a rumor that the spy never has gloves on."]="noGloves",
 	["I heard the spy avoids having gloves on, in case some quick actions are needed."]="noGloves",
+	["I heard the spy dislikes wearing gloves."]="noGloves",
 
 	["Rumor has is the spy loves to read and always carries around at least one book."]="book",
 	["I heard the spy always has a book of written secrets at the belt."]="book",

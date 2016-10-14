@@ -8,6 +8,8 @@ local configDefaults = {
 	autoGossip = true,
 	cosRumors = false,
 	silverGoldTimer = false,
+	showSplits = true,
+	completionMessage = true,
 }
 local callbacks = {}
 
@@ -228,7 +230,7 @@ Panel_OnRefresh = function(self)
 		checkboxes = {}
 		dropdowns = {}
 
-		local checkboxes_order = { "silverGoldTimer", "autoGossip", "progressTooltip" }
+		local checkboxes_order = { "silverGoldTimer", "autoGossip", "progressTooltip", "showSplits", "completionMessage" }
 		if Addon.Locale:HasRumors() then table.insert(checkboxes_order, 3, "cosRumors") end
 
 		for i,key in ipairs(checkboxes_order) do

@@ -28,7 +28,7 @@ end
 
 local function UpdateSplits(self, numCriteria, block)
 	local scenarioType = select(10, C_Scenario.GetInfo())
-	if not self:ShouldShowCriteria() or not splits or scenarioType ~= LE_SCENARIO_TYPE_CHALLENGE_MODE then return end
+	if not Addon.Config.showSplits or not self:ShouldShowCriteria() or not splits or scenarioType ~= LE_SCENARIO_TYPE_CHALLENGE_MODE then return end
 
 	for index, elapsed in pairs(splits) do
 		local criteriaString, criteriaType, completed, quantity, totalQuantity, flags, _, _, _, _, _, _, isWeightedProgress = C_Scenario.GetCriteriaInfo(index)
@@ -70,7 +70,7 @@ function Mod:CHALLENGE_MODE_COMPLETED()
 		end
 	end
 
-	if missingCount <= 1 then
+	if false and missingCount <= 1 then
 		splits.date = time()
 		splits.level = level
 		splits.mapID = mapID

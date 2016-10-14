@@ -103,6 +103,8 @@ hooksecurefunc("Scenario_ChallengeMode_ShowBlock", StartTime)
 hooksecurefunc("Scenario_ChallengeMode_UpdateTime", UpdateTime)
 
 function Mod:CHALLENGE_MODE_COMPLETED()
+	if not Addon.Config.completionMessage then return end
+
 	local mapID, level, time, onTime, keystoneUpgradeLevels = C_ChallengeMode.GetCompletionInfo()
 	-- mapID = 1458
  	local name, _, timeLimit = C_ChallengeMode.GetMapInfo(mapID)
