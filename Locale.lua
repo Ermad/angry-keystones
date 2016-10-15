@@ -116,7 +116,7 @@ clues.enUS = {
 	noCloak = "No Cloak",
 	gloves = "Gloves",
 	noGloves = "No Gloves",
-	noBelt = "No Belt",
+	noPotion = "No Potion",
 	book = "Book",
 	coinpurse = "Coinpurse",
 	potion = "Potion",
@@ -172,6 +172,9 @@ rumors.enUS = {
 
 	["Rumor has is the spy loves to read and always carries around at least one book."]="book",
 	["I heard the spy always has a book of written secrets at the belt."]="book",
+
+	["A musician told me she saw the spy throw away their last potion and no longer has any left."]="noPotion",
+	["I heard the spy is not carrying any potions around."]="noPotion",
 
 	["I'm pretty sure the spy has potions at the belt."]="potion",
 	["I heard the spy brought along potions, I wonder why?"]="potion",

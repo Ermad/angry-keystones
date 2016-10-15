@@ -46,6 +46,8 @@ local function UpdateSplits(self, numCriteria, block)
 				criteriaString = string.format("%d/%d %s, +%s", quantity, totalQuantity, criteriaString, timeFormat(split))
 			elseif Addon.Config.splitsFormat == 1 then
 				criteriaString = string.format("%d/%d %s, %s", quantity, totalQuantity, criteriaString, timeFormat(elapsed))
+			else
+				criteriaString = string.format("%d/%d %s", quantity, totalQuantity, criteriaString)
 			end
 
 			local line = block.lines[index]

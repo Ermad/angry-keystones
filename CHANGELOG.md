@@ -1,3 +1,7 @@
+## v0.5.1
+
+* Added option to adjust display for split timings on objective tracker
+
 ## v0.5.0
 
 * Added option to show text output at completion of runs showing final run time
