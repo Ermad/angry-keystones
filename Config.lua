@@ -211,6 +211,7 @@ local DropDown_Index = 0
 local function DropDown_Create(self)
 	DropDown_Index = DropDown_Index + 1
 	local dropdown = CreateFrame("Frame", ADDON.."ConfigDropDown"..DropDown_Index, self, "UIDropDownMenuTemplate")
+	_G[ADDON.."ConfigDropDown"..DropDown_Index.."Middle"]:SetWidth(200)
 	
 	local text = dropdown:CreateFontString(ADDON.."ConfigDropLabel"..DropDown_Index, "BACKGROUND", "GameFontNormal")
 	text:SetPoint("BOTTOMLEFT", dropdown, "TOPLEFT", 16, 3)

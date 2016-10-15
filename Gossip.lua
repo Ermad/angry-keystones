@@ -6,6 +6,7 @@ local staticPopupNPCs = {
 }
 local npcBlacklist = {
 	[107435] = true, [112697] = true, [112699] = true, -- Suspicous Noble
+	[101462] = true, -- Reaves
 }
 local cosRumorNPC = 107486
 

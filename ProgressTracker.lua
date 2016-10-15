@@ -116,7 +116,7 @@ local function OnTooltipSetUnit(tooltip)
 					end
 				end
 				if value and total then
-					local forcesFormat = Addon.Locale:Local("forcesFormat") or format(" - %s: %%s", progressName)
+					local forcesFormat = format(" - %s: %%s", progressName)
 					local text
 					if Addon.Config.progressFormat == 1 then
 						text = format( format(forcesFormat, "+%.2f%%"), value/total*100)

@@ -1,3 +1,8 @@
+## v0.5.2
+
+* Fixed bug with progress tooltips in certain locales
+* Reaves is now excluded from auto gossip
+
 ## v0.5.1
 
 * Added option to adjust display for split timings on objective tracker
