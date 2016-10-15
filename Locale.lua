@@ -12,6 +12,10 @@ langs.enUS = {
 	config_progressFormat_1 = "24.19%",
 	config_progressFormat_2 = "90/372",
 	config_progressFormat_3 = "24.19% - 90/372",
+	config_splitsFormat = "Objective Splits Display",
+	config_splitsFormat_1 = "Disabled",
+	config_splitsFormat_2 = "Time from start",
+	config_splitsFormat_3 = "Relative to previous",
 	config_autoGossip = "Automatically select gossip entries during Mythic Keystone dungeons (ex: Odyn)",
 	config_cosRumors = "Output to party chat clues from \"Chatty Rumormonger\" during Court of Stars",
 	config_silverGoldTimer = "Show timer for both 2 and 3 bonus chests at same time",
@@ -52,12 +56,12 @@ langs.deDE = {
 }
 
 langs.koKR = {
-	config_characterConfig = "캐릭터별로 설정하기",
-	config_progressTooltip = "각각의 적이 주는 퍼센트를 툴팁에 표시",
-	config_progressFormat = "적 병력 표시 방법",
-	config_autoGossip = "쐐기돌 던전에서 대화창의 선택지를 자동으로 선택 (예: 오딘)",
-	config_cosRumors = "별의 궁정의 \"수다쟁이 호사가\" 로 부터 얻은 단서를 파티대화로 알리기",
-	config_silverGoldTimer = "2개, 3개의 보너스 상자 타이머를 동시에 보여주기",
+	config_characterConfig = "캐릭터별 설정",
+	config_progressTooltip = "각각의 적이 주는 진행도를 툴팁에 표시",
+	config_progressFormat = "적 병력 표시 형식",
+	config_autoGossip = "신화 쐐기돌 던전에서 자동으로 대화 넘김 (예: 오딘)",
+	config_cosRumors = "별의 궁정에서 \"수다쟁이 호사가\"가 알려주는 단서 표시",
+	config_silverGoldTimer = "추가 상자 2와 3의 남은 시간을 함께 표시",
 	keystoneFormat = "[쐐기돌: %s - %d 레벨]",
 	forcesFormat = " - 적 병력: %s",
 }
@@ -81,7 +85,6 @@ langs.zhTW = {
 	keystoneFormat = "[%s - 等級 %d]",
 	forcesFormat = " - 敵方部隊 %s",
 }
-
 
 function Locale:Get(key)
 	if langs[current_locale] and langs[current_locale][key] ~= nil then

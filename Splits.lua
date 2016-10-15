@@ -28,21 +28,25 @@ end
 
 local function UpdateSplits(self, numCriteria, block)
 	local scenarioType = select(10, C_Scenario.GetInfo())
-	if not Addon.Config.showSplits or not self:ShouldShowCriteria() or not splits or scenarioType ~= LE_SCENARIO_TYPE_CHALLENGE_MODE then return end
+	if not self:ShouldShowCriteria() or not splits or scenarioType ~= LE_SCENARIO_TYPE_CHALLENGE_MODE then return end
 
 	for index, elapsed in pairs(splits) do
 		local criteriaString, criteriaType, completed, quantity, totalQuantity, flags, _, _, _, _, _, _, isWeightedProgress = C_Scenario.GetCriteriaInfo(index)
 		if elapsed and elapsed ~= true and criteriaString then
 
-			local prev = 0
-			for i, e in pairs(splits) do
-				if e and e ~= true and e < elapsed and e > prev then
-					prev = e
+			if Addon.Config.splitsFormat == 2 then
+				local prev = 0
+				for i, e in pairs(splits) do
+					if e and e ~= true and e < elapsed and e > prev then
+						prev = e
+					end
 				end
-			end
 
-			local split = elapsed - prev
-			criteriaString = string.format("%d/%d %s, +%s", quantity, totalQuantity, criteriaString, timeFormat(split))
+				local split = elapsed - prev
+				criteriaString = string.format("%d/%d %s, +%s", quantity, totalQuantity, criteriaString, timeFormat(split))
+			elseif Addon.Config.splitsFormat == 1 then
+				criteriaString = string.format("%d/%d %s, %s", quantity, totalQuantity, criteriaString, timeFormat(elapsed))
+			end
 
 			local line = block.lines[index]
 			if line then
@@ -119,4 +123,7 @@ function Mod:Startup()
 	self:RegisterEvent("CHALLENGE_MODE_START")
 	self:RegisterEvent("CHALLENGE_MODE_COMPLETED")
 	hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, "UpdateCriteria", UpdateSplits)
+	Addon.Config:RegisterCallback('splitsFormat', function()
+		UpdateSplits(SCENARIO_CONTENT_TRACKER_MODULE, nil, ScenarioObjectiveBlock)
+	end)
 end
