@@ -22,11 +22,13 @@ langs.enUS = {
 	config_completionMessage = "Show message with final times on completion of Mythic Keystone dungeon",
 	config_showSplits = "Show split time for each objective in objective tracker",
 	keystoneFormat = "[Keystone: %s - Level %d]",
-	forcesFormat = " - Enemy Forces: %s",
 	completion0 = "Timer expired for %s with %s, you were %s over the time limit.",
 	completion1 = "Beat the timer for %s in %s. You were %s ahead of the timer, and missed +2 by %s.",
 	completion2 = "Beat the timer for +2 %s in %s. You were %s ahead of the +2 timer, and missed +3 by %s.",
 	completion3 = "Beat the timer for +3 %s in %s. You were %s ahead of the +3 timer.",
+	timeLost = "Time Lost",
+	config_smallAffixes = "Reduce the size of affix icons on timer frame",
+	config_deathTracker = "Show death tracker on timer frame",
 }
 langs.enGB = langs.enUS
 
@@ -35,7 +37,6 @@ langs.esES = {
 	config_progressTooltip = "Mostrar cantidad de progreso de cada enemigo en su tooltip",
 	config_progressFormat = "Formato de \"Fuerzas enemigas\"",
 	keystoneFormat = "[Piedra angular: %s - Nivel %d]",
-	forcesFormat = " - Fuerzas enemigas: %s",
 }
 langs.esMX = langs.esES
 
@@ -44,7 +45,6 @@ langs.ruRU = {
 	config_progressTooltip = "Показывать прогресс за каждого врага в подсказках",
 	config_progressFormat = "Формат отображения прогресса",
 	keystoneFormat = "[Ключ: %s - Уровень %d]",
-	forcesFormat = " - Врагов убито: %s",
 }
 
 langs.deDE = {

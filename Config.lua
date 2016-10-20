@@ -10,6 +10,8 @@ local configDefaults = {
 	silverGoldTimer = false,
 	splitsFormat = 1,
 	completionMessage = false,
+	smallAffixes = true,
+	deathTracker = true,
 }
 local callbacks = {}
 
@@ -243,8 +245,8 @@ Panel_OnRefresh = function(self)
 		checkboxes = {}
 		dropdowns = {}
 
-		local checkboxes_order = { "silverGoldTimer", "autoGossip", "progressTooltip", "completionMessage" }
-		if Addon.Locale:HasRumors() then table.insert(checkboxes_order, 3, "cosRumors") end
+		local checkboxes_order = { "silverGoldTimer", "smallAffixes", "deathTracker", "autoGossip", "progressTooltip", "completionMessage" }
+		if Addon.Locale:HasRumors() then table.insert(checkboxes_order, 5, "cosRumors") end
 
 		for i,key in ipairs(checkboxes_order) do
 			checkboxes[i] = CreateFrame("CheckButton", nil, self, "InterfaceOptionsCheckButtonTemplate")
