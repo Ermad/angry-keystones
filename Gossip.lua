@@ -32,7 +32,13 @@ function Mod:CoSRumor()
 	if not shortClue then
 		AngryKeystones_Data.rumors[clue] = true
 	end
-	SendChatMessage(shortClue or clue, "PARTY")
+	if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
+		SendChatMessage(shortClue or clue, "INSTANCE_CHAT")
+	elseif IsInGroup(LE_PARTY_CATEGORY_HOME) then
+		SendChatMessage(shortClue or clue, "PARTY")
+	else
+		SendChatMessage(shortClue or clue, "SAY")
+	end
 end
 
 function Mod:RumorCleanup()
