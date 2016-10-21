@@ -1,3 +1,8 @@
+## v0.6.0
+
+* Added death tracker to timer frame. Shows total number of deaths that run, with tooltip showing breakdown per player. Can be disabled in options.
+* Reduced size of affix icons in timer frame, to make room for other information. Can be disabled in option.
+
 ## v0.5.2
 
 * Fixed bug with progress tooltips in certain locales

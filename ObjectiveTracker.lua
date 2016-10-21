@@ -91,7 +91,7 @@ local function StartTime()
 		TimerFrame.DeathsFrame:SetSize(32, 16)
 		TimerFrame.DeathsFrame:SetScript("OnEnter", Deaths_OnEnter)
 		TimerFrame.DeathsFrame:SetScript("OnLeave", Deaths_OnLeave)
-		TimerFrame.DeathsFrame:SetPoint("BOTTOMRIGHT", TimerFrame, "BOTTOMRIGHT", -26, 28)
+		TimerFrame.DeathsFrame:SetPoint("BOTTOMRIGHT", TimerFrame, "BOTTOMRIGHT", -27, 27)
 
 		TimerFrame.DeathsText = TimerFrame.DeathsFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 		TimerFrame.DeathsText:SetPoint("RIGHT", TimerFrame.DeathsFrame, "RIGHT", 0, 0)
