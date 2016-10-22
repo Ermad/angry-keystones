@@ -1,3 +1,7 @@
+## v0.6.1
+
+* Updated deDE localization
+
 ## v0.6.0
 
 * Added death tracker to timer frame. Shows total number of deaths that run, with tooltip showing breakdown per player. Can be disabled in options.

@@ -49,9 +49,23 @@ langs.ruRU = {
 
 langs.deDE = {
 	config_characterConfig = "Charakterspezifische Konfiguration",
-	config_progressTooltip = "Zeige Fortschritt den Gegner geben in ihrem Tooltip",
+	config_progressTooltip = "Zeige Fortschritt für \"Feindliche Streitkräfte\" in ihrem Tooltip",
 	config_progressFormat = "Format für \"Feindliche Streitkräfte\"",
+	config_splitsFormat = "Ziel Zwischenzeitsanzeige",
+	config_splitsFormat_1 = "Deaktiviert",
+	config_splitsFormat_2 = "Zeit ab Start",
+	config_splitsFormat_3 = "Relativ zum vorherigen",
+	config_autoGossip = "Automatisch Gesprächsoptionen auswählen während Mythic+ Dugeons (bsp: Odyn)",
+	config_cosRumors = "Gebe Hinweise von \"Geschwätzige Plaudertasche\" im Hof der Sterne im Gruppenchat aus",
+	config_silverGoldTimer = "Zeige Zeit für +2 und +3 Bonuskisten gleichzeitig",
+	config_completionMessage = "Zeige Nachricht mit finalen Zeiten am Ende des Dungeons an",
+	config_showSplits = "Zeige Zwischenzeit für jedes Ziel in der Zielverfolgung an",
 	keystoneFormat = "[Schlüsselstein: %s - Level %d]",
+	forcesFormat = " - Feindliche Streitkräfte: %s",
+	completion0 = "Zeit abgelaufen für %s mit %s, ihr wart %s über dem Zeitlimit.",
+	completion1 = "Zeit für %s in %s geschlagen. Ihr wart %s vor dem Zeitlimit, und habt +2 um %s verfehlt.",
+	completion2 = "Zeit für +2 %s in %s geschlagen. Ihr wart %s vor dem Zeitlimit für +2, und habt +3 um %s verfehlt.",
+	completion3 = "Zeit für +3 %s in %s geschlagen. Ihr wart %s vor dem Zeitlimit für +3.",
 }
 
 langs.koKR = {
@@ -145,7 +159,7 @@ clues.enUS = {
 	coinpurse = "Coinpurse",
 	potion = "Potion",
 }
-clues.enGB = clues
+clues.enGB = clues.enUS
 
 local rumors = {}
 rumors.enUS = {
