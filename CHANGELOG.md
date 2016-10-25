@@ -1,6 +1,7 @@
 ## v0.6.2
 
 * ToC update for 7.1
+* Updated zhCN, zhTW locales
 
 ## v0.6.1
 
