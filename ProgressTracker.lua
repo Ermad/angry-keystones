@@ -24,6 +24,7 @@ local function ProcessLasts()
 	end
 end
 
+local surrenderSoul
 function Mod:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags)
 	if event == "UNIT_DIED" then
 		if bit.band(destFlags, COMBATLOG_OBJECT_TYPE_NPC) > 0
@@ -35,7 +36,9 @@ function Mod:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, hideCaster, sourceGUI
 			lastDiedName = destName
 			ProcessLasts()
 		end
-		if bit.band(destFlags, COMBATLOG_OBJECT_TYPE_PLAYER) > 0 and bit.band(destFlags, COMBATLOG_OBJECT_AFFILIATION_PARTY) then
+		if not surrenderSoul then surrenderSoul = GetSpellInfo(212570) end
+		if bit.band(destFlags, COMBATLOG_OBJECT_TYPE_PLAYER) > 0 and bit.band(destFlags, COMBATLOG_OBJECT_AFFILIATION_PARTY) > 0 and
+				not (UnitIsFeignDeath(destName) or UnitAura(destName, surrenderSoul)) then
 			if Mod.playerDeaths[destName] then
 				Mod.playerDeaths[destName] = Mod.playerDeaths[destName] + 1
 			else

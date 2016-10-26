@@ -1,3 +1,7 @@
+## v0.6.3
+
+* Death tracker no longer counts Feign Death or Surrender to Madness deaths
+
 ## v0.6.2
 
 * ToC update for 7.1
