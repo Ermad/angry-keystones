@@ -1,3 +1,7 @@
+## v0.6.4
+
+* Minor bug fix for death tracker
+
 ## v0.6.3
 
 * Death tracker no longer counts Feign Death or Surrender to Madness deaths

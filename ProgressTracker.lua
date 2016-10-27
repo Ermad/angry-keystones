@@ -37,9 +37,12 @@ function Mod:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, hideCaster, sourceGUI
 			ProcessLasts()
 		end
 		if not surrenderSoul then surrenderSoul = GetSpellInfo(212570) end
-		if bit.band(destFlags, COMBATLOG_OBJECT_TYPE_PLAYER) > 0 and bit.band(destFlags, COMBATLOG_OBJECT_AFFILIATION_PARTY) > 0 and
-				not (UnitIsFeignDeath(destName) or UnitAura(destName, surrenderSoul)) then
-			if Mod.playerDeaths[destName] then
+		if bit.band(destFlags, COMBATLOG_OBJECT_TYPE_PLAYER) > 0 then
+			if UnitIsFeignDeath(destName) then
+				-- Feign Death
+			elseif UnitDebuff(destName, surrenderSoul) == surrenderSoul then
+				-- Surrender to Madness
+			elseif Mod.playerDeaths[destName] then
 				Mod.playerDeaths[destName] = Mod.playerDeaths[destName] + 1
 			else
 				Mod.playerDeaths[destName] = 1
