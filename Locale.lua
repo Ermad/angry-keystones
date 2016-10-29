@@ -26,6 +26,7 @@ langs.enUS = {
 	completion1 = "Beat the timer for %s in %s. You were %s ahead of the timer, and missed +2 by %s.",
 	completion2 = "Beat the timer for +2 %s in %s. You were %s ahead of the +2 timer, and missed +3 by %s.",
 	completion3 = "Beat the timer for +3 %s in %s. You were %s ahead of the +3 timer.",
+	completionSplits = "Split timings were: %s.",
 	timeLost = "Time Lost",
 	config_smallAffixes = "Reduce the size of affix icons on timer frame",
 	config_deathTracker = "Show death tracker on timer frame",
@@ -86,6 +87,9 @@ langs.koKR = {
 	completion1 = "%s|1을;를; %s에 완료했습니다. 제한 시간은 %s 남았으며 %s|1이;가; 모자라 2상자를 놓쳤습니다.",
 	completion2 = "%s 2상자를 %s에 완료했습니다. 2상자 제한 시간은 %s 남았으며 %s|1이;가; 모자라 3상자를 놓쳤습니다.",
 	completion3 = "%s 3상자를 %s에 완료했습니다. 3상자 제한 시간이 %s 남았습니다.",
+	timeLost = "줄어든 시간",
+	config_smallAffixes = "타이머 프레임에 속성 아이콘 크기 축소",
+	config_deathTracker = "타이머 프레임에 사망 내역 표시",
 }
 
 langs.zhCN = {

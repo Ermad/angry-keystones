@@ -3,6 +3,7 @@ local Mod = Addon:NewModule('Gossip')
 
 local staticPopupNPCs = {
 	[95676] = true, -- Odyn
+	[103860] = true, -- Vault Zone Out NPC
 }
 local npcBlacklist = {
 	[107435] = true, [112697] = true, [112699] = true, -- Suspicous Noble

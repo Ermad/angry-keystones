@@ -2,6 +2,7 @@ local ADDON, Addon = ...
 local Mod = Addon:NewModule('Splits')
 
 local splits
+local splitNames
 local affixes
 
 local function timeFormat(seconds)
@@ -59,15 +60,40 @@ local function UpdateSplits(self, numCriteria, block)
 	end
 end
 
+function Mod:SplitOutput()
+	if Addon.Config.splitsFormat == 0 then return end
+
+	local splitStrs = {}
+	for index, elapsed in pairs(splits) do
+		if elapsed and elapsed ~= true then
+			if Addon.Config.splitsFormat == 2 then
+				local prev = 0
+				for i, e in pairs(splits) do
+					if e and e ~= true and e < elapsed and e > prev then
+						prev = e
+					end
+				end
+				local split = elapsed - prev
+				table.insert(splitStrs, string.format("%s +%s", splitNames[index], timeFormat(split)))
+			elseif Addon.Config.splitsFormat == 1 then
+				table.insert(splitStrs, string.format("%s %s", splitNames[index], timeFormat(elapsed)))
+			end
+		end
+	end
+	return table.concat(splitStrs, ", ")
+end
+
 function Mod:CHALLENGE_MODE_START()
 	affixes = select(2, C_ChallengeMode.GetActiveKeystoneInfo())
 	splits = nil
+	splitNames = nil
 	Mod.splits = nil
+	Mod.splitNames = nil
 end
 
 function Mod:CHALLENGE_MODE_COMPLETED()
 	local mapID, level, timeElapsed, onTime, keystoneUpgradeLevels = C_ChallengeMode.GetCompletionInfo()
- 	local name, _, timeLimit = C_ChallengeMode.GetMapInfo(mapID)
+	local name, _, timeLimit = C_ChallengeMode.GetMapInfo(mapID)
 
 	local missingCount = 0
 	for index,elapsed in pairs(splits) do
@@ -101,6 +127,8 @@ function Mod:SCENARIO_CRITERIA_UPDATE()
 		if not splits then
 			splits = {}
 			Mod.splits = splits
+			splitNames = {}
+			Mod.splitNames = splitNames
 			fresh = true
 		end
 		local numCriteria = select(3, C_Scenario.GetStepInfo())
@@ -108,6 +136,9 @@ function Mod:SCENARIO_CRITERIA_UPDATE()
 			local criteriaString, criteriaType, completed, quantity, totalQuantity, flags, _, quantityString, criteriaID, _, _, _, isWeightedProgress = C_Scenario.GetCriteriaInfo(criteriaIndex)
 			if not isWeightedProgress then
 				if splits[criteriaIndex] == nil then splits[criteriaIndex] = false end
+				if not splitNames[criteriaIndex] then
+					splitNames[criteriaIndex] = criteriaString
+				end
 
 				if completed and not splits[criteriaIndex] then
 					splits[criteriaIndex] = fresh or GetElapsedTime()

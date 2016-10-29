@@ -1,3 +1,9 @@
+## v0.6.5
+
+* Added split timings message to completion message
+* Fix for auto gossip on zone out NPC in Vault of the Wardens
+* Updated locales
+
 ## v0.6.4
 
 * Minor bug fix for death tracker

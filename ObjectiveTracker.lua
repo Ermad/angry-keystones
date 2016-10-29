@@ -70,10 +70,10 @@ local function StartTime()
 		TimerFrame:SetAllPoints(ScenarioChallengeModeBlock)
 		
 		TimerFrame.Text = TimerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
-		TimerFrame.Text:SetPoint("BOTTOMLEFT", ScenarioChallengeModeBlock.TimeLeft, "BOTTOMRIGHT", 2, 2)
+		TimerFrame.Text:SetPoint("LEFT", ScenarioChallengeModeBlock.TimeLeft, "RIGHT", 4, 0)
 		
-		TimerFrame.Text2 = TimerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-		TimerFrame.Text2:SetPoint("BOTTOMLEFT", TimerFrame.Text, "BOTTOMRIGHT", 4, 1)
+		TimerFrame.Text2 = TimerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+		TimerFrame.Text2:SetPoint("LEFT", TimerFrame.Text, "RIGHT", 4, 0)
 
 		TimerFrame.Bar3 = TimerFrame:CreateTexture(nil, "OVERLAY")
 		TimerFrame.Bar3:SetPoint("TOPLEFT", ScenarioChallengeModeBlock.StatusBar, "TOPLEFT", ScenarioChallengeModeBlock.StatusBar:GetWidth() * (1 - TIME_FOR_3) - 4, 0)
@@ -167,7 +167,7 @@ local function SetUpAffixes(block, affixes)
 	if Addon.Config.smallAffixes then
 		frameWidth, spacing, distance = 24, 3, -17
 	else
- 		frameWidth, spacing, distance = 34, 4, -20
+		frameWidth, spacing, distance = 34, 4, -20
 	end
 	local num = #affixes
 	local leftPoint = 28 + (spacing * (num - 1)) + (frameWidth * num)
@@ -188,23 +188,28 @@ function Mod:CHALLENGE_MODE_COMPLETED()
 
 	local mapID, level, time, onTime, keystoneUpgradeLevels = C_ChallengeMode.GetCompletionInfo()
 	-- mapID = 1458
- 	local name, _, timeLimit = C_ChallengeMode.GetMapInfo(mapID)
- 	-- time = timeLimit * 0.95
- 	-- onTime = time <= timeLimit
+	local name, _, timeLimit = C_ChallengeMode.GetMapInfo(mapID)
+	-- time = timeLimit * 0.95
+	-- onTime = time <= timeLimit
 
- 	timeLimit = timeLimit * 1000
- 	local timeLimit2 = timeLimit * TIME_FOR_2
- 	local timeLimit3 = timeLimit * TIME_FOR_3
+	timeLimit = timeLimit * 1000
+	local timeLimit2 = timeLimit * TIME_FOR_2
+	local timeLimit3 = timeLimit * TIME_FOR_3
 
- 	if time <= timeLimit3 then
- 		print( format("|cff33ff99<%s>|r |cffffd700%s|r", ADDON, format(Addon.Locale.completion3, name, timeFormatMS(time), timeFormatMS(timeLimit3 - time))) )
+	if time <= timeLimit3 then
+		print( format("|cff33ff99<%s>|r |cffffd700%s|r", ADDON, format(Addon.Locale.completion3, name, timeFormatMS(time), timeFormatMS(timeLimit3 - time))) )
 	elseif time <= timeLimit2 then
- 		print( format("|cff33ff99<%s>|r |cffc7c7cf%s|r", ADDON, format(Addon.Locale.completion2, name, timeFormatMS(time), timeFormatMS(timeLimit2 - time), timeFormatMS(time - timeLimit3))) )
- 	elseif onTime then
- 		print( format("|cff33ff99<%s>|r |cffeda55f%s|r", ADDON, format(Addon.Locale.completion1, name, timeFormatMS(time), timeFormatMS(timeLimit - time), timeFormatMS(time - timeLimit2))) )
- 	else
- 		print( format("|cff33ff99<%s>|r |cffff2020%s|r", ADDON, format(Addon.Locale.completion0, name, timeFormatMS(time), timeFormatMS(time - timeLimit))) )
- 	end
+		print( format("|cff33ff99<%s>|r |cffc7c7cf%s|r", ADDON, format(Addon.Locale.completion2, name, timeFormatMS(time), timeFormatMS(timeLimit2 - time), timeFormatMS(time - timeLimit3))) )
+	elseif onTime then
+		print( format("|cff33ff99<%s>|r |cffeda55f%s|r", ADDON, format(Addon.Locale.completion1, name, timeFormatMS(time), timeFormatMS(timeLimit - time), timeFormatMS(time - timeLimit2))) )
+	else
+		print( format("|cff33ff99<%s>|r |cffff2020%s|r", ADDON, format(Addon.Locale.completion0, name, timeFormatMS(time), timeFormatMS(time - timeLimit))) )
+	end
+
+	local splitMsg = Addon.Splits:SplitOutput()
+	if splitMsg then
+		print(  format("%s%s|r", LIGHTYELLOW_FONT_COLOR_CODE, format(Addon.Locale.completionSplits, splitMsg)) )
+	end
 end
 
 function Mod:Startup()
