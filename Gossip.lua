@@ -64,12 +64,17 @@ function Mod:GOSSIP_SHOW()
 		local options = {GetGossipOptions()}
 		for i = 1, GetNumGossipOptions() do
 			if options[i*2] == "gossip" then
-				local popupShown = IsStaticPopupShown()
+				local popupWasShown = IsStaticPopupShown()
 				SelectGossipOption(i)
-				if npcId and staticPopupNPCs[npcId] and not popupShown then
-					StaticPopup1Button1:Click()
+				local popupIsShown = IsStaticPopupShown()
+				if popupIsShown or (npcId and staticPopupNPCs[npcId]) then
+					if not popupWasShown then
+						StaticPopup1Button1:Click()
+						CloseGossip()
+					end
+				else
+					CloseGossip()
 				end
-				CloseGossip()
 				break
 			end
 		end

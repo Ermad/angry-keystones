@@ -162,10 +162,8 @@ end
 function Mod:PLAYER_ENTERING_WORLD(...) CheckTime(GetWorldElapsedTimers()) end
 function Mod:WORLD_STATE_TIMER_START(...) local timerID = ...; CheckTime(timerID) end
 function Mod:WORLD_STATE_TIMER_STOP(...) local timerID = ...; StopTime(timerID) end
-function Mod:CHALLENGE_MODE_START(...)
-	wipe(Mod.playerDeaths)
-	CheckTime(GetWorldElapsedTimers())
-end
+function Mod:CHALLENGE_MODE_START(...) CheckTime(GetWorldElapsedTimers()) end
+function Mod:CHALLENGE_MODE_RESET(...) wipe(Mod.playerDeaths) end
 
 function Mod:Startup()
 	if not AngryKeystones_Data then
@@ -180,6 +178,7 @@ function Mod:Startup()
 	self:RegisterEvent("WORLD_STATE_TIMER_START")
 	self:RegisterEvent("WORLD_STATE_TIMER_STOP")
 	self:RegisterEvent("CHALLENGE_MODE_START")
+	self:RegisterEvent("CHALLENGE_MODE_RESET")
 	CheckTime(GetWorldElapsedTimers())
 	GameTooltip:HookScript("OnTooltipSetUnit", OnTooltipSetUnit)
 end

@@ -83,7 +83,7 @@ function Mod:SplitOutput()
 	return table.concat(splitStrs, ", ")
 end
 
-function Mod:CHALLENGE_MODE_START()
+function Mod:CHALLENGE_MODE_RESET()
 	affixes = select(2, C_ChallengeMode.GetActiveKeystoneInfo())
 	splits = nil
 	splitNames = nil

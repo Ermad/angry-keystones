@@ -1,3 +1,7 @@
+## v0.6.6
+
+* Fix for auto gossip for NPCs with static popups
+
 ## v0.6.5
 
 * Added split timings message to completion message
