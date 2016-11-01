@@ -1,3 +1,7 @@
+## v0.6.7
+
+* Small bug fixes
+
 ## v0.6.6
 
 * Fix for auto gossip for NPCs with static popups

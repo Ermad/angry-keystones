@@ -134,11 +134,11 @@ function Mod:SCENARIO_CRITERIA_UPDATE()
 		local numCriteria = select(3, C_Scenario.GetStepInfo())
 		for criteriaIndex = 1, numCriteria do
 			local criteriaString, criteriaType, completed, quantity, totalQuantity, flags, _, quantityString, criteriaID, _, _, _, isWeightedProgress = C_Scenario.GetCriteriaInfo(criteriaIndex)
+			if not splitNames[criteriaIndex] then
+				splitNames[criteriaIndex] = criteriaString
+			end
 			if not isWeightedProgress then
 				if splits[criteriaIndex] == nil then splits[criteriaIndex] = false end
-				if not splitNames[criteriaIndex] then
-					splitNames[criteriaIndex] = criteriaString
-				end
 
 				if completed and not splits[criteriaIndex] then
 					splits[criteriaIndex] = fresh or GetElapsedTime()
@@ -153,7 +153,7 @@ function Mod:Startup()
 	if not AngryKeystones_Data then AngryKeystones_Data = {} end
 	if not AngryKeystones_Data.splits then AngryKeystones_Data.splits = {} end
 	self:RegisterEvent("SCENARIO_CRITERIA_UPDATE")
-	self:RegisterEvent("CHALLENGE_MODE_START")
+	self:RegisterEvent("CHALLENGE_MODE_RESET")
 	self:RegisterEvent("CHALLENGE_MODE_COMPLETED")
 	hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, "UpdateCriteria", UpdateSplits)
 	Addon.Config:RegisterCallback('splitsFormat', function()

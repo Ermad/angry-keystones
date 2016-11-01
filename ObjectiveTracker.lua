@@ -30,7 +30,6 @@ local function timeFormatMS(timeAmount)
 	end
 end
 
-local TimerFrame
 local function Deaths_OnEnter()
 	GameTooltip:SetOwner(TimerFrame.DeathsFrame, "ANCHOR_RIGHT")
 	GameTooltip:SetText(DEATHS)
@@ -64,25 +63,25 @@ local function Deaths_OnLeave()
 	GameTooltip:Hide()
 end
 
-local function StartTime()
-	if not TimerFrame then
-		TimerFrame = CreateFrame("Frame", ADDON.."Frame", ScenarioChallengeModeBlock)
-		TimerFrame:SetAllPoints(ScenarioChallengeModeBlock)
+local function GetTimerFrame(block)
+	if not block.TimerFrame then
+		local TimerFrame = CreateFrame("Frame", nil, block)
+		TimerFrame:SetAllPoints(block)
 		
 		TimerFrame.Text = TimerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
-		TimerFrame.Text:SetPoint("LEFT", ScenarioChallengeModeBlock.TimeLeft, "RIGHT", 4, 0)
+		TimerFrame.Text:SetPoint("LEFT", block.TimeLeft, "RIGHT", 4, 0)
 		
 		TimerFrame.Text2 = TimerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
 		TimerFrame.Text2:SetPoint("LEFT", TimerFrame.Text, "RIGHT", 4, 0)
 
 		TimerFrame.Bar3 = TimerFrame:CreateTexture(nil, "OVERLAY")
-		TimerFrame.Bar3:SetPoint("TOPLEFT", ScenarioChallengeModeBlock.StatusBar, "TOPLEFT", ScenarioChallengeModeBlock.StatusBar:GetWidth() * (1 - TIME_FOR_3) - 4, 0)
+		TimerFrame.Bar3:SetPoint("TOPLEFT", block.StatusBar, "TOPLEFT", block.StatusBar:GetWidth() * (1 - TIME_FOR_3) - 4, 0)
 		TimerFrame.Bar3:SetSize(8, 10)
 		TimerFrame.Bar3:SetTexture("Interface\\Addons\\AngryKeystones\\bar")
 		TimerFrame.Bar3:SetTexCoord(0, 0.5, 0, 1)
 
 		TimerFrame.Bar2 = TimerFrame:CreateTexture(nil, "OVERLAY")
-		TimerFrame.Bar2:SetPoint("TOPLEFT", ScenarioChallengeModeBlock.StatusBar, "TOPLEFT", ScenarioChallengeModeBlock.StatusBar:GetWidth() * (1 - TIME_FOR_2) - 4, 0)
+		TimerFrame.Bar2:SetPoint("TOPLEFT", block.StatusBar, "TOPLEFT", block.StatusBar:GetWidth() * (1 - TIME_FOR_2) - 4, 0)
 		TimerFrame.Bar2:SetSize(8, 10)
 		TimerFrame.Bar2:SetTexture("Interface\\Addons\\AngryKeystones\\bar")
 		TimerFrame.Bar2:SetTexCoord(0.5, 1, 0, 1)
@@ -104,15 +103,16 @@ local function StartTime()
 		TimerFrame.DeathsIcon:SetTexCoord( GetPOITextureCoords(8) )
 		TimerFrame.DeathsIcon:Show()
 
+		TimerFrame:Show()
+
+		block.TimerFrame = TimerFrame
 	end
-	TimerFrame:Show()
+	return block.TimerFrame
 end
 
-local function StopTime()
-	TimerFrame:Hide()
-end
+function UpdatePlayerDeaths(block)
+	local TimerFrame = GetTimerFrame(block)
 
-function Mod:UpdatePlayerDeaths()
 	local deathsCount = 0
 	for unit,count in pairs(Addon.ProgressTracker.playerDeaths) do
 		deathsCount = deathsCount + count
@@ -126,7 +126,7 @@ function Mod:UpdatePlayerDeaths()
 end
 
 local function UpdateTime(block, elapsedTime)
-	if not TimerFrame then return end
+	local TimerFrame = GetTimerFrame(block)
 
 	local time3 = block.timeLimit * TIME_FOR_3
 	local time2 = block.timeLimit * TIME_FOR_2
@@ -159,7 +159,7 @@ local function UpdateTime(block, elapsedTime)
 		block.TimeLeft:SetText(GetTimeStringFromSeconds(elapsedTime - block.timeLimit, false, true))
 	end
 
-	Mod:UpdatePlayerDeaths()
+	UpdatePlayerDeaths(block)
 end
 
 local function SetUpAffixes(block, affixes)
@@ -179,9 +179,12 @@ local function SetUpAffixes(block, affixes)
 	end
 end
 
-hooksecurefunc("Scenario_ChallengeMode_ShowBlock", StartTime)
 hooksecurefunc("Scenario_ChallengeMode_UpdateTime", UpdateTime)
 hooksecurefunc("Scenario_ChallengeMode_SetUpAffixes", SetUpAffixes)
+
+function Mod:UpdatePlayerDeaths()
+	UpdatePlayerDeaths(ScenarioChallengeModeBlock)
+end
 
 function Mod:CHALLENGE_MODE_COMPLETED()
 	if not Addon.Config.completionMessage then return end
