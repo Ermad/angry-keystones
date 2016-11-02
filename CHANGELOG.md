@@ -1,3 +1,7 @@
+## v0.6.8
+
+* Small bug fixes
+
 ## v0.6.7
 
 * Small bug fixes

@@ -30,9 +30,9 @@ local function timeFormatMS(timeAmount)
 	end
 end
 
-local function Deaths_OnEnter()
-	GameTooltip:SetOwner(TimerFrame.DeathsFrame, "ANCHOR_RIGHT")
-	GameTooltip:SetText(DEATHS)
+local function Deaths_OnEnter(self)
+	GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+	GameTooltip:SetText(DEATHS, HIGHLIGHT_FONT_COLOR:GetRGB())
 
 	local list = {}
 	local deathsCount = 0
