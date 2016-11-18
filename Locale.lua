@@ -30,6 +30,11 @@ langs.enUS = {
 	timeLost = "Time Lost",
 	config_smallAffixes = "Reduce the size of affix icons on timer frame",
 	config_deathTracker = "Show death tracker on timer frame",
+	scheduleTitle = "Schedule",
+	scheduleWeek1 = "This week",
+	scheduleWeek2 = "Next week",
+	scheduleWeek3 = "In two weeks",
+	scheduleWeek4 = "In three weeks",
 }
 langs.enGB = langs.enUS
 
