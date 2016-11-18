@@ -12,6 +12,7 @@ local configDefaults = {
 	completionMessage = false,
 	smallAffixes = true,
 	deathTracker = true,
+	recordSplits = false,
 }
 local callbacks = {}
 

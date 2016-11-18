@@ -15,6 +15,7 @@ local function timeFormat(seconds)
 		return format("%d:%.2d:%.2d", hours, minutes, seconds)
 	end
 end
+Mod.timeFormat = timeFormat
 
 local function timeFormatMS(timeAmount)
 	local seconds = floor(timeAmount / 1000)
@@ -29,6 +30,7 @@ local function timeFormatMS(timeAmount)
 		return format("%d:%.2d:%.2d.%.3d", hours, minutes, seconds. ms)
 	end
 end
+Mod.timeFormatMS = timeFormatMS
 
 local function Deaths_OnEnter(self)
 	GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
@@ -190,10 +192,7 @@ function Mod:CHALLENGE_MODE_COMPLETED()
 	if not Addon.Config.completionMessage then return end
 
 	local mapID, level, time, onTime, keystoneUpgradeLevels = C_ChallengeMode.GetCompletionInfo()
-	-- mapID = 1458
 	local name, _, timeLimit = C_ChallengeMode.GetMapInfo(mapID)
-	-- time = timeLimit * 0.95
-	-- onTime = time <= timeLimit
 
 	timeLimit = timeLimit * 1000
 	local timeLimit2 = timeLimit * TIME_FOR_2
