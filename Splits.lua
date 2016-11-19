@@ -1,10 +1,6 @@
 local ADDON, Addon = ...
 local Mod = Addon:NewModule('Splits')
 
-local splits
-local splitNames
-local mapVariation
-
 local function GetElapsedTime()
 	for i = 1, select("#", GetWorldElapsedTimers()) do
 		local timerID = select(i, GetWorldElapsedTimers())
@@ -17,30 +13,30 @@ end
 
 local function UpdateSplits(self, numCriteria, objectiveBlock, addObjectives)
 	local scenarioType = select(10, C_Scenario.GetInfo())
-	if not self:ShouldShowCriteria() or not splits or scenarioType ~= LE_SCENARIO_TYPE_CHALLENGE_MODE then return end
+	if not self:ShouldShowCriteria() or not Mod.splits or not Mod.splitNames or scenarioType ~= LE_SCENARIO_TYPE_CHALLENGE_MODE then return end
 
 	local criteriaIndex = 1
-	while splits[criteriaIndex] do
-		local elapsed = splits[criteriaIndex]
-		local criteriaString = splitNames[criteriaIndex]
+	while Mod.splits[criteriaIndex] ~= nil do
+		local elapsed = Mod.splits[criteriaIndex]
+		local criteriaString = Mod.splitNames[criteriaIndex]
 		local completed = elapsed ~= false
 
 		if elapsed and elapsed ~= true and criteriaString then
-			if Addon.Config.splitsFormat == 2 and criteriaIndex ~= #splits then
+			if Addon.Config.splitsFormat == 2 and criteriaIndex ~= #Mod.splits then
 				local prev = 0
-				for i, e in ipairs(splits) do
-					if e and e ~= true and e < elapsed and e > prev and i ~= #splits then
+				for i, e in ipairs(Mod.splits) do
+					if e and e ~= true and e < elapsed and e > prev and i ~= #Mod.splits then
 						prev = e
 					end
 				end
 
 				local split = elapsed - prev
 				criteriaString = string.format("%s, +%s", criteriaString, Addon.ObjectiveTracker.timeFormat(split))
-			elseif Addon.Config.splitsFormat == 1 or (Addon.Config.splitsFormat == 2 and criteriaIndex == #splits) then
+			elseif Addon.Config.splitsFormat == 1 or (Addon.Config.splitsFormat == 2 and criteriaIndex == #Mod.splits) then
 				criteriaString = string.format("%s, %s", criteriaString, Addon.ObjectiveTracker.timeFormat(elapsed))
 			end
 		end
-		if criteriaIndex ~= #splits then
+		if criteriaIndex ~= #Mod.splits then
 			criteriaString = string.format("%d/%d %s", completed and 1 or 0, 1, criteriaString)
 		end
 
@@ -59,19 +55,19 @@ function Mod:SplitOutput()
 	if Addon.Config.splitsFormat == 0 then return end
 
 	local splitStrs = {}
-	for index, elapsed in ipairs(splits) do
+	for index, elapsed in ipairs(Mod.splits) do
 		if elapsed and elapsed ~= true then
 			if Addon.Config.splitsFormat == 2 then
 				local prev = 0
-				for i, e in ipairs(splits) do
-					if e and e ~= true and e < elapsed and e > prev then
+				for i, e in ipairs(Mod.splits) do
+					if e and e ~= true and e < elapsed and e > prev and i ~= #Mod.splits then
 						prev = e
 					end
 				end
 				local split = elapsed - prev
-				table.insert(splitStrs, string.format("%s +%s", splitNames[index], Addon.ObjectiveTracker.timeFormat(split)))
+				table.insert(splitStrs, string.format("%s +%s", Mod.splitNames[index], Addon.ObjectiveTracker.timeFormat(split)))
 			elseif Addon.Config.splitsFormat == 1 then
-				table.insert(splitStrs, string.format("%s %s", splitNames[index], Addon.ObjectiveTracker.timeFormat(elapsed)))
+				table.insert(splitStrs, string.format("%s %s", Mod.splitNames[index], Addon.ObjectiveTracker.timeFormat(elapsed)))
 			end
 		end
 	end
@@ -79,11 +75,9 @@ function Mod:SplitOutput()
 end
 
 function Mod:CHALLENGE_MODE_RESET()
-	splits = nil
-	splitNames = nil
-	mapVariation = nil
 	Mod.splits = nil
 	Mod.splitNames = nil
+	Mod.mapVariation = nil
 	AngryKeystones_Data.state.splits = nil
 	AngryKeystones_Data.state.splitNames = nil
 	AngryKeystones_Data.state.mapID = nil
@@ -117,6 +111,7 @@ function Mod:CHALLENGE_MODE_COMPLETED()
 	local mapID, level, timeElapsed, onTime, keystoneUpgradeLevels = C_ChallengeMode.GetCompletionInfo()
 	local name, _, timeLimit = C_ChallengeMode.GetMapInfo(mapID)
 	local _, affixes, wasEnergized = C_ChallengeMode.GetActiveKeystoneInfo()
+	local splits = Mod.splits
 
 	local missingCount = 0
 	for index,elapsed in pairs(splits) do
@@ -137,7 +132,7 @@ function Mod:CHALLENGE_MODE_COMPLETED()
 	splits.affixes1 = affixes[1]
 	splits.affixes2 = affixes[2]
 	splits.affixes3 = affixes[3]
-	splits.mapVariation = mapVariation
+	splits.mapVariation = Mod.mapVariation
 	splits.patch = GetBuildInfo()
 
 	local unitTokens = { "player", "party1", "party2", "party3", "party4" }
@@ -147,6 +142,7 @@ function Mod:CHALLENGE_MODE_COMPLETED()
 			splits["party"..i.."Name"] = UnitName(u)
 			splits["party"..i.."Class"] = UnitClass(u)
 			splits["party"..i.."Role"] = UnitGroupRolesAssigned(u)
+			-- splits["party"..i.."Spec"] = u == "player" and GetSpecializationInfo(GetSpecialization() or 0) or GetInspectSpecialization(u)
 		end
 	end
 
@@ -160,29 +156,27 @@ function Mod:SCENARIO_CRITERIA_UPDATE()
 	local scenarioType = select(10, C_Scenario.GetInfo())
 	if scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE then
 		local mapID = select(8, GetInstanceInfo())
-		if mapID == 1516 and not mapVariation then mapVariation = ArcwayMapVariation() end -- The Arcway
+		if mapID == 1516 and not Mod.mapVariation then Mod.mapVariation = ArcwayMapVariation() end -- The Arcway
 
 		local fresh = false
-		if not splits then
-			splits = {}
-			Mod.splits = splits
-			AngryKeystones_Data.state.splits = splits
-			splitNames = {}
-			Mod.splitNames = splitNames
-			AngryKeystones_Data.state.splitNames = splitNames
+		if not Mod.splits then
+			Mod.splits = {}
+			AngryKeystones_Data.state.splits = Mod.splits
+			Mod.splitNames = {}
+			AngryKeystones_Data.state.splitNames = Mod.splitNames
 			AngryKeystones_Data.state.mapID = mapID
 			fresh = true
 		end
 		local numCriteria = select(3, C_Scenario.GetStepInfo())
 		for criteriaIndex = 1, numCriteria do
 			local criteriaString, criteriaType, completed, quantity, totalQuantity, flags, _, quantityString, criteriaID, _, _, _, isWeightedProgress = C_Scenario.GetCriteriaInfo(criteriaIndex)
-			if not splitNames[criteriaIndex] then
-				splitNames[criteriaIndex] = criteriaString
+			if not Mod.splitNames[criteriaIndex] then
+				Mod.splitNames[criteriaIndex] = criteriaString
 			end
-			if splits[criteriaIndex] == nil then splits[criteriaIndex] = false end
+			if Mod.splits[criteriaIndex] == nil then Mod.splits[criteriaIndex] = false end
 
-			if completed and not splits[criteriaIndex] then
-				splits[criteriaIndex] = fresh or GetElapsedTime()
+			if completed and not Mod.splits[criteriaIndex] then
+				Mod.splits[criteriaIndex] = fresh or GetElapsedTime()
 			end
 		end
 		UpdateSplits(SCENARIO_CONTENT_TRACKER_MODULE, numCriteria, ScenarioObjectiveBlock)
@@ -193,18 +187,15 @@ function Mod:Startup()
 	if not AngryKeystones_Data then AngryKeystones_Data = {} end
 	if not AngryKeystones_Data.splits then AngryKeystones_Data.splits = {} end
 	if not AngryKeystones_Data.state then AngryKeystones_Data.state = {} end
-	if select(10, C_Scenario.GetInfo()) == LE_SCENARIO_TYPE_CHALLENGE_MODE then
-		local mapID = select(8, GetInstanceInfo())
-		if mapID and mapID == AngryKeystones_Data.state.mapID then
-			splits = AngryKeystones_Data.state.splits
-			Mod.splits = splits
-			splitNames = AngryKeystones_Data.state.splitNames
-			Mod.splitNames = splitNames
-		else
-			AngryKeystones_Data.state.mapID = nil
-			AngryKeystones_Data.state.splits = nil
-			AngryKeystones_Data.state.splitNames = nil
-		end
+
+	local mapID = select(8, GetInstanceInfo())
+	if select(10, C_Scenario.GetInfo()) == LE_SCENARIO_TYPE_CHALLENGE_MODE and mapID and mapID == AngryKeystones_Data.state.mapID then
+		Mod.splits = AngryKeystones_Data.state.splits
+		Mod.splitNames = AngryKeystones_Data.state.splitNames
+	else
+		AngryKeystones_Data.state.mapID = nil
+		AngryKeystones_Data.state.splits = nil
+		AngryKeystones_Data.state.splitNames = nil
 	end
 	self:RegisterEvent("SCENARIO_CRITERIA_UPDATE")
 	self:RegisterEvent("CHALLENGE_MODE_RESET")

@@ -136,7 +136,7 @@ local function UpdateTime(block, elapsedTime)
 	TimerFrame.Bar3:SetShown(elapsedTime < time3)
 	TimerFrame.Bar2:SetShown(elapsedTime < time2)
 
-	if elapsedTime <= time3 then
+	if elapsedTime < time3 then
 		TimerFrame.Text:SetText( timeFormat(time3 - elapsedTime) )
 		TimerFrame.Text:SetTextColor(1, 0.843, 0)
 		TimerFrame.Text:Show()
@@ -147,7 +147,7 @@ local function UpdateTime(block, elapsedTime)
 		else
 			TimerFrame.Text2:Hide()
 		end
-	elseif elapsedTime <= time2 then
+	elseif elapsedTime < time2 then
 		TimerFrame.Text:SetText( timeFormat(time2 - elapsedTime) )
 		TimerFrame.Text:SetTextColor(0.78, 0.78, 0.812)
 		TimerFrame.Text:Show()
@@ -181,8 +181,21 @@ local function SetUpAffixes(block, affixes)
 	end
 end
 
+local function ShowBlock(timerID, elapsedTime, timeLimit)
+	local block = ScenarioChallengeModeBlock
+	local level, affixes, wasEnergized = C_ChallengeMode.GetActiveKeystoneInfo()
+	local dmgPct, healthPct = C_ChallengeMode.GetPowerLevelDamageHealthMod(level)
+	if Addon.Config.showLevelModifier then
+		block.Level:SetText( format("%s, +%d%%", CHALLENGE_MODE_POWER_LEVEL:format(level), dmgPct) )
+	else
+		block.Level:SetText(CHALLENGE_MODE_POWER_LEVEL:format(level))
+	end
+end
+
 hooksecurefunc("Scenario_ChallengeMode_UpdateTime", UpdateTime)
 hooksecurefunc("Scenario_ChallengeMode_SetUpAffixes", SetUpAffixes)
+hooksecurefunc("Scenario_ChallengeMode_ShowBlock", ShowBlock)
+
 
 function Mod:UpdatePlayerDeaths()
 	UpdatePlayerDeaths(ScenarioChallengeModeBlock)

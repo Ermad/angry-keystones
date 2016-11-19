@@ -128,7 +128,10 @@ end
 
 function Mod:ADDON_LOADED(name)
 	if name == 'Blizzard_ChallengesUI' then
-		setupFrame()
+		if setupFrame then
+			setupFrame()
+			setupFrame = nil
+		end
 	end
 end
 
@@ -162,7 +165,7 @@ end
 
 function Mod:Startup()
 	if ChallengesFrame then
-		setupFrame()
+		self:ADDON_LOADED("Blizzard_ChallengesUI")
 	else
 		self:RegisterEvent('ADDON_LOADED')
 	end

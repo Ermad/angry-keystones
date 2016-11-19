@@ -172,6 +172,14 @@ function Mod:Startup()
 	if not AngryKeystones_Data.progress then
 		AngryKeystones_Data = { progress = AngryKeystones_Data }
 	end
+	if not AngryKeystones_Data.state then AngryKeystones_Data.state = {} end
+	local mapID = select(8, GetInstanceInfo())
+	if select(10, C_Scenario.GetInfo()) == LE_SCENARIO_TYPE_CHALLENGE_MODE and mapID and mapID == AngryKeystones_Data.state.mapID and AngryKeystones_Data.state.playerDeaths then
+		Mod.playerDeaths = AngryKeystones_Data.state.playerDeaths
+	else
+		AngryKeystones_Data.state.mapID = nil
+		AngryKeystones_Data.state.playerDeaths = Mod.playerDeaths
+	end
 
 	self:RegisterEvent("SCENARIO_CRITERIA_UPDATE")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")

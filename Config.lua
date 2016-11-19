@@ -13,6 +13,7 @@ local configDefaults = {
 	smallAffixes = true,
 	deathTracker = true,
 	recordSplits = false,
+	showLevelModifier = false,
 }
 local callbacks = {}
 
