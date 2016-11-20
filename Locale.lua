@@ -30,6 +30,7 @@ langs.enUS = {
 	timeLost = "Time Lost",
 	config_smallAffixes = "Reduce the size of affix icons on timer frame",
 	config_deathTracker = "Show death tracker on timer frame",
+	config_persistTracker = "Continue showing objective tracker after Mythic Keystone completion",
 	scheduleTitle = "Schedule",
 	scheduleWeek1 = "This week",
 	scheduleWeek2 = "Next week",

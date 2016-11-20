@@ -15,9 +15,7 @@ local function UpdateSplits(self, numCriteria, objectiveBlock, addObjectives)
 	local scenarioType = select(10, C_Scenario.GetInfo())
 	if not self:ShouldShowCriteria() or not Mod.splits or not Mod.splitNames or scenarioType ~= LE_SCENARIO_TYPE_CHALLENGE_MODE then return end
 
-	local criteriaIndex = 1
-	while Mod.splits[criteriaIndex] ~= nil do
-		local elapsed = Mod.splits[criteriaIndex]
+	for criteriaIndex, elapsed in ipairs(Mod.splits) do
 		local criteriaString = Mod.splitNames[criteriaIndex]
 		local completed = elapsed ~= false
 
@@ -40,13 +38,26 @@ local function UpdateSplits(self, numCriteria, objectiveBlock, addObjectives)
 			criteriaString = string.format("%d/%d %s", completed and 1 or 0, 1, criteriaString)
 		end
 
-		local line = objectiveBlock.lines[criteriaIndex]
-		if line then
-			local height = SCENARIO_TRACKER_MODULE:SetStringText(line.Text, criteriaString, nil, OBJECTIVE_TRACKER_COLOR["Complete"], objectiveBlock.isHighlighted)
-			line:SetHeight(height)
+		if addObjectives then
+			SCENARIO_TRACKER_MODULE.lineSpacing = 12;
+			if ( completed ) then
+				local existingLine = objectiveBlock.lines[criteriaIndex];
+				SCENARIO_TRACKER_MODULE:AddObjective(objectiveBlock, criteriaIndex, criteriaString, nil, nil, OBJECTIVE_DASH_STYLE_SHOW, OBJECTIVE_TRACKER_COLOR["Complete"]);
+				objectiveBlock.currentLine.Icon:Show();
+				objectiveBlock.currentLine.Icon:SetAtlas("Tracker-Check", true);
+				objectiveBlock.currentLine.completed = true;
+			else
+				SCENARIO_TRACKER_MODULE:AddObjective(objectiveBlock, criteriaIndex, criteriaString);
+				objectiveBlock.currentLine.Icon:Show();
+				objectiveBlock.currentLine.Icon:SetAtlas("Objective-Nub", true);
+			end
+		else
+			local line = objectiveBlock.lines[criteriaIndex]
+			if line then
+				local height = SCENARIO_TRACKER_MODULE:SetStringText(line.Text, criteriaString, nil, OBJECTIVE_TRACKER_COLOR["Complete"], objectiveBlock.isHighlighted)
+				line:SetHeight(height)
+			end
 		end
-
-		criteriaIndex = criteriaIndex + 1
 	end
 end
 Mod.UpdateSplits = UpdateSplits

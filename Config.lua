@@ -14,6 +14,7 @@ local configDefaults = {
 	deathTracker = true,
 	recordSplits = false,
 	showLevelModifier = false,
+	persistTracker = false,
 }
 local callbacks = {}
 
@@ -247,7 +248,7 @@ Panel_OnRefresh = function(self)
 		checkboxes = {}
 		dropdowns = {}
 
-		local checkboxes_order = { "silverGoldTimer", "smallAffixes", "deathTracker", "autoGossip", "progressTooltip", "completionMessage" }
+		local checkboxes_order = { "silverGoldTimer", "smallAffixes", "deathTracker", "autoGossip", "progressTooltip", "completionMessage", "persistTracker" }
 		if Addon.Locale:HasRumors() then table.insert(checkboxes_order, 5, "cosRumors") end
 
 		for i,key in ipairs(checkboxes_order) do

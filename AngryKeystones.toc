@@ -9,6 +9,7 @@ Core.lua
 Locale.lua
 Config.lua
 
+Persist.lua
 ObjectiveTracker.lua
 ProgressTracker.lua
 Keystone.lua
