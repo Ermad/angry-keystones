@@ -304,7 +304,7 @@ function Config:CreatePanel()
 	return panel
 end
 
-function Config:Startup()
+function Config:BeforeStartup()
 	if AngryKeystones_Config == nil then AngryKeystones_Config = {} end
 	if AngryKeystones_CharacterConfig == nil then AngryKeystones_CharacterConfig = {} end
 

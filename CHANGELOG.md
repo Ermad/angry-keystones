@@ -1,3 +1,7 @@
+## v0.6.9
+
+* Small bug fix for progress tooltips
+
 ## v0.6.8
 
 * Small bug fixes
