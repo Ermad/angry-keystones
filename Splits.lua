@@ -77,7 +77,7 @@ function Mod:SplitOutput()
 				end
 				local split = elapsed - prev
 				table.insert(splitStrs, string.format("%s +%s", Mod.splitNames[index], Addon.ObjectiveTracker.timeFormat(split)))
-			elseif Addon.Config.splitsFormat == 1 then
+			elseif Addon.Config.splitsFormat == 1 or (Addon.Config.splitsFormat == 2 and index == #Mod.splits) then
 				table.insert(splitStrs, string.format("%s %s", Mod.splitNames[index], Addon.ObjectiveTracker.timeFormat(elapsed)))
 			end
 		end

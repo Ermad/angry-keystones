@@ -94,16 +94,16 @@ local function GetTimerFrame(block)
 		TimerFrame.DeathsFrame:SetScript("OnLeave", Deaths_OnLeave)
 		TimerFrame.DeathsFrame:SetPoint("BOTTOMRIGHT", TimerFrame, "BOTTOMRIGHT", -27, 27)
 
-		TimerFrame.DeathsText = TimerFrame.DeathsFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-		TimerFrame.DeathsText:SetPoint("RIGHT", TimerFrame.DeathsFrame, "RIGHT", 0, 0)
-		TimerFrame.DeathsText:Show()
+		TimerFrame.DeathsFrame.Text = TimerFrame.DeathsFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+		TimerFrame.DeathsFrame.Text:SetPoint("RIGHT", TimerFrame.DeathsFrame, "RIGHT", 0, 0)
+		TimerFrame.DeathsFrame.Text:Show()
 
-		TimerFrame.DeathsIcon = TimerFrame.DeathsFrame:CreateTexture(nil, "OVERLAY")
-		TimerFrame.DeathsIcon:SetPoint("RIGHT", TimerFrame.DeathsText, "LEFT", 0, 0)
-		TimerFrame.DeathsIcon:SetSize(16, 16)
-		TimerFrame.DeathsIcon:SetTexture("Interface\\Minimap\\POIIcons")
-		TimerFrame.DeathsIcon:SetTexCoord( GetPOITextureCoords(8) )
-		TimerFrame.DeathsIcon:Show()
+		TimerFrame.DeathsFrame.Icon = TimerFrame.DeathsFrame:CreateTexture(nil, "OVERLAY")
+		TimerFrame.DeathsFrame.Icon:SetPoint("RIGHT", TimerFrame.DeathsFrame.Text, "LEFT", 0, 0)
+		TimerFrame.DeathsFrame.Icon:SetSize(16, 16)
+		TimerFrame.DeathsFrame.Icon:SetTexture("Interface\\Minimap\\POIIcons")
+		TimerFrame.DeathsFrame.Icon:SetTexCoord( GetPOITextureCoords(8) )
+		TimerFrame.DeathsFrame.Icon:Show()
 
 		TimerFrame:Show()
 
@@ -112,7 +112,7 @@ local function GetTimerFrame(block)
 	return block.TimerFrame
 end
 
-function UpdatePlayerDeaths(block)
+local function UpdatePlayerDeaths(block)
 	local TimerFrame = GetTimerFrame(block)
 
 	local deathsCount = 0
@@ -121,7 +121,7 @@ function UpdatePlayerDeaths(block)
 	end
 	if Addon.Config.deathTracker and deathsCount > 0 then
 		TimerFrame.DeathsFrame:Show()
-		TimerFrame.DeathsText:SetText(deathsCount)
+		TimerFrame.DeathsFrame.Text:SetText(deathsCount)
 	else
 		TimerFrame.DeathsFrame:Hide()
 	end

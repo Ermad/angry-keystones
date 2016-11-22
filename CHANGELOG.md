@@ -1,3 +1,8 @@
+## v0.7.0
+
+* Added a Schedule section to the Mythic Dungeon pane show the order of upcoming affixes. Will only display if you currently have a level 7+ Keystone in your inventory.
+* Added an option to continue showing objective tracker after the completion of a Mythic Keystone dungeon. Disabled by default.
+
 ## v0.6.9
 
 * Small bug fix for progress tooltips
