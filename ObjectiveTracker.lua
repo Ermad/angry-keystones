@@ -27,7 +27,7 @@ local function timeFormatMS(timeAmount)
 	if hours == 0 then
 		return format("%d:%.2d.%.3d", minutes, seconds, ms)
 	else
-		return format("%d:%.2d:%.2d.%.3d", hours, minutes, seconds. ms)
+		return format("%d:%.2d:%.2d.%.3d", hours, minutes, seconds, ms)
 	end
 end
 Mod.timeFormatMS = timeFormatMS
