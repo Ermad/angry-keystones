@@ -94,6 +94,7 @@ local function setupFrame()
 		local text = entry:CreateFontString(nil, "ARTWORK", "GameFontNormal")
 		text:SetWidth(120)
 		text:SetJustifyH("LEFT")
+		text:SetWordWrap(false)
 		text:SetText( Addon.Locale["scheduleWeek"..i] )
 		text:SetPoint("LEFT")
 		entry.Text = text

@@ -167,7 +167,7 @@ function Mod:SCENARIO_CRITERIA_UPDATE()
 	local scenarioType = select(10, C_Scenario.GetInfo())
 	if scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE then
 		local mapID = select(8, GetInstanceInfo())
-		if mapID == 1516 and not Mod.mapVariation then Mod.mapVariation = ArcwayMapVariation() end -- The Arcway
+		if mapID == 1516 and Addon.Config.recordSplits and not Mod.mapVariation then Mod.mapVariation = ArcwayMapVariation() end -- The Arcway
 
 		local fresh = false
 		if not Mod.splits then

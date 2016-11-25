@@ -1,3 +1,7 @@
+## v0.7.1
+
+* Updated koKR localization.
+
 ## v0.7.0
 
 * Added a Schedule section to the Mythic Dungeon pane show the order of upcoming affixes. Will only display if you currently have a level 7+ Keystone in your inventory.
