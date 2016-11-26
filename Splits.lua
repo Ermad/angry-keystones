@@ -163,6 +163,26 @@ function Mod:CHALLENGE_MODE_COMPLETED()
 	end
 end
 
+function Mod:SCENARIO_UPDATE()
+	local scenarioType = select(10, C_Scenario.GetInfo())
+	if scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE then
+		local numCriteria = select(3, C_Scenario.GetStepInfo())
+		local mapID = select(8, GetInstanceInfo())
+		if not Mod.splits and numCriteria > 0 then
+			Mod.splits = {}
+			AngryKeystones_Data.state.splits = Mod.splits
+			Mod.splitNames = {}
+			AngryKeystones_Data.state.splitNames = Mod.splitNames
+			AngryKeystones_Data.state.mapID = mapID
+			for criteriaIndex = 1, numCriteria do
+				local criteriaString, criteriaType, completed = C_Scenario.GetCriteriaInfo(criteriaIndex)
+				Mod.splits[criteriaIndex] = completed
+				Mod.splitNames[criteriaIndex] = criteriaString
+			end
+		end
+	end
+end
+
 function Mod:SCENARIO_CRITERIA_UPDATE()
 	local scenarioType = select(10, C_Scenario.GetInfo())
 	if scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE then
@@ -211,6 +231,8 @@ function Mod:Startup()
 	self:RegisterEvent("SCENARIO_CRITERIA_UPDATE")
 	self:RegisterEvent("CHALLENGE_MODE_RESET")
 	self:RegisterEvent("CHALLENGE_MODE_COMPLETED")
+	self:RegisterEvent("SCENARIO_UPDATE")
+	self:SCENARIO_UPDATE()
 	hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, "UpdateCriteria", UpdateSplits)
 	Addon.Config:RegisterCallback('splitsFormat', function()
 		UpdateSplits(SCENARIO_CONTENT_TRACKER_MODULE, nil, ScenarioObjectiveBlock)

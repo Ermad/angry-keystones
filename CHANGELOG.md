@@ -1,3 +1,7 @@
+## v0.8.0
+
+* Added an option to hide quest and achievement trackers during Mythic Keyston dungeons. Disabled by default and required Reload UI to take effect.
+
 ## v0.7.1
 
 * Updated koKR localization.

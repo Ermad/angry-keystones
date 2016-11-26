@@ -79,5 +79,5 @@ function Addon:PLAYER_ENTERING_WORLD()
 end
 
 Addon.Name = GetAddOnMetadata(ADDON, "Title")
-Addon.Version = GetAddOnMetadata(ADDON, "X-Curse-Packaged-Version")
+Addon.Version = GetAddOnMetadata(ADDON, "X-Packaged-Version")
 _G[ADDON] = Addon

@@ -30,12 +30,13 @@ langs.enUS = {
 	timeLost = "Time Lost",
 	config_smallAffixes = "Reduce the size of affix icons on timer frame",
 	config_deathTracker = "Show death tracker on timer frame",
-	config_persistTracker = "Continue showing objective tracker after Mythic Keystone completion",
+	config_persistTracker = "Continue showing objective tracker after Mythic Keystone completion (requires Reload UI to take effect)",
 	scheduleTitle = "Schedule",
 	scheduleWeek1 = "This week",
 	scheduleWeek2 = "Next week",
 	scheduleWeek3 = "In two weeks",
 	scheduleWeek4 = "In three weeks",
+	config_exclusiveTracker = "Hide quest and achievement trackers during Mythic Keystone dungeon (requires Reload UI to take effect)",
 }
 langs.enGB = langs.enUS
 
