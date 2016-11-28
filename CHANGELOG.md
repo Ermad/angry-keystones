@@ -1,3 +1,8 @@
+## v0.8.2
+
+* Updated zhCN and zhTW locales.
+* When hiding quest and achievement trackers, they are shown when in a completed Mythic Keystone dungeon.
+
 ## v0.8.0
 
 * Added an option to hide quest and achievement trackers during Mythic Keyston dungeons. Disabled by default and required Reload UI to take effect.
