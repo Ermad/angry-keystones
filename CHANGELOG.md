@@ -1,4 +1,8 @@
-## v0.8.2
+## v0.9.0
+
+* Added ability to hide Talking Head dialog during Mythic Keystone dungeons. Can be disabled in the settings.
+
+## v0.8.1
 
 * Updated zhCN and zhTW locales.
 * When hiding quest and achievement trackers, they are shown when in a completed Mythic Keystone dungeon.

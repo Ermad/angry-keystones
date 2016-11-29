@@ -37,6 +37,7 @@ langs.enUS = {
 	scheduleWeek3 = "In two weeks",
 	scheduleWeek4 = "In three weeks",
 	config_exclusiveTracker = "Hide quest and achievement trackers during Mythic Keystone dungeon (requires Reload UI to take effect)",
+	config_hideTalkingHead = "Hide Talking Head dialog during a Mythic Keystone dungeon",
 }
 langs.enGB = langs.enUS
 
