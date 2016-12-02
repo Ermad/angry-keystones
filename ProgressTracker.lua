@@ -231,7 +231,8 @@ function Mod:Startup()
 	GameTooltip:HookScript("OnTooltipSetUnit", OnTooltipSetUnit)
 
 	Addon.Config:RegisterCallback('progressFormat', function()
-		for _, bar in pairs(SCENARIO_TRACKER_MODULE.usedProgressBars[ScenarioObjectiveBlock]) do
+		local usedBars = SCENARIO_TRACKER_MODULE.usedProgressBars[ScenarioObjectiveBlock] or {}
+		for _, bar in pairs(usedBars) do
 			ProgressBar_SetValue(bar)
 		end
 	end)
