@@ -1,6 +1,7 @@
 ## v0.9.0
 
 * Added ability to hide Talking Head dialog during Mythic Keystone dungeons. Can be disabled in the settings.
+* Added new progress format option for showing remaining progress.
 
 ## v0.8.1
 

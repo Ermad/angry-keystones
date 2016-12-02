@@ -84,7 +84,6 @@ local function PlayCurrent()
 			frame.finishTimer:Cancel()
 			frame.finishTimer = nil
 		end
-		C_TalkingHead.IgnoreCurrentTalkingHead()
 		frame:Hide()
 	end
 end

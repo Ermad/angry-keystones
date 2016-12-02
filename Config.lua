@@ -20,7 +20,7 @@ local configDefaults = {
 }
 local callbacks = {}
 
-local progressFormatValues = { 1, 2, 3 }
+local progressFormatValues = { 1, 2, 3, 4, 5, 6 }
 local splitsFormatValues = { 0, 1, 2 }
 
 setmetatable(Config, {
