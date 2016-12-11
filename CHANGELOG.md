@@ -1,3 +1,7 @@
+## v0.9.1
+
+* Updated zhCN locale, including support for outputting rumors in Court of Stars.
+
 ## v0.9.0
 
 * Added ability to hide Talking Head dialog during Mythic Keystone dungeons. Can be disabled in the settings.
