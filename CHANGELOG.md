@@ -1,3 +1,7 @@
+## v0.9.2
+
+* Updated koKR locale, including support for outputting rumors in Court of Stars.
+
 ## v0.9.1
 
 * Updated zhCN locale, including support for outputting rumors in Court of Stars.
