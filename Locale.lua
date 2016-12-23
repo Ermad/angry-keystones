@@ -39,6 +39,7 @@ langs.enUS = {
 	scheduleWeek2 = "Next week",
 	scheduleWeek3 = "In two weeks",
 	scheduleWeek4 = "In three weeks",
+	scheduleMissingKeystone = "Requires a level 7+ Mythic Keystone in your inventory to display.",
 	config_exclusiveTracker = "Hide quest and achievement trackers during Mythic Keystone dungeons (requires Reload UI to take effect)",
 	config_hideTalkingHead = "Hide Talking Head dialog during a Mythic Keystone dungeon",
 }
