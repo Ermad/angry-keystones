@@ -1,3 +1,7 @@
+## v0.9.4
+
+* Locale updates.
+
 ## v0.9.3
 
 * Displays a message when schedule isn't displayed to not having a level 7+ Keystone, instead of just hiding the frame.
