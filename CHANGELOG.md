@@ -1,10 +1,14 @@
+## v0.9.5
+
+* Update for 7.1.5.
+
 ## v0.9.4
 
 * Locale updates.
 
 ## v0.9.3
 
-* Displays a message when schedule isn't displayed to not having a level 7+ Keystone, instead of just hiding the frame.
+* Displays a message when schedule isn't displayed due to not having a level 7+ Keystone, instead of just hiding the frame.
 * If "DropDownMenu" library is present it will be used over builtin dropdown menus, so to not cause taint.
 
 ## v0.9.2
