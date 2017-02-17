@@ -1,3 +1,11 @@
+## v0.10.1
+
+* Small bug fix.
+
+## v0.10.0
+
+* Added option to show popup to reset instances after leaving a Mythic Keystone dungeon.
+
 ## v0.9.5
 
 * Update for 7.1.5.

@@ -205,8 +205,8 @@ local keystoneWasCompleted = false
 function Mod:PLAYER_ENTERING_WORLD()
 	if keystoneWasCompleted and Addon.Config.resetPopup and IsInGroup() and UnitIsGroupLeader("player") then
 		StaticPopup_Show("CONFIRM_RESET_INSTANCES")
-		keystoneWasCompleted = false
 	end
+	keystoneWasCompleted = false
 end
 
 function Mod:CHALLENGE_MODE_START()
