@@ -54,8 +54,12 @@ local function UpdateSplits(self, numCriteria, objectiveBlock, addObjectives)
 		else
 			local line = objectiveBlock.lines[criteriaIndex]
 			if line then
+				local old_height = line:GetHeight()
 				local height = SCENARIO_TRACKER_MODULE:SetStringText(line.Text, criteriaString, nil, completed and OBJECTIVE_TRACKER_COLOR["Complete"], objectiveBlock.isHighlighted)
 				line:SetHeight(height)
+				if old_height ~= height then
+					objectiveBlock.height = objectiveBlock.height + height - old_height
+				end
 			end
 		end
 	end
@@ -167,7 +171,7 @@ function Mod:SCENARIO_UPDATE()
 	local scenarioType = select(10, C_Scenario.GetInfo())
 	if scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE then
 		local numCriteria = select(3, C_Scenario.GetStepInfo())
-		local mapID = select(8, GetInstanceInfo())
+		local mapID = C_ChallengeMode.GetActiveChallengeMapID()
 		if not Mod.splits and numCriteria > 0 then
 			Mod.splits = {}
 			AngryKeystones_Data.state.splits = Mod.splits
@@ -186,7 +190,7 @@ end
 function Mod:SCENARIO_CRITERIA_UPDATE()
 	local scenarioType = select(10, C_Scenario.GetInfo())
 	if scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE then
-		local mapID = select(8, GetInstanceInfo())
+		local mapID = C_ChallengeMode.GetActiveChallengeMapID()
 		if mapID == 1516 and Addon.Config.recordSplits and not Mod.mapVariation then Mod.mapVariation = ArcwayMapVariation() end -- The Arcway
 
 		local fresh = false
@@ -219,7 +223,7 @@ function Mod:Startup()
 	if not AngryKeystones_Data.splits then AngryKeystones_Data.splits = {} end
 	if not AngryKeystones_Data.state then AngryKeystones_Data.state = {} end
 
-	local mapID = select(8, GetInstanceInfo())
+	local mapID = C_ChallengeMode.GetActiveChallengeMapID()
 	if select(10, C_Scenario.GetInfo()) == LE_SCENARIO_TYPE_CHALLENGE_MODE and mapID and mapID == AngryKeystones_Data.state.mapID then
 		Mod.splits = AngryKeystones_Data.state.splits
 		Mod.splitNames = AngryKeystones_Data.state.splitNames

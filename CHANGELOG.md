@@ -1,3 +1,7 @@
+## v0.11.0
+
+* Initial update for 7.2.0. Schedule is disabled for now, since unsure of new schedule.
+
 ## v0.10.1
 
 * Small bug fix.

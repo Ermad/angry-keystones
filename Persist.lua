@@ -1,4 +1,4 @@
-if GetBuildInfo() ~= "7.1.5" then return end
+if GetBuildInfo() ~= "7.2.0" then return end
 local ADDON, Addon = ...
 local Mod = Addon:NewModule('Persist')
 
@@ -132,6 +132,11 @@ local function LoadPersist()
 					else
 						stageBlock.Stage:SetPoint("TOPLEFT", 15, -18);
 					end
+				end
+				if (not stageBlock.appliedAlready) then
+					-- Ugly hack to get around :IsTruncated failing if used during load
+					C_Timer.After(1, function() stageBlock.Stage:ApplyFontObjects(); end);
+					stageBlock.appliedAlready = true;
 				end
 				ScenarioStage_CustomizeBlock(stageBlock, scenarioType);
 			end
