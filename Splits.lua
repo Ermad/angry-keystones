@@ -1,6 +1,8 @@
 local ADDON, Addon = ...
 local Mod = Addon:NewModule('Splits')
 
+local challengeMapID
+
 local function GetElapsedTime()
 	for i = 1, select("#", GetWorldElapsedTimers()) do
 		local timerID = select(i, GetWorldElapsedTimers())
@@ -123,8 +125,9 @@ local function ArcwayMapVariation()
 end
 
 function Mod:CHALLENGE_MODE_COMPLETED()
+	if not challengeMapID then return end
 	local mapID, level, timeElapsed, onTime, keystoneUpgradeLevels = C_ChallengeMode.GetCompletionInfo()
-	local name, _, timeLimit = C_ChallengeMode.GetMapInfo(mapID)
+	local name, _, timeLimit = C_ChallengeMode.GetMapInfo(challengeMapID)
 	local _, affixes, wasEnergized = C_ChallengeMode.GetActiveKeystoneInfo()
 	local splits = Mod.splits
 
@@ -218,6 +221,10 @@ function Mod:SCENARIO_CRITERIA_UPDATE()
 	end
 end
 
+function Mod:CHALLENGE_MODE_START()
+	challengeMapID = C_ChallengeMode.GetActiveChallengeMapID()
+end
+
 function Mod:Startup()
 	if not AngryKeystones_Data then AngryKeystones_Data = {} end
 	if not AngryKeystones_Data.splits then AngryKeystones_Data.splits = {} end
@@ -232,7 +239,10 @@ function Mod:Startup()
 		AngryKeystones_Data.state.splits = nil
 		AngryKeystones_Data.state.splitNames = nil
 	end
+	challengeMapID = mapID
+
 	self:RegisterEvent("SCENARIO_CRITERIA_UPDATE")
+	self:RegisterEvent("CHALLENGE_MODE_START")
 	self:RegisterEvent("CHALLENGE_MODE_RESET")
 	self:RegisterEvent("CHALLENGE_MODE_COMPLETED")
 	self:RegisterEvent("SCENARIO_UPDATE")
