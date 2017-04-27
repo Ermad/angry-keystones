@@ -125,6 +125,7 @@ langs.koKR = {
 	scheduleMissingKeystone = "예정된 조합을 보려면 레벨 7 이상의 신화 쐐기돌이 가방에 있어야 합니다.",
 	config_exclusiveTracker = "신화 쐐기돌 던전에서 퀘스트와 업적 추적창 숨김 (UI 재시작 필요)",
 	config_hideTalkingHead = "신화 쐐기돌 던전에서 팝업 대화창 숨김",
+	config_resetPopup = "완료한 신화 쐐기돌 던전을 나가면 인스턴스 초기화 팝업창 표시",
 }
 
 langs.zhCN = {

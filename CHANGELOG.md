@@ -1,3 +1,11 @@
+## v0.12.0
+
+* Added ability to automatically slot keystone into keystone activation window.
+
+## v0.11.2
+
+* Updated Locales.
+
 ## v0.11.1
 
 * Bugfix for 7.2.0.
