@@ -1,3 +1,7 @@
+## v0.12.1
+
+* Removed options continue showing tracker at end of Keystone runs and hide quest and achievements during keystones, due to taint issues since the LFG change.
+
 ## v0.12.0
 
 * Added ability to automatically slot keystone into keystone activation window.
