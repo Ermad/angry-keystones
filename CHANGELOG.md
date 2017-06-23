@@ -1,3 +1,11 @@
+## v0.12.4
+
+* When death tracker is enabled hide the newly added default one.
+
+## v0.12.3
+
+* Small bug fix.
+
 ## v0.12.2
 
 * Updated Locales.
