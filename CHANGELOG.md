@@ -1,3 +1,7 @@
+## v0.12.5
+
+* Reenabled and updated the schedule feature
+
 ## v0.12.4
 
 * When death tracker is enabled hide the newly added default one.
