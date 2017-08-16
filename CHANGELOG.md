@@ -1,3 +1,7 @@
+## v0.12.6
+
+* German localization update
+
 ## v0.12.5
 
 * Reenabled and updated the schedule feature
