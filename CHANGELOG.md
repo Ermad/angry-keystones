@@ -1,3 +1,7 @@
+## v0.12.7
+
+* Update for 7.3
+
 ## v0.12.6
 
 * German localization update
