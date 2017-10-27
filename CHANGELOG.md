@@ -1,3 +1,7 @@
+## v0.12.8
+
+* Update for 7.3.2
+
 ## v0.12.7
 
 * Update for 7.3
