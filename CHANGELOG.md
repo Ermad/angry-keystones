@@ -1,3 +1,7 @@
+## v0.12.10
+
+* Minor bug fixes
+
 ## v0.12.9
 
 * Update for 7.3.5
