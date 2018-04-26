@@ -1,3 +1,7 @@
+## v0.12.12
+
+* Update to affix schedule
+
 ## v0.12.11
 
 * Update to affix schedule
