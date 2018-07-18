@@ -1,3 +1,7 @@
+## v0.13.0
+
+* Disable Schedule feature for now due to 8.0 changes, will come back in the future
+
 ## v0.12.12
 
 * Update to affix schedule
