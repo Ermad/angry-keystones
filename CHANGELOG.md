@@ -1,3 +1,7 @@
+## v0.13.2
+
+* Small bug fix
+
 ## v0.13.1
 
 * ToC bump

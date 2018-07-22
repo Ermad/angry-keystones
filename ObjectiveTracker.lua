@@ -235,7 +235,7 @@ function Mod:CHALLENGE_MODE_COMPLETED()
 	if not challengeMapID then return end
 
 	local mapID, level, time, onTime, keystoneUpgradeLevels = C_ChallengeMode.GetCompletionInfo()
-	local name, _, timeLimit = C_ChallengeMode.GetMapInfo(challengeMapID)
+	local name, _, timeLimit = C_ChallengeMode.GetMapUIInfo(challengeMapID)
 
 	timeLimit = timeLimit * 1000
 	local timeLimit2 = timeLimit * TIME_FOR_2
