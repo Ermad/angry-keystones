@@ -157,6 +157,7 @@ function Mod:PLAYER_ENTERING_WORLD(...) CheckTime(GetWorldElapsedTimers()) end
 function Mod:WORLD_STATE_TIMER_START(...) local timerID = ...; CheckTime(timerID) end
 function Mod:WORLD_STATE_TIMER_STOP(...) local timerID = ...; StopTime(timerID) end
 function Mod:CHALLENGE_MODE_START(...) CheckTime(GetWorldElapsedTimers()) end
+function Mod:CHALLENGE_MODE_RESET(...) return end
 
 local function ProgressBar_SetValue(self, percent)
 	if self.criteriaIndex then
