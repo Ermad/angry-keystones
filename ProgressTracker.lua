@@ -55,6 +55,10 @@ local function StartTime()
 	end
 end
 
+local function StopTime()
+	return
+end
+
 local function CheckTime(...)
 	for i = 1, select("#", ...) do
 		local timerID = select(i, ...)
