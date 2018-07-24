@@ -1,3 +1,7 @@
+## v0.13.4
+
+* Options panel bug fixes
+
 ## v0.13.3
 
 * More bug fixes
