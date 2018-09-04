@@ -1,3 +1,7 @@
+## v0.13.5
+
+* Fixes for displaying mob progress amount on tooltips
+
 ## v0.13.4
 
 * Options panel bug fixes
