@@ -1,3 +1,7 @@
+## v0.13.6
+
+* Display number of deaths per player on Death Tracker tooltip
+
 ## v0.13.5
 
 * Fixes for displaying mob progress amount on tooltips

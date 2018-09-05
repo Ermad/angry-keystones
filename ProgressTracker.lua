@@ -208,6 +208,38 @@ local function ProgressBar_SetValue(self, percent)
 	end
 end
 
+local function DeathCount_OnEnter(self)
+	GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+	GameTooltip:SetText(CHALLENGE_MODE_DEATH_COUNT_TITLE:format(self.count), 1, 1, 1)
+	GameTooltip:AddLine(CHALLENGE_MODE_DEATH_COUNT_DESCRIPTION:format(GetTimeStringFromSeconds(self.timeLost, false, true)))
+
+	GameTooltip:AddLine(" ")
+	local list = {}
+	local deathsCount = 0
+	for unit,count in pairs(Mod.playerDeaths) do
+		local _, class = UnitClass(unit)
+		deathsCount = deathsCount + count
+		table.insert(list, { count = count, unit = unit, class = class })
+	end
+	table.sort(list, function(a, b)
+		if a.count ~= b.count then
+			return a.count > b.count
+		else
+			return a.unit < b.unit
+		end
+	end)
+
+	for _,item in ipairs(list) do
+		local color = RAID_CLASS_COLORS[item.class] or HIGHLIGHT_FONT_COLOR
+		GameTooltip:AddDoubleLine(item.unit, item.count, color.r, color.g, color.b, HIGHLIGHT_FONT_COLOR:GetRGB())
+	end
+	GameTooltip:Show()
+end
+
+function Mod:Blizzard_ObjectiveTracker()
+	ScenarioChallengeModeBlock.DeathCount:SetScript("OnEnter", DeathCount_OnEnter)
+end
+
 function Mod:Startup()
 	if not AngryKeystones_Data then
 		AngryKeystones_Data = {}
@@ -230,6 +262,7 @@ function Mod:Startup()
 	self:RegisterEvent("WORLD_STATE_TIMER_STOP")
 	self:RegisterEvent("CHALLENGE_MODE_START")
 	self:RegisterEvent("CHALLENGE_MODE_RESET")
+	self:RegisterAddOnLoaded("Blizzard_ObjectiveTracker")
 	CheckTime(GetWorldElapsedTimers())
 	GameTooltip:HookScript("OnTooltipSetUnit", OnTooltipSetUnit)
 
