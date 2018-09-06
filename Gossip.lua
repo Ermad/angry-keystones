@@ -5,7 +5,6 @@ local npcBlacklist = {
 	[107435] = true, [112697] = true, [112699] = true, -- Suspicous Noble
 	[101462] = true, -- Reaves
 }
-local cosRumorNPC = 107486
 
 local function GossipNPCID()
 	local guid = UnitGUID("npc")
@@ -23,38 +22,8 @@ local function IsStaticPopupShown()
 	return false
 end
 
-function Mod:CoSRumor()
-	local clue = GetGossipText()
-	local shortClue = Addon.Locale:Rumor(clue)
-	if not shortClue then
-		AngryKeystones_Data.rumors[clue] = true
-	end
-	if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
-		SendChatMessage(shortClue or clue, "INSTANCE_CHAT")
-	elseif IsInGroup(LE_PARTY_CATEGORY_HOME) then
-		SendChatMessage(shortClue or clue, "PARTY")
-	else
-		SendChatMessage(shortClue or clue, "SAY")
-	end
-end
-
-function Mod:RumorCleanup()
-	local new = {}
-	for clue,_ in pairs(AngryKeystones_Data.rumors) do
-		if not Addon.Locale:Rumor(clue) then
-			new[clue] = true
-		end
-	end
-	AngryKeystones_Data.rumors = new
-end
-
 function Mod:GOSSIP_SHOW()
 	local npcId = GossipNPCID()
-	if Addon.Config.cosRumors and Addon.Locale:HasRumors() and npcId == cosRumorNPC and GetNumGossipOptions() == 0 then
-		self:CoSRumor()
-		CloseGossip()
-	end
-
 	local scenarioType = select(10, C_Scenario.GetInfo())
 	if Addon.Config.autoGossip and scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE and not npcBlacklist[npcId] then
 		local options = {GetGossipOptions()}
@@ -93,10 +62,6 @@ function Mod:Blizzard_TalkingHeadUI()
 end
 
 function Mod:Startup()
-	if not AngryKeystones_Data then AngryKeystones_Data = {} end
-	if not AngryKeystones_Data.rumors then AngryKeystones_Data.rumors = {} end
-	if Addon.Config.cosRumors then self:RumorCleanup() end
-
 	self:RegisterEvent("GOSSIP_SHOW")
 
 	self:RegisterAddOnLoaded("Blizzard_TalkingHeadUI")
