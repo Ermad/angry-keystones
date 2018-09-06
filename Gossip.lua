@@ -22,10 +22,26 @@ local function IsStaticPopupShown()
 	return false
 end
 
+local function IsInActiveChallengeMode()
+	local scenarioType = select(10, C_Scenario.GetInfo())
+	if scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE then
+		local timerIDs = {GetWorldElapsedTimers()}
+		for i, timerID in ipairs(timerIDs) do
+			local _, elapsedTime, type = GetWorldElapsedTime(timerID)
+			if type == LE_WORLD_ELAPSED_TIMER_TYPE_CHALLENGE_MODE then
+				local mapID = C_ChallengeMode.GetActiveChallengeMapID()
+				if mapID then
+					return true
+				end
+			end
+		end
+	end
+	return false
+end
+
 function Mod:GOSSIP_SHOW()
 	local npcId = GossipNPCID()
-	local scenarioType = select(10, C_Scenario.GetInfo())
-	if Addon.Config.autoGossip and scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE and not npcBlacklist[npcId] then
+	if Addon.Config.autoGossip and IsInActiveChallengeMode() and not npcBlacklist[npcId] then
 		local options = {GetGossipOptions()}
 		for i = 1, GetNumGossipOptions() do
 			if options[i*2] == "gossip" then
@@ -47,7 +63,7 @@ function Mod:GOSSIP_SHOW()
 end
 
 local function PlayCurrent()
-	if select(10, C_Scenario.GetInfo()) == LE_SCENARIO_TYPE_CHALLENGE_MODE and Addon.Config.hideTalkingHead then
+	if IsInActiveChallengeMode() and Addon.Config.hideTalkingHead then
 		local frame = TalkingHeadFrame
 		if (frame.finishTimer) then
 			frame.finishTimer:Cancel()

@@ -1,3 +1,7 @@
+## v0.13.7
+
+* Only auto select gossip entries during active Keystone dungeon
+
 ## v0.13.6
 
 * Display number of deaths per player on Death Tracker tooltip
