@@ -143,19 +143,29 @@ end
 
 function Mod:CheckInventoryKeystone()
 	currentWeek = nil
-	for container=BACKPACK_CONTAINER, NUM_BAG_SLOTS do
-		local slots = GetContainerNumSlots(container)
-		for slot=1, slots do
-			local _, _, _, _, _, _, slotLink = GetContainerItemInfo(container, slot)
-			local itemString = slotLink and slotLink:match("|Hkeystone:([0-9:]+)|h(%b[])|h")
-			if itemString then
-				local info = { strsplit(":", itemString) }
-				local mapLevel = tonumber(info[3])
-				if mapLevel >= 7 then
-					local affix1, affix2, affix3, affix4 = tonumber(info[4]), tonumber(info[5]), tonumber(info[6]), tonumber(info[7])
-					for index, affixes in ipairs(affixSchedule) do
-						if affix1 == affixes[1] and affix2 == affixes[2] and affix3 == affixes[3] then
-							currentWeek = index
+	local currentAffixes = C_MythicPlus.GetCurrentAffixes()
+
+	if currentAffixes then
+		for index, affixes in ipairs(affixSchedule) do
+			if currentAffixes[3] == affixes[1] and currentAffixes[1] == affixes[2] and currentAffixes[2] == affixes[3] then
+				currentWeek = index
+			end
+		end
+	else
+		for container=BACKPACK_CONTAINER, NUM_BAG_SLOTS do
+			local slots = GetContainerNumSlots(container)
+			for slot=1, slots do
+				local _, _, _, _, _, _, slotLink = GetContainerItemInfo(container, slot)
+				local itemString = slotLink and slotLink:match("|Hkeystone:([0-9:]+)|h(%b[])|h")
+				if itemString then
+					local info = { strsplit(":", itemString) }
+					local mapLevel = tonumber(info[3])
+					if mapLevel >= 7 then
+						local affix1, affix2, affix3, affix4 = tonumber(info[4]), tonumber(info[5]), tonumber(info[6]), tonumber(info[7])
+						for index, affixes in ipairs(affixSchedule) do
+							if affix1 == affixes[1] and affix2 == affixes[2] and affix3 == affixes[3] then
+								currentWeek = index
+							end
 						end
 					end
 				end
