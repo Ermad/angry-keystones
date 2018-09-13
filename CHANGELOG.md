@@ -1,3 +1,7 @@
+## v0.15.0
+
+* Added showing which Keystones each party member has, if they are running AngryKeystones. They are displayed below the Keystone schedule in the Mythic Dungeon pane.
+
 ## v0.14.0
 
 * Readded affix schedule to Mythic dungeon pane

@@ -15,6 +15,7 @@ local configDefaults = {
 	showLevelModifier = false,
 	hideTalkingHead = true,
 	resetPopup = false,
+	announceKeystones = false,
 }
 local callbacks = {}
 

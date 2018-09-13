@@ -42,6 +42,10 @@ langs.enUS = {
 	config_exclusiveTracker = "Hide quest and achievement trackers during Mythic Keystones (requires Reload UI to take effect)",
 	config_hideTalkingHead = "Hide Talking Head dialog during a Mythic Keystone dungeon",
 	config_resetPopup = "Show popup to reset instances upon leaving a completed Mythic Keystone dungeon",
+	partyKeysTitle = "Party Keystones",
+	newKeystoneAnnounce = "New Keystone: %s",
+	currentKeystoneText = "Current: |cFFFFFFFF%s|r",
+	config_announceKeystones = "Announce newly acquired Mythic Keystones to your party",
 }
 langs.enGB = langs.enUS
 
