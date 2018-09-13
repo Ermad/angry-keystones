@@ -1,3 +1,7 @@
+## v0.14.0
+
+* Readded affix schedule to Mythic dungeon pane
+
 ## v0.13.7
 
 * Only auto select gossip entries during active Keystone dungeon

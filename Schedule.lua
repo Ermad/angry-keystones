@@ -1,4 +1,3 @@
-if GetBuildInfo() ~= "7.2.0" then return end
 local ADDON, Addon = ...
 local Mod = Addon:NewModule('Schedule')
 
@@ -8,18 +7,18 @@ local requestKeystoneCheck
 
 -- 1: Overflowing, 2: Skittish, 3: Volcanic, 4: Necrotic, 5: Teeming, 6: Raging, 7: Bolstering, 8: Sanguine, 9: Tyrannical, 10: Fortified, 11: Bursting, 12: Grievous, 13: Explosive, 14: Quaking
 local affixSchedule = {
-	{ 6, 3, 9 },
-	{ 5, 13, 10 },
-	{ 7, 12, 9 },
-	{ 8, 4, 10 },
-	{ 11, 2, 9 },
-	{ 5, 14, 10 },
-	{ 6, 4, 9 },
-	{ 7, 2, 10 },
-	{ 5, 3, 9 },
-	{ 8, 12, 10 },
-	{ 7, 13, 9 },
-	{ 11, 14, 10 },
+	{ 10, 8, 4 },
+	{ 9, 11, 2 },
+	{ 10, 5, 14 },
+	{ 9, 6, 4 },
+	{ 10, 7, 2 },
+	{ 9, 5, 3 },
+	{ 10, 8, 12 },
+	{ 9, 7, 13 },
+	{ 10, 11, 14 },
+	{ 9, 6, 3 },
+	{ 10, 5, 13 },
+	{ 9, 7, 12 },
 }
 local currentWeek
 
@@ -70,13 +69,12 @@ local function makeAffix(parent)
 end
 
 function Mod:Blizzard_ChallengesUI()
-	ChallengesFrame.GuildBest:ClearAllPoints()
-	ChallengesFrame.GuildBest:SetPoint("TOPLEFT", ChallengesFrame.WeeklyBest.Child.Star, "BOTTOMRIGHT", 9, 30)
+	ChallengesFrame.WeeklyInfo.Child.WeeklyChest:ClearAllPoints()
+	ChallengesFrame.WeeklyInfo.Child.WeeklyChest:SetPoint("LEFT", 60, -45)
 
 	local frame = CreateFrame("Frame", nil, ChallengesFrame)
 	frame:SetSize(206, 110)
-	frame:SetPoint("TOP", ChallengesFrame.WeeklyBest.Child.Star, "BOTTOM", 0, 30)
-	frame:SetPoint("LEFT", ChallengesFrame, "LEFT", 40, 0)
+	frame:SetPoint("TOPLEFT", ChallengesFrame.WeeklyInfo.Child.WeeklyChest, "TOPRIGHT", 30, 0)
 	Mod.Frame = frame
 
 	local bg = frame:CreateTexture(nil, "BACKGROUND")
@@ -152,11 +150,11 @@ function Mod:CheckInventoryKeystone()
 			local itemString = slotLink and slotLink:match("|Hkeystone:([0-9:]+)|h(%b[])|h")
 			if itemString then
 				local info = { strsplit(":", itemString) }
-				local mapLevel = tonumber(info[2])
+				local mapLevel = tonumber(info[3])
 				if mapLevel >= 7 then
-					local affix1, affix2 = tonumber(info[3]), tonumber(info[4])
+					local affix1, affix2, affix3, affix4 = tonumber(info[4]), tonumber(info[5]), tonumber(info[6]), tonumber(info[7])
 					for index, affixes in ipairs(affixSchedule) do
-						if affix1 == affixes[1] and affix2 == affixes[2] then
+						if affix1 == affixes[1] and affix2 == affixes[2] and affix3 == affixes[3] then
 							currentWeek = index
 						end
 					end
