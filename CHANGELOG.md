@@ -1,3 +1,8 @@
+## v0.15.1
+
+* Added option to announce your newly acquired Keystone to your party. Disabled by default.
+* Localization updates
+
 ## v0.15.0
 
 * Added showing which Keystones each party member has, if they are running AngryKeystones. They are displayed below the Keystone schedule in the Mythic Dungeon pane.

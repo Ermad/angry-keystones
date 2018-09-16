@@ -91,8 +91,16 @@ local function UpdateFrame()
 	Mod.AffixFrame:Show()
 	Mod.PartyFrame:Show()
 	Mod.KeystoneText:Show()
+
 	ChallengesFrame.WeeklyInfo.Child.WeeklyChest:ClearAllPoints()
 	ChallengesFrame.WeeklyInfo.Child.WeeklyChest:SetPoint("LEFT", 50, -30)
+	if ChallengesFrame.WeeklyInfo.Child.WeeklyChest:IsShown() then
+		ChallengesFrame.WeeklyInfo.Child.RunStatus:SetWidth(240)
+	else
+		ChallengesFrame.WeeklyInfo.Child.RunStatus:SetWidth(240)
+		ChallengesFrame.WeeklyInfo.Child.RunStatus:ClearAllPoints()
+		ChallengesFrame.WeeklyInfo.Child.RunStatus:SetPoint("TOP", ChallengesFrame.WeeklyInfo.Child.WeeklyChest, "TOP", -10, 35)
+	end
 
 	local currentKeystoneName = GetNameForKeystone(C_MythicPlus.GetOwnedKeystoneChallengeMapID(), C_MythicPlus.GetOwnedKeystoneLevel())
 	if currentKeystoneName then
@@ -262,8 +270,6 @@ function Mod:Blizzard_ChallengesUI()
 	end
 	frame2.Entries = entries2
 
-	ChallengesFrame.WeeklyInfo.Child.RunStatus:SetWidth(220)
-
 	local keystoneText = ChallengesFrame.WeeklyInfo.Child:CreateFontString(nil, "ARTWORK", "GameFontNormalMed2")
 	keystoneText:SetPoint("BOTTOM", ChallengesFrame.WeeklyInfo.Child.WeeklyChest, "BOTTOM", 0, -25)
 	keystoneText:SetWidth(220)
@@ -304,8 +310,15 @@ function Mod:CheckAffixes()
 	end
 end
 
+local bagUpdateTimerStarted = false
 function Mod:BAG_UPDATE()
-	self:CheckCurrentKeystone(true)
+	if not bagUpdateTimerStarted then
+		bagUpdateTimerStarted = true
+		C_Timer.After(1, function()
+			Mod:CheckCurrentKeystone(true)
+			bagUpdateTimerStarted = false
+		end)
+	end
 end
 
 function Mod:CHAT_MSG_LOOT(...)
