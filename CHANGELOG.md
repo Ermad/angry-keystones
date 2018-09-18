@@ -1,3 +1,7 @@
+## v0.15.2
+
+* Bug fixes
+
 ## v0.15.1
 
 * Added option to announce your newly acquired Keystone to your party. Disabled by default.
