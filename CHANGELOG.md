@@ -1,3 +1,7 @@
+## v0.15.4
+
+* Smal bug fix
+
 ## v0.15.3
 
 * Localizations update
