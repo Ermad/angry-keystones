@@ -1,6 +1,10 @@
+## v0.15.5
+
+* Bug fixes
+
 ## v0.15.4
 
-* Smal bug fix
+* Small bug fix
 
 ## v0.15.3
 
