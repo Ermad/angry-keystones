@@ -1,3 +1,7 @@
+## v0.16.0
+
+* Update for 8.1
+
 ## v0.15.7
 
 * Bug fixes
