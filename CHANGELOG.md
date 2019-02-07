@@ -1,3 +1,11 @@
+## v0.17.0
+
+* Added counter until next Reaping spawn above enemy forces meter
+
+## v0.16.1
+
+* ToC Bump
+
 ## v0.16.0
 
 * Update for 8.1
