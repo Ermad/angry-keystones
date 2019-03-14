@@ -1,3 +1,7 @@
+## v0.17.1
+
+* Small bugfix
+
 ## v0.17.0
 
 * Added counter until next Reaping spawn above enemy forces meter
