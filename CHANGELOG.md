@@ -1,3 +1,7 @@
+## v0.17.2
+
+* Small bugfix for Reaping tracker
+
 ## v0.17.1
 
 * Small bugfix
