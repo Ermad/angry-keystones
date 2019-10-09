@@ -1,3 +1,7 @@
+## v0.18.1
+
+* Added updated Keystone schedule
+
 ## v0.18.0
 
 * Added message stating new keystone schedule is unknown, it will be update once it is.
