@@ -1,3 +1,7 @@
+## v0.18.2
+
+* Small bug fix
+
 ## v0.18.1
 
 * Added updated Keystone schedule
