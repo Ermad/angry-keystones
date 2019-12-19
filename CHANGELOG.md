@@ -1,3 +1,7 @@
+## v0.18.3
+
+* Update to affix schedule
+
 ## v0.18.2
 
 * Small bug fix
