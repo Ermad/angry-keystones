@@ -1,3 +1,8 @@
+## v0.18.4
+
+* ToC bump
+* Small bug fix to not use deprecated function
+
 ## v0.18.3
 
 * Update to affix schedule
