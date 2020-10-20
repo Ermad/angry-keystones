@@ -1,3 +1,12 @@
+## v0.19.2
+
+* Bug fixes
+
+## v0.19.1
+
+* Initial support for 9.0
+* ToC bump
+
 ## v0.18.4
 
 * ToC bump
