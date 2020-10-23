@@ -1,3 +1,7 @@
+## v0.19.3
+
+* Bug fixes
+
 ## v0.19.2
 
 * Bug fixes
