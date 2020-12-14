@@ -6,25 +6,39 @@ local rowCount = 3
 local requestPartyKeystones
 
 -- 1: Overflowing, 2: Skittish, 3: Volcanic, 4: Necrotic, 5: Teeming, 6: Raging, 7: Bolstering, 8: Sanguine, 9: Tyrannical, 10: Fortified, 11: Bursting, 12: Grievous, 13: Explosive, 14: Quaking
-local affixScheduleText = {
-	{"Fortified",	"Bolstering",	"Grievous"},
-	{"Tyrannical",	"Raging",	"Explosive"},
-	{"Fortified",	"Sanguine",	"Grievous"},
-	{"Tyrannical",	"Teeming",	"Volcanic"},
-	{"Fortified",	"Bolstering",	"Skittish"},
-	{"Tyrannical",	"Bursting",	"Necrotic"},
-	{"Fortified",	"Sanguine",	"Quaking"},
-	{"Tyrannical",	"Bolstering",	"Explosive"},
-	{"Fortified",	"Bursting",	"Volcanic"},
-	{"Tyrannical",	"Raging",	"Necrotic"},
-	{"Fortified",	"Teeming",	"Quaking"},
-	{"Tyrannical",	"Bursting",	"Skittish"}
+-- local affixScheduleText = {
+-- 	{"Fortified",	"Bolstering",	"Grievous"},
+-- 	{"Tyrannical",	"Raging",	"Explosive"},
+-- 	{"Fortified",	"Sanguine",	"Grievous"},
+-- 	{"Tyrannical",	"Teeming",	"Volcanic"},
+-- 	{"Fortified",	"Bolstering",	"Skittish"},
+-- 	{"Tyrannical",	"Bursting",	"Necrotic"},
+-- 	{"Fortified",	"Sanguine",	"Quaking"},
+-- 	{"Tyrannical",	"Bolstering",	"Explosive"},
+-- 	{"Fortified",	"Bursting",	"Volcanic"},
+-- 	{"Tyrannical",	"Raging",	"Necrotic"},
+-- 	{"Fortified",	"Teeming",	"Quaking"},
+-- 	{"Tyrannical",	"Bursting",	"Skittish"}
+-- }
+-- local affixScheduleKeys = {["Overflowing"]=1, ["Skittish"]=2, ["Volcanic"]=3, ["Necrotic"]=4, ["Teeming"]=5, ["Raging"]=6, ["Bolstering"]=7, ["Sanguine"]=8, ["Tyrannical"]=9, ["Fortified"]=10, ["Bursting"]=11, ["Grievous"]=12, ["Explosive"]=13, ["Quaking"]=14 }
+-- local affixSchedule = {}
+-- for i,v in ipairs(affixScheduleText) do
+-- 	affixSchedule[i] = { affixScheduleKeys[v[1]], affixScheduleKeys[v[2]], affixScheduleKeys[v[3]] }
+-- end
+local affixSchedule = {
+	[1] = {[1]=5,[2]=3,[3]=9},
+	[2] = {[1]=7,[2]=2,[3]=10},
+	[3] = {[1]=11,[2]=4,[3]=9},
+	[4] = {[1]=8,[2]=14,[3]=10},
+	[5] = {[1]=7,[2]=13,[3]=9},
+	[6] = {[1]=11,[2]=3,[3]=10},
+	[7] = {[1]=6,[2]=4,[3]=9},
+	[8] = {[1]=5,[2]=14,[3]=10},
+	[9] = {[1]=11,[2]=2,[3]=9},
+	[10] = {[1]=7,[2]=12,[3]=10},
+	[11] = {[1]=6,[2]=13,[3]=9},
+	[12] = {[1]=8,[2]=12,[3]=10},
 }
-local affixScheduleKeys = {["Overflowing"]=1, ["Skittish"]=2, ["Volcanic"]=3, ["Necrotic"]=4, ["Teeming"]=5, ["Raging"]=6, ["Bolstering"]=7, ["Sanguine"]=8, ["Tyrannical"]=9, ["Fortified"]=10, ["Bursting"]=11, ["Grievous"]=12, ["Explosive"]=13, ["Quaking"]=14 }
-local affixSchedule = {}
-for i,v in ipairs(affixScheduleText) do
-	affixSchedule[i] = { affixScheduleKeys[v[1]], affixScheduleKeys[v[2]], affixScheduleKeys[v[3]] }
-end
 
 local affixScheduleUnknown = false
 local currentWeek

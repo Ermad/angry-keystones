@@ -1,3 +1,8 @@
+## v0.19.5
+
+* Updated schedule for Shadowlands
+* Show progress remaining until next prideful activation
+
 ## v0.19.4
 
 * Fixed bug with Kyrian Steward
