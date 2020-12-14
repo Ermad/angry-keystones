@@ -1,3 +1,7 @@
+## v0.19.4
+
+* Fixed bug with Kyrian Steward
+
 ## v0.19.3
 
 * Bug fixes
