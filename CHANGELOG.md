@@ -1,4 +1,4 @@
-## v0.19.5
+## v0.19.6
 
 * Updated schedule for Shadowlands
 * Show progress remaining until next prideful activation
