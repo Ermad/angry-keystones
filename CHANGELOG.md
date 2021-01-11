@@ -1,3 +1,7 @@
+## v0.19.7
+
+* ToC bump
+
 ## v0.19.6
 
 * Updated schedule for Shadowlands
