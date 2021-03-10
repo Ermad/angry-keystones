@@ -1,4 +1,4 @@
-## v0.19.8
+## v0.19.8b
 
 * Schedule update
 
