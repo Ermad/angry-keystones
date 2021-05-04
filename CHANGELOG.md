@@ -1,3 +1,7 @@
+## v0.20.0
+
+* Added localization updates
+
 ## v0.19.8b
 
 * Schedule update
