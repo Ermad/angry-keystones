@@ -5,24 +5,6 @@ local rowCount = 3
 
 local requestPartyKeystones
 
--- 1:Overflowing, 2:Skittish, 3:Volcanic, 4:Necrotic, 5:Teeming, 6:Raging, 7:Bolstering, 8:Sanguine, 9:Tyrannical, 10:Fortified, 11:Bursting, 12:Grievous, 13:Explosive, 14:Quaking, 16:Infested, 117: Reaping, 119:Beguiling 120:Awakened, 121:Prideful, 122:Inspiring, 123:Spiteful, 124:Storming
-local affixSchedule = {
-	[1] =  {[1]=11, [2]=3,  [3]=10}, --1 Bursting Volcanic Fortified
-	[2] =  {[1]=7,  [2]=124,[3]=9}, --2 Bolstering Storming Tyrannical
-	[3] =  {[1]=123,[2]=12, [3]=10}, --3 Spiteful Grievous Fortified
-	[4] =  {[1]=122,[2]=4,  [3]=9}, --4 Inspiring Necrotic Tyrannical
-	[5] =  {[1]=8,  [2]=14, [3]=10}, --5 Sanguine Quaking Fortified
-	[6] =  {[1]=6,  [2]=13, [3]=9}, --6 Raging Explosive Tyrannical
-	[7] =  {[1]=123,[2]=3,  [3]=10}, --7 Spiteful Volcanic Fortified
-	[8] =  {[1]=7,  [2]=4,  [3]=9}, --8 Bolstering Necrotic Tyrannical
-	[9] =  {[1]=122,[2]=124,[3]=10}, --9 Inspiring Storming Fortified
-	[10] = {[1]=11, [2]=13, [3]=9}, --10 Bursting Explosive Tyrannical
-	[11] = {[1]=8,  [2]=12, [3]=10}, --11 Sanguine Grievous Fortified
-	[12] = {[1]=6,  [2]=14, [3]=9}, --12 Raging Quaking Tyrannical
-}
-
-local affixScheduleUnknown = false
-local currentWeek
 local currentKeystoneMapID
 local currentKeystoneLevel
 local unitKeystones = {}
@@ -98,14 +80,12 @@ local function UpdatePartyKeystones()
 end
 
 local function UpdateFrame()
-	Mod:CheckAffixes()
-	Mod.AffixFrame:Show()
 	Mod.PartyFrame:Show()
 	Mod.KeystoneText:Show()
 
 	local weeklyChest = ChallengesFrame.WeeklyInfo.Child.WeeklyChest
 	weeklyChest:ClearAllPoints()
-	weeklyChest:SetPoint("LEFT", 100, -30)
+	weeklyChest:SetPoint("LEFT", 150, 0)
 
 	local description = ChallengesFrame.WeeklyInfo.Child.Description
 	description:SetWidth(240)
@@ -120,25 +100,6 @@ local function UpdateFrame()
 		Mod.KeystoneText:Hide()
 	end
 
-	if currentWeek and not affixScheduleUnknown then
-		for i = 1, rowCount do
-			local entry = Mod.AffixFrame.Entries[i]
-			entry:Show()
-
-			local scheduleWeek = (currentWeek - 1 + i) % (#affixSchedule) + 1
-			local affixes = affixSchedule[scheduleWeek]
-			for j = 1, #affixes do
-				local affix = entry.Affixes[j]
-				affix:SetUp(affixes[j])
-			end
-		end
-		Mod.AffixFrame.Label:Hide()
-	else
-		for i = 1, rowCount do
-			Mod.AffixFrame.Entries[i]:Hide()
-		end
-		Mod.AffixFrame.Label:Show()
-	end
 	UpdatePartyKeystones()
 end
 
@@ -164,79 +125,10 @@ local function makeAffix(parent)
 end
 
 function Mod:Blizzard_ChallengesUI()
-	local frame = CreateFrame("Frame", nil, ChallengesFrame)
-	frame:SetSize(246, 92)
-	frame:SetPoint("TOPLEFT", ChallengesFrame.WeeklyInfo.Child.WeeklyChest, "TOPRIGHT", -20, 30)
-	Mod.AffixFrame = frame
-
-	local bg = frame:CreateTexture(nil, "BACKGROUND")
-	bg:SetAllPoints()
-	bg:SetAtlas("ChallengeMode-guild-background")
-	bg:SetAlpha(0.4)
-
-	local title = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalMed2")
-	title:SetText(Addon.Locale.scheduleTitle)
-	title:SetPoint("TOPLEFT", 15, -7)
-
-	local line = frame:CreateTexture(nil, "ARTWORK")
-	line:SetSize(232, 9)
-	line:SetAtlas("ChallengeMode-RankLineDivider", false)
-	line:SetPoint("TOP", 0, -20)
-
-	local entries = {}
-	for i = 1, rowCount do
-		local entry = CreateFrame("Frame", nil, frame)
-		entry:SetSize(216, 18)
-
-		local text = entry:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-		text:SetWidth(120)
-		text:SetJustifyH("LEFT")
-		text:SetWordWrap(false)
-		text:SetText( Addon.Locale["scheduleWeek"..i+1] )
-		text:SetPoint("LEFT")
-		entry.Text = text
-
-		local affixes = {}
-		local prevAffix
-		for j = 3, 1, -1 do
-			local affix = makeAffix(entry)
-			if prevAffix then
-				affix:SetPoint("RIGHT", prevAffix, "LEFT", -4, 0)
-			else
-				affix:SetPoint("RIGHT")
-			end
-			prevAffix = affix
-			affixes[j] = affix
-		end
-		entry.Affixes = affixes
-
-		if i == 1 then
-			entry:SetPoint("TOP", line, "BOTTOM")
-		else
-			entry:SetPoint("TOP", entries[i-1], "BOTTOM")
-		end
-
-		entries[i] = entry
-	end
-	frame.Entries = entries
-
-	local label = frame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-	label:SetPoint("TOPLEFT", line, "BOTTOMLEFT", 10, 0)
-	label:SetPoint("TOPRIGHT", line, "BOTTOMRIGHT", -10, 0)
-	label:SetJustifyH("CENTER")
-	label:SetJustifyV("MIDDLE")
-	label:SetHeight(72)
-	label:SetWordWrap(true)
-	if affixScheduleUnknown then
-		label:SetText(Addon.Locale.scheduleUnknown)
-	else
-		label:SetText(Addon.Locale.scheduleMissingKeystone)
-	end
-	frame.Label = label
-
+	-- Party keys
 	local frame2 = CreateFrame("Frame", nil, ChallengesFrame)
 	frame2:SetSize(246, 110)
-	frame2:SetPoint("TOP", frame, "BOTTOM", 0, -10)
+	frame2:SetPoint("TOPLEFT", ChallengesFrame.WeeklyInfo.Child.WeeklyChest, "TOPRIGHT", 70, 0)
 	Mod.PartyFrame = frame2
 
 	local bg2 = frame2:CreateTexture(nil, "BACKGROUND")
@@ -284,9 +176,10 @@ function Mod:Blizzard_ChallengesUI()
 	end
 	frame2.Entries = entries2
 
+	-- Current key name
 	local keystoneText = ChallengesFrame.WeeklyInfo.Child:CreateFontString(nil, "ARTWORK", "GameFontNormalMed2")
-	keystoneText:SetPoint("TOP", ChallengesFrame.WeeklyInfo.Child.WeeklyChest, "BOTTOM", 0, -15)
-	keystoneText:SetWidth(220)
+	keystoneText:SetPoint("TOP", ChallengesFrame.WeeklyInfo.Child.WeeklyChest, "BOTTOM", 170, -100)
+	keystoneText:SetWidth(400)
 	Mod.KeystoneText = keystoneText
 
 	hooksecurefunc("ChallengesFrame_Update", UpdateFrame)
@@ -300,25 +193,6 @@ function Mod:GetInventoryKeystone()
 			local itemString = slotLink and slotLink:match("|Hkeystone:([0-9:]+)|h(%b[])|h")
 			if itemString then
 				return slotLink, itemString
-			end
-		end
-	end
-end
-
-function Mod:CheckAffixes()
-	currentWeek = nil
-	local currentAffixes = C_MythicPlus.GetCurrentAffixes()
-
-	if currentAffixes then
-		for index, affixes in ipairs(affixSchedule) do
-			local matches = 0
-			for _, affix in ipairs(currentAffixes) do
-				if affix.id == affixes[1] or affix.id == affixes[2] or affix.id == affixes[3] then
-					matches = matches + 1
-				end
-			end
-			if matches >= 3 then
-				currentWeek = index
 			end
 		end
 	end
