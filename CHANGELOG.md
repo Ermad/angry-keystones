@@ -1,3 +1,7 @@
+## v0.20.1
+
+* Added French localization (thanks willoucom)
+
 ## v0.20.0
 
 * Added localization updates
