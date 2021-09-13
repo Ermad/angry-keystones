@@ -7,18 +7,33 @@ local requestPartyKeystones
 
 -- 1:Overflowing, 2:Skittish, 3:Volcanic, 4:Necrotic, 5:Teeming, 6:Raging, 7:Bolstering, 8:Sanguine, 9:Tyrannical, 10:Fortified, 11:Bursting, 12:Grievous, 13:Explosive, 14:Quaking, 16:Infested, 117: Reaping, 119:Beguiling 120:Awakened, 121:Prideful, 122:Inspiring, 123:Spiteful, 124:Storming
 local affixSchedule = {
-	[1] =  {[1]=11, [2]=3,  [3]=10}, --1 Bursting Volcanic Fortified
-	[2] =  {[1]=7,  [2]=124,[3]=9}, --2 Bolstering Storming Tyrannical
-	[3] =  {[1]=123,[2]=12, [3]=10}, --3 Spiteful Grievous Fortified
-	[4] =  {[1]=122,[2]=4,  [3]=9}, --4 Inspiring Necrotic Tyrannical
-	[5] =  {[1]=8,  [2]=14, [3]=10}, --5 Sanguine Quaking Fortified
-	[6] =  {[1]=6,  [2]=13, [3]=9}, --6 Raging Explosive Tyrannical
-	[7] =  {[1]=123,[2]=3,  [3]=10}, --7 Spiteful Volcanic Fortified
-	[8] =  {[1]=7,  [2]=4,  [3]=9}, --8 Bolstering Necrotic Tyrannical
-	[9] =  {[1]=122,[2]=124,[3]=10}, --9 Inspiring Storming Fortified
-	[10] = {[1]=11, [2]=13, [3]=9}, --10 Bursting Explosive Tyrannical
-	[11] = {[1]=8,  [2]=12, [3]=10}, --11 Sanguine Grievous Fortified
-	[12] = {[1]=6,  [2]=14, [3]=9}, --12 Raging Quaking Tyrannical
+	-- Season 1
+	-- [1] =  {[1]=11, [2]=3,  [3]=10}, --1 Bursting Volcanic Fortified
+	-- [2] =  {[1]=7,  [2]=124,[3]=9}, --2 Bolstering Storming Tyrannical
+	-- [3] =  {[1]=123,[2]=12, [3]=10}, --3 Spiteful Grievous Fortified
+	-- [4] =  {[1]=122,[2]=4,  [3]=9}, --4 Inspiring Necrotic Tyrannical
+	-- [5] =  {[1]=8,  [2]=14, [3]=10}, --5 Sanguine Quaking Fortified
+	-- [6] =  {[1]=6,  [2]=13, [3]=9}, --6 Raging Explosive Tyrannical
+	-- [7] =  {[1]=123,[2]=3,  [3]=10}, --7 Spiteful Volcanic Fortified
+	-- [8] =  {[1]=7,  [2]=4,  [3]=9}, --8 Bolstering Necrotic Tyrannical
+	-- [9] =  {[1]=122,[2]=124,[3]=10}, --9 Inspiring Storming Fortified
+	-- [10] = {[1]=11, [2]=13, [3]=9}, --10 Bursting Explosive Tyrannical
+	-- [11] = {[1]=8,  [2]=12, [3]=10}, --11 Sanguine Grievous Fortified
+	-- [12] = {[1]=6,  [2]=14, [3]=9}, --12 Raging Quaking Tyrannical
+
+	-- Season 2
+	[1] =  {[1]=10, [2]=11,  [3]=124}, --1 Fortified Bursting Stormin
+	[2] =  {[1]=9,  [2]=6,[3]=3}, --2 Tyrannical Raging Volcanic
+	[3] =  {[1]=10,[2]=122, [3]=12}, --3 Fortified Inspiring Grievous
+	[4] =  {[1]=9,[2]=123,  [3]=4}, --4 Tyrannical Spiteful Necrotic
+	[5] =  {[1]=10,  [2]=7, [3]=4}, --5 Fortified Bolstering Quaking
+	[6] =  {[1]=9,  [2]=8, [3]=124}, --6 Tyrannical Sanguine Storming
+	[7] =  {[1]=10,[2]=6,  [3]=13}, --7 Fortified Raging	Explosive
+	[8] =  {[1]=9,  [2]=11,  [3]=3}, --8 Tyrannical Bursting Volcanic
+	[9] =  {[1]=10,[2]=123,[3]=12}, --9 Fortified Spiteful Grievous
+	[10] = {[1]=9, [2]=122, [3]=14}, --10 Tyrannical Inspiring Quaking
+	[11] = {[1]=10,  [2]=8, [3]=4}, --11 Fortified Sanguine Necrotic
+	[12] = {[1]=9,  [2]=7, [3]=13}, --12 Tyrannical Bolstering Explosive
 }
 
 local affixScheduleUnknown = false
