@@ -1,3 +1,7 @@
+## v0.22.0
+
+* Updated schedule for Shadowlands Season 2
+
 ## v0.21.0
 
 * Added French localization (thanks willoucom)
