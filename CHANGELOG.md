@@ -1,3 +1,7 @@
+## v0.22.1
+
+* Bug fixes
+
 ## v0.22.0
 
 * Updated schedule for Shadowlands Season 2
