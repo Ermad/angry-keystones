@@ -1,3 +1,8 @@
+## v0.23.0
+
+* Bug fixes
+* ToC bump for 9.1.5
+
 ## v0.22.1
 
 * Bug fixes

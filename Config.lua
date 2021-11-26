@@ -221,7 +221,7 @@ end
 local DropDown_Index = 0
 local function DropDown_Create(self)
 	DropDown_Index = DropDown_Index + 1
-	local dropdown = LibDD:Create_UIDropDownMenu("Frame", ADDON.."ConfigDropDown"..DropDown_Index, self)
+	local dropdown = LibDD:Create_UIDropDownMenu(ADDON.."ConfigDropDown"..DropDown_Index, self)
 	_G[ADDON.."ConfigDropDown"..DropDown_Index.."Middle"]:SetWidth(200)
 	
 	local label = dropdown:CreateFontString(ADDON.."ConfigDropLabel"..DropDown_Index, "BACKGROUND", "GameFontNormal")
