@@ -6,6 +6,8 @@
 ## SavedVariablesPerCharacter: AngryKeystones_CharacterConfig
 ## X-Packaged-Version: @project-version@
 
+embeds.xml
+
 Core.lua
 Locale.lua
 Config.lua
