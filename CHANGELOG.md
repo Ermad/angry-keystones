@@ -1,3 +1,7 @@
+## v0.24.1
+
+* ToC bump
+
 ## v0.24.0
 
 * Trimmed Tazavesh keystone names in schedule (thanks siweia)
