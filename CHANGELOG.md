@@ -1,6 +1,6 @@
 ## v0.24.1
 
-* ToC bump
+* Added option to disable keystone schedule and party keystones in Mythic Keystone window
 
 ## v0.24.0
 
