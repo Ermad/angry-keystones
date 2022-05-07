@@ -19,7 +19,7 @@ local affixSchedule = {
 	[9] =  {[1]=123,[2]=4, [3]=10}, -- 9 Spiteful Necrotic Fortified - may 3, 2022
 	[10] = {[1]=122,[2]=14, [3]=9},  --10 Inspiring Quaking Tyrannical - may 10, 2022
 	[11] = {[1]=8,  [2]=12,  [3]=10}, --11 Sanguine Grievous Fortified - may 17, 2022
-	[12] = {[1]=7,  [2]=13, [3]=9},  --13 Bolstering Explosive Tyrannical - may 24, 2022
+	[12] = {[1]=7,  [2]=13, [3]=9},  --12 Bolstering Explosive Tyrannical - may 24, 2022
 }
 
 local scheduleEnabled = true
