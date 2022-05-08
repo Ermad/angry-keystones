@@ -7,6 +7,8 @@ local npcBlacklist = {
 	[166663] = true, -- Kyrian Steward
 }
 
+local cosRumorNPC = 107486
+
 local function GossipNPCID()
 	local guid = UnitGUID("npc")
 	local npcid = guid and select(6, strsplit("-", guid))
@@ -40,6 +42,31 @@ local function IsInActiveChallengeMode()
 	return false
 end
 
+function Mod:CoSRumor()
+	local clue = GetGossipText()
+	local shortClue = Addon.Locale:Rumor(clue)
+	if not shortClue then
+		AngryKeystones_Data.rumors[clue] = true
+	end
+	if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
+		SendChatMessage(shortClue or clue, "INSTANCE_CHAT")
+	elseif IsInGroup(LE_PARTY_CATEGORY_HOME) then
+		SendChatMessage(shortClue or clue, "PARTY")
+	else
+		SendChatMessage(shortClue or clue, "SAY")
+	end
+end
+
+function Mod:RumorCleanup()
+	local new = {}
+	for clue,_ in pairs(AngryKeystones_Data.rumors) do
+		if not Addon.Locale:Rumor(clue) then
+			new[clue] = true
+		end
+	end
+	AngryKeystones_Data.rumors = new
+end
+
 function Mod:GOSSIP_SHOW()
 	local npcId = GossipNPCID()
 	if C_GossipInfo.GetNumOptions() ~= 1 then return end
@@ -63,6 +90,13 @@ function Mod:GOSSIP_SHOW()
 			end
 		end
 	end
+	
+	if Addon.Config.cosRumors and Addon.Locale:HasRumors() and npcId == cosRumorNPC and GetNumGossipOptions() == 0 then
+		self:CoSRumor()
+		CloseGossip()
+	end
+
+	
 end
 
 local function PlayCurrent()
@@ -81,6 +115,10 @@ function Mod:Blizzard_TalkingHeadUI()
 end
 
 function Mod:Startup()
+	if not AngryKeystones_Data then AngryKeystones_Data = {} end
+	if not AngryKeystones_Data.rumors then AngryKeystones_Data.rumors = {} end
+	if Addon.Config.cosRumors then self:RumorCleanup() end
+
 	self:RegisterEvent("GOSSIP_SHOW")
 
 	self:RegisterAddOnLoaded("Blizzard_TalkingHeadUI")
