@@ -1,3 +1,12 @@
+## v0.25.1
+
+* Bug fixes
+
+## v0.25.0
+
+* Update to new affix schedule (via marthammor)
+* Restore CoS rumor announce (via marthammor)
+
 ## v0.24.1
 
 * Added option to disable keystone schedule and party keystones in Mythic Keystone window
