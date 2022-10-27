@@ -1,3 +1,7 @@
+## v0.26.0
+
+* Bug fix for 10.0 (via sehra)
+
 ## v0.25.4
 
 * ToC bump
