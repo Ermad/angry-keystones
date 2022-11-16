@@ -1,3 +1,11 @@
+## v0.26.2
+
+* Bug fix for patch (via IceQ1337)
+
+## v0.26.1
+
+* Bug fix for auto gossip (via Numynum)
+
 ## v0.26.0
 
 * Bug fix for 10.0 (via sehra)
