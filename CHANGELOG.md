@@ -1,3 +1,7 @@
+## v0.26.3
+
+* Bug fixes
+
 ## v0.26.2
 
 * Bug fix for patch (via IceQ1337)
