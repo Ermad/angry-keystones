@@ -1,3 +1,7 @@
+## v0.26.4
+
+* Bug fixes
+
 ## v0.26.3
 
 * Bug fixes
