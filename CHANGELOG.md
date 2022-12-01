@@ -1,3 +1,7 @@
+## v0.26.6
+
+* Bug fix for auto slotting keystones
+
 ## v0.26.5
 
 * Lib updates
