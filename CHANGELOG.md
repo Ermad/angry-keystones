@@ -1,3 +1,8 @@
+## v0.27.0
+
+* Added Shadowlands season 1 schedule
+* Bug fixes
+
 ## v0.26.6
 
 * Bug fix for auto slotting keystones
