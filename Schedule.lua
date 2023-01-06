@@ -32,7 +32,7 @@ local function GetNameForKeystone(keystoneMapID, keystoneLevel)
 	if keystoneMapID and keystoneMapName then
 		keystoneMapName = gsub(keystoneMapName, ".-%-", "") -- Mechagon
 		keystoneMapName = gsub(keystoneMapName, ".-"..HEADER_COLON, "") -- Tazavesh
-		return string.format("%s (%d)", keystoneMapName, keystoneLevel)
+		return string.format("(%d) %s", keystoneLevel, keystoneMapName)
 	end
 end
 
@@ -102,14 +102,15 @@ local function UpdateFrame()
 	Mod.PartyFrame:Show()
 	Mod.KeystoneText:Show()
 
+	-- Move original frame to the left
 	local weeklyChest = ChallengesFrame.WeeklyInfo.Child.WeeklyChest
 	weeklyChest:ClearAllPoints()
-	weeklyChest:SetPoint("LEFT", 100, -30)
+	weeklyChest:SetPoint("LEFT", 100, 0)
 
-	local description = ChallengesFrame.WeeklyInfo.Child.Description
-	description:SetWidth(240)
-	description:ClearAllPoints()
-	description:SetPoint("TOP", weeklyChest, "TOP", 0, 75)
+	-- Wordwrap and size of the original frame
+	local description = ChallengesFrame.WeeklyInfo.Child.WeeklyChest.RunStatus
+	description:SetWordWrap(true)
+	description:SetSize(200, 90)
 
 	local currentKeystoneName = GetNameForKeystone(C_MythicPlus.GetOwnedKeystoneChallengeMapID(), C_MythicPlus.GetOwnedKeystoneLevel())
 	if currentKeystoneName then
@@ -268,7 +269,7 @@ function Mod:Blizzard_ChallengesUI()
 		entry.Text = text
 
 		local text2 = entry:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
-		text2:SetWidth(180)
+		text2:SetWidth(140)
 		text2:SetJustifyH("RIGHT")
 		text2:SetWordWrap(false)
 		text2:SetText()
@@ -286,8 +287,8 @@ function Mod:Blizzard_ChallengesUI()
 	frame2.Entries = entries2
 
 	local keystoneText = ChallengesFrame.WeeklyInfo.Child:CreateFontString(nil, "ARTWORK", "GameFontNormalMed2")
-	keystoneText:SetPoint("TOP", ChallengesFrame.WeeklyInfo.Child.WeeklyChest, "BOTTOM", 0, -15)
-	keystoneText:SetWidth(320)
+	keystoneText:SetPoint("TOP", ChallengesFrame.WeeklyInfo.Child.WeeklyChest, "BOTTOM", 0, -80)
+	keystoneText:SetWidth(300)
 	Mod.KeystoneText = keystoneText
 
 	hooksecurefunc(ChallengesFrame, "Update", UpdateFrame)
