@@ -1,3 +1,7 @@
+## v0.28.0
+
+* Adjusted display for party keystones for longer dungeon names, via willoucom
+
 ## v0.27.0
 
 * Added Shadowlands season 1 schedule
