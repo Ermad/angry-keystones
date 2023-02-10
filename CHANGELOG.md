@@ -1,3 +1,7 @@
+## v028.1
+
+* Add time limit to dungeon icon tooltip, via sehra
+
 ## v0.28.0
 
 * Adjusted display for party keystones for longer dungeon names, via willoucom
