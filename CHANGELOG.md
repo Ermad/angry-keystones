@@ -1,4 +1,8 @@
-## v028.1
+## v0.28.3
+
+* ToC bump
+
+## v0.28.1
 
 * Add time limit to dungeon icon tooltip, via sehra
 
