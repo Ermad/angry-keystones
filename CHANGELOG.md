@@ -1,3 +1,8 @@
+## V0.28.4
+
+* Locale update
+* ToC bump
+
 ## v0.28.3
 
 * ToC bump
