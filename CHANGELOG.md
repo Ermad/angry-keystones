@@ -1,3 +1,7 @@
+## v0.29.0
+
+* Support for using KalielsTracker, can use if having taint issues
+
 ## V0.28.4
 
 * Locale update

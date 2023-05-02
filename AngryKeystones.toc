@@ -4,6 +4,7 @@
 ## Author: Ermad
 ## SavedVariables: AngryKeystones_Config, AngryKeystones_Data
 ## SavedVariablesPerCharacter: AngryKeystones_CharacterConfig
+## OptionalDeps: !KalielsTracker
 ## X-Packaged-Version: @project-version@
 
 embeds.xml
