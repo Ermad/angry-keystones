@@ -1,3 +1,7 @@
+## v0.29.1
+
+* Update schedule for season 2, via nanjuekaien1
+
 ## v0.29.0
 
 * Support for using KalielsTracker, can use if having taint issues
