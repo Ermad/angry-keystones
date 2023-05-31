@@ -134,7 +134,12 @@ local function UpdateFrame()
 			local affixes = affixSchedule[scheduleWeek]
 			for j = 1, #affixes do
 				local affix = entry.Affixes[j]
-				affix:SetUp(affixes[j])
+				if affix == 0 then
+					affix:Hide()
+				else
+					affix:SetUp(affixes[j])
+					affix:Show()
+				end
 			end
 		end
 		Mod.AffixFrame.Label:Hide()

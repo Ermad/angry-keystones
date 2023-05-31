@@ -1,3 +1,7 @@
+## v0.29.2
+
+* Update and bug fixes for schedule
+
 ## v0.29.1
 
 * Update schedule for season 2, via nanjuekaien1
