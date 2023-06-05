@@ -1,3 +1,7 @@
+## v0.29.3
+
+* Bug fixes
+
 ## v0.29.2
 
 * Update and bug fixes for schedule

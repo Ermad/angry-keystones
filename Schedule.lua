@@ -23,7 +23,7 @@ local affixSchedule = {
 }
 
 local scheduleEnabled = true
-local affixScheduleUnknown = false
+local affixScheduleUnknown = true
 local currentWeek
 local currentKeystoneMapID
 local currentKeystoneLevel
@@ -134,12 +134,7 @@ local function UpdateFrame()
 			local affixes = affixSchedule[scheduleWeek]
 			for j = 1, #affixes do
 				local affix = entry.Affixes[j]
-				if affix == 0 then
-					affix:Hide()
-				else
-					affix:SetUp(affixes[j])
-					affix:Show()
-				end
+				affix:SetUp(affixes[j])
 			end
 		end
 		Mod.AffixFrame.Label:Hide()
