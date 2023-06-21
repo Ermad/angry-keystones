@@ -15,8 +15,8 @@ local affixSchedule = {
 	[3]  = { [1]=136, [2]=123, [3]=9, }, -- Tyrannical | Incorporeal | Spiteful
 	[4]  = { [1]=135, [2]=6,   [3]=10,}, -- Fortified  | Afflicted   | Raging
 	[5]  = { [1]=3,   [2]=8,   [3]=9, }, -- Tyrannical | Volcanic    | Sanguine
-	[6]  = { [1]=0,   [2]=0,   [3]=10,}, -- Fortified  |  | 
-	[7]  = { [1]=0,   [2]=0,   [3]=9, }, -- Tyrannical |  | 
+	[6]  = { [1]=124, [2]=11,  [3]=10,}, -- Fortified  | Storming    | Bursting
+	[7]  = { [1]=135, [2]=7,   [3]=9, }, -- Tyrannical | Afflicted   | Bolstering
 	[8]  = { [1]=0,   [2]=0,   [3]=10,}, -- Fortified  |  | 
 	[9]  = { [1]=0,   [2]=0,   [3]=9, }, -- Tyrannical |  | 
 	[10] = { [1]=0,   [2]=0,   [3]=10,}, -- Fortified  |  | 
