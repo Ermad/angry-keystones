@@ -17,7 +17,7 @@ local affixSchedule = {
 	[5]  = { [1]=3,   [2]=8,   [3]=9, }, -- Tyrannical | Volcanic    | Sanguine
 	[6]  = { [1]=124, [2]=11,  [3]=10,}, -- Fortified  | Storming    | Bursting
 	[7]  = { [1]=135, [2]=7,   [3]=9, }, -- Tyrannical | Afflicted   | Bolstering
-	[8]  = { [1]=0,   [2]=0,   [3]=10,}, -- Fortified  |  | 
+	[8]  = { [1]=136, [2]=8,   [3]=10,}, -- Fortified  | Incorporeal | Sanguine
 	[9]  = { [1]=0,   [2]=0,   [3]=9, }, -- Tyrannical |  | 
 	[10] = { [1]=0,   [2]=0,   [3]=10,}, -- Fortified  |  | 
 }
