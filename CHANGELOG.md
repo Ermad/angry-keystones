@@ -1,3 +1,7 @@
+## v0.30.0
+
+* Added complete schedule back
+
 ## v0.29.3
 
 * Bug fixes

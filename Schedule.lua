@@ -23,12 +23,12 @@ local affixSchedule = {
 }
 
 local scheduleEnabled = true
-local affixScheduleUnknown = true
+local affixScheduleUnknown = false
 local currentWeek
 local currentKeystoneMapID
 local currentKeystoneLevel
 local unitKeystones = {}
-local hookedIconTooltips = true
+local hookedIconTooltips = false
 
 local function GetNameForKeystone(keystoneMapID, keystoneLevel)
 	local keystoneMapName = keystoneMapID and C_ChallengeMode.GetMapUIInfo(keystoneMapID)
