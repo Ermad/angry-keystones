@@ -10,16 +10,16 @@ local requestPartyKeystones
 -- 134:Entangling, 135：Afflicted, 136:Incorporeal
 local affixSchedule = {
 	-- Dragonflight Season 2
-	[1]  = { [1]=6,   [2]=124, [3]=9, }, -- Tyrannical | Raging      | Storming
-	[2]  = { [1]=134, [2]=7,   [3]=10,}, -- Fortified  | Entangling  | Bolstering
-	[3]  = { [1]=136, [2]=123, [3]=9, }, -- Tyrannical | Incorporeal | Spiteful
-	[4]  = { [1]=135, [2]=6,   [3]=10,}, -- Fortified  | Afflicted   | Raging
-	[5]  = { [1]=3,   [2]=8,   [3]=9, }, -- Tyrannical | Volcanic    | Sanguine
-	[6]  = { [1]=124, [2]=11,  [3]=10,}, -- Fortified  | Storming    | Bursting
-	[7]  = { [1]=135, [2]=7,   [3]=9, }, -- Tyrannical | Afflicted   | Bolstering
-	[8]  = { [1]=136, [2]=8,   [3]=10,}, -- Fortified  | Incorporeal | Sanguine
-	[9]  = { [1]=134, [2]=11,  [3]=9, }, -- Tyrannical | Entangling  | Bursting
-	[10] = { [1]=3,   [2]=123, [3]=10,}, -- Fortified  | Volcanic    | Spiteful
+	[1]  = { [1]=9,  [2]=6,   [3]=124,},    -- Tyrannical | Raging      | Storming
+	[2]  = { [1]=10, [2]=134, [3]=7,  },    -- Fortified  | Entangling  | Bolstering
+	[3]  = { [1]=9,  [2]=136, [3]=123,},    -- Tyrannical | Incorporeal | Spiteful
+	[4]  = { [1]=10, [2]=135, [3]=6,  },    -- Fortified  | Afflicted   | Raging
+	[5]  = { [1]=9,  [2]=3,   [3]=8,  },    -- Tyrannical | Volcanic    | Sanguine
+	[6]  = { [1]=10, [2]=124, [3]=11, },    -- Fortified  | Storming    | Bursting
+	[7]  = { [1]=9,  [2]=135, [3]=7,  },    -- Tyrannical | Afflicted   | Bolstering
+	[8]  = { [1]=10, [2]=136, [3]=8,  },    -- Fortified  | Incorporeal | Sanguine
+	[9]  = { [1]=9,  [2]=134, [3]=11, },    -- Tyrannical | Entangling  | Bursting
+	[10] = { [1]=10, [2]=3,   [3]=123,},    -- Fortified  | Volcanic    | Spiteful
 }
 
 local scheduleEnabled = true
