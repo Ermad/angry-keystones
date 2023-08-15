@@ -1,3 +1,7 @@
+## v0.30.1
+
+* Updated locales
+
 ## v0.30.0
 
 * Added complete schedule back

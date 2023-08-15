@@ -220,6 +220,8 @@ langs.koKR = {
 	newKeystoneAnnounce = "새 쐐기돌: %s",
 	currentKeystoneText = "현재 쐐기돌: |cFFFFFFFF%s|r",
 	config_announceKeystones = "신화 쐐기돌을 새로 받으면 파티에 알림",
+	config_schedule = "쐐기 어픽스 예정 조합과 파티원이 보유한 쐐기돌 표시 (UI 재시작 필요)",
+	timeLimit = "제한 시간 %s",
 }
 
 langs.zhCN = {
