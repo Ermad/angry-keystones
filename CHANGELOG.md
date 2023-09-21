@@ -1,3 +1,7 @@
+** v0.30.2
+
+* Updated libs
+
 ## v0.30.1
 
 * Updated locales
