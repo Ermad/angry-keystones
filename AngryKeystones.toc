@@ -1,4 +1,4 @@
-## Interface: 100105
+## Interface: 100107
 ## Title: Angry Keystones
 ## Notes: Displays additional information for Mythic Keystone dungeons
 ## Author: Ermad
