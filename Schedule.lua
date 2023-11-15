@@ -9,21 +9,21 @@ local requestPartyKeystones
 -- Dragonflight Season 2
 -- 134:Entangling, 135：Afflicted, 136:Incorporeal
 local affixSchedule = {
-	-- Dragonflight Season 2
-	[1]  = { [1]=6,   [2]=124, [3]=9, }, -- Tyrannical | Raging      | Storming
-	[2]  = { [1]=134, [2]=7,   [3]=10,}, -- Fortified  | Entangling  | Bolstering
-	[3]  = { [1]=136, [2]=123, [3]=9, }, -- Tyrannical | Incorporeal | Spiteful
-	[4]  = { [1]=135, [2]=6,   [3]=10,}, -- Fortified  | Afflicted   | Raging
-	[5]  = { [1]=3,   [2]=8,   [3]=9, }, -- Tyrannical | Volcanic    | Sanguine
-	[6]  = { [1]=124, [2]=11,  [3]=10,}, -- Fortified  | Storming    | Bursting
-	[7]  = { [1]=135, [2]=7,   [3]=9, }, -- Tyrannical | Afflicted   | Bolstering
-	[8]  = { [1]=136, [2]=8,   [3]=10,}, -- Fortified  | Incorporeal | Sanguine
-	[9]  = { [1]=134, [2]=11,  [3]=9, }, -- Tyrannical | Entangling  | Bursting
-	[10] = { [1]=3,   [2]=123, [3]=10,}, -- Fortified  | Volcanic    | Spiteful
+	-- Dragonflight Season 3  （Need to check if it's a continuation of the Season 2 wordplay? To be confirmed and re-entered）
+	[1]  = { [1]=8, [2]=136, [3]=10, }, -- Fortified  | Incorporeal | Sanguine
+	[2]  = { [1]=0, [2]=0,   [3]=9,  }, -- Tyrannical || 
+	[3]  = { [1]=0, [2]=0,   [3]=10, }, -- Fortified  || 
+	[4]  = { [1]=0, [2]=0,   [3]=9,  }, -- Tyrannical || 
+	[5]  = { [1]=0, [2]=0,   [3]=10, }, -- Fortified  || 
+	[6]  = { [1]=0, [2]=0,   [3]=9,  }, -- Tyrannical || 
+	[7]  = { [1]=0, [2]=0,   [3]=10, }, -- Fortified  || 
+	[8]  = { [1]=0, [2]=0,   [3]=9,  }, -- Tyrannical || 
+	[9]  = { [1]=0, [2]=0,   [3]=10, }, -- Fortified  || 
+	[10] = { [1]=0, [2]=0,   [3]=9,  }, -- Tyrannical || 
 }
 
 local scheduleEnabled = true
-local affixScheduleUnknown = false
+local affixScheduleUnknown = true
 local currentWeek
 local currentKeystoneMapID
 local currentKeystoneLevel
