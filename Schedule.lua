@@ -9,9 +9,9 @@ local requestPartyKeystones
 -- Dragonflight Season 2
 -- 134:Entangling, 135：Afflicted, 136:Incorporeal
 local affixSchedule = {
-	-- Dragonflight Season 3  （Need to check if it's a continuation of the Season 2 wordplay? To be confirmed and re-entered）
-	[1]  = { [1]=8, [2]=136, [3]=10, }, -- Fortified  | Incorporeal | Sanguine
-	[2]  = { [1]=0, [2]=0,   [3]=9,  }, -- Tyrannical || 
+	-- Dragonflight Season 3  (Sort:[1](Level 14+);[2](Level 7+);[3](Level 2+))
+	[1]  = { [1]=8,   [2]=136, [3]=10, },   -- Sanguine   | Incorporeal | Fortified
+	[2]  = { [1]=11,  [2]=134, [3]=9,  },   -- Bursting   | Entangling  | Tyrannical
 	[3]  = { [1]=0, [2]=0,   [3]=10, }, -- Fortified  || 
 	[4]  = { [1]=0, [2]=0,   [3]=9,  }, -- Tyrannical || 
 	[5]  = { [1]=0, [2]=0,   [3]=10, }, -- Fortified  || 
