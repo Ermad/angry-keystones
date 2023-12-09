@@ -1,3 +1,7 @@
+## v0.30.5
+
+* Schedule update
+
 ## v0.30.4
 
 * Update for 10.2
