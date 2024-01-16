@@ -1,3 +1,7 @@
+## v0.30.6
+
+* ToC bump
+
 ## v0.30.5
 
 * Schedule update
