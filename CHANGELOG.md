@@ -1,3 +1,7 @@
+## v0.30.8
+
+* Localization update
+
 ## v0.30.7
 
 * Updated libs
