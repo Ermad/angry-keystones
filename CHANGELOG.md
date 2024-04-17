@@ -1,3 +1,7 @@
+## v0.30.9
+
+* Localization update
+
 ## v0.30.8
 
 * Localization update
