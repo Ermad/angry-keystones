@@ -1,3 +1,7 @@
+## v0.30.10
+
+* ToC bump
+
 ## v0.30.9
 
 * Localization update
