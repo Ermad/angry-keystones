@@ -1,3 +1,7 @@
+## v0.30.12
+
+* Update to itIT localization
+
 ## v0.30.11
 
 * ToC bump
