@@ -306,9 +306,12 @@ function Config:CreatePanel()
 	panel.name = Addon.Name
 	panel.okay = Panel_OnSave
 	panel.cancel = Panel_OnCancel
-	panel.default  = Panel_OnDefaults
-	panel.refresh  = Panel_OnRefresh
-	InterfaceOptions_AddCategory(panel)
+	panel.OnDefault  = Panel_OnDefaults
+	panel.OnRefresh  = Panel_OnRefresh
+	-- InterfaceOptions_AddCategory(panel)
+	local category, layout = Settings.RegisterCanvasLayoutCategory(panel, panel.name);
+	Settings.RegisterAddOnCategory(category);
+	self.settingsCategory = category
 
 	return panel
 end
