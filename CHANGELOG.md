@@ -1,3 +1,7 @@
+## v0.31.2
+
+* Update for 11.0.2
+
 ## v0.31.1
 
 * Update for deDE locale
