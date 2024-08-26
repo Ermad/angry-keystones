@@ -1,3 +1,7 @@
+## v0.31.4
+
+* Bug fixes
+
 ## v0.31.3
 
 * Fixes for TWW
