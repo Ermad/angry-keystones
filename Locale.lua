@@ -8,6 +8,7 @@ local langs = {}
 langs.enUS = {
 	config_characterConfig = "Per-character configuration",
 	config_progressTooltip = "Show progress each enemy gives on their tooltip",
+	config_progressTooltipMDT = "Use Mythic Dungeon Tools' data for the tooltip",
 	config_progressFormat = "Enemy Forces Format",
 	config_progressFormat_1 = "24.19%",
 	config_progressFormat_2 = "90/372",
