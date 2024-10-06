@@ -1,3 +1,7 @@
+## v0.31.5
+
+* Add option to use MDT on tooltips, via CruelDrool
+
 ## v0.31.4
 
 * Bug fixes
