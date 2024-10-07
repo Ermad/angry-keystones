@@ -238,6 +238,7 @@ langs.koKR = {
 langs.zhCN = {
 	config_characterConfig = "为角色进行独立的配置",
 	config_progressTooltip = "聊天窗口的史诗钥石显示副本名称和等级",
+	config_progressTooltipMDT = "使用Mythic Dungeon Tools（MDT）的数据显示在鼠标提示上",
 	config_progressFormat = "敌方部队进度格式",
 	config_splitsFormat = "进度分割显示方式",
 	config_splitsFormat_1 = "禁用",
