@@ -9,22 +9,16 @@ local requestPartyKeystones
 -- Dragonflight Season 2
 -- 134:Entangling, 135：Afflicted, 136:Incorporeal
 local affixSchedule = {
-	-- Dragonflight Season 3 (Sort:[1](Level 14+);[2](Level 7+);[3](Level 2+))
-	-- Information from(资料来自)：https://www.wowhead.com/cn/guide/mythic-plus-dungeons/dragonflight-season-3/overview
-	[1]  = { [1]=8,   [2]=136, [3]=10, },   -- Sanguine   | Incorporeal | Fortified
-	[2]  = { [1]=11,  [2]=134, [3]=9,  },   -- Bursting   | Entangling  | Tyrannical
-	[3]  = { [1]=123, [2]=3,   [3]=10, },   -- Spiteful   | Volcanic    | Fortified
-	[4]  = { [1]=6,   [2]=124, [3]=9,  },   -- Raging     | Storming    | Tyrannical
-	[5]  = { [1]=7,   [2]=134, [3]=10, },   -- Bolstering | Entangling  | Fortified
-	[6]  = { [1]=123, [2]=136, [3]=9,  },   -- Spiteful   | Incorporeal | Tyrannical
-	[7]  = { [1]=6,   [2]=135, [3]=10, },   -- Raging     | Afflicted   | Fortified
-	[8]  = { [1]=8,   [2]=3,   [3]=9,  },   -- Sanguine   | Volcanic    | Tyrannical
-	[9]  = { [1]=11,  [2]=124, [3]=10, },   -- Bursting   |Storming     | Fortified
-	[10] = { [1]=7,   [2]=135, [3]=9,  },   -- Bolstering |Afflicted    | Tyrannical
+	-- TWW Season 1 (Sort:[1](Level 2+);[2](Level 4+);[3](Level 7+);[4](Level 10+);[5](Level 12+))
+	-- Information from(资料来自)：https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-1/overview
+	[1]  = { [1]=148, [2] =9 , [3]=152, [4]=10, [5]=147, }, -- Xal’atath’s Bargain: Ascendant | Tyrannical | Challenger’s Peril | Fortified  | Xal’atath’s Guile
+	[2]  = { [1]=159, [2] =10, [3]=152, [4]=9 , [5]=147, }, -- Xal’atath’s Bargain: Oblivion  | Fortified  | Challenger’s Peril | Tyrannical | Xal’atath’s Guile
+	[3]  = { [1]=158, [2] =9 , [3]=152, [4]=10, [5]=147, }, -- Xal’atath’s Bargain: Voidbound | Tyrannical | Challenger’s Peril | Fortified  | Xal’atath’s Guile
+	[4]  = { [1]=160, [2] =10, [3]=152, [4]=9 , [5]=147, }, -- Xal’atath’s Bargain: Devour    | Fortified  | Challenger’s Peril | Tyrannical | Xal’atath’s Guile
 }
 
 local scheduleEnabled = true
-local affixScheduleUnknown = false
+local affixScheduleUnknown = true
 local currentWeek
 local currentKeystoneMapID
 local currentKeystoneLevel
@@ -219,7 +213,7 @@ function Mod:Blizzard_ChallengesUI()
 
 		local affixes = {}
 		local prevAffix
-		for j = 3, 1, -1 do
+		for j = 5, 1, -1 do
 			local affix = makeAffix(entry)
 			if prevAffix then
 				affix:SetPoint("RIGHT", prevAffix, "LEFT", -4, 0)
@@ -250,8 +244,6 @@ function Mod:Blizzard_ChallengesUI()
 	label:SetWordWrap(true)
 	if affixScheduleUnknown then
 		label:SetText(Addon.Locale.scheduleUnknown)
-	else
-		label:SetText(Addon.Locale.scheduleMissingKeystone)
 	end
 	frame.Label = label
 
@@ -334,12 +326,13 @@ function Mod:CheckAffixes()
 		for index, affixes in ipairs(affixSchedule) do
 			local matches = 0
 			for _, affix in ipairs(currentAffixes) do
-				if affix.id == affixes[1] or affix.id == affixes[2] or affix.id == affixes[3] then
+				if affix.id == affixes[1] or affix.id == affixes[2] or affix.id == affixes[3] or affix.id == affixes[4] or affix.id == affixes[5] then
 					matches = matches + 1
 				end
 			end
-			if matches >= 3 then
+			if matches == 5 then
 				currentWeek = index
+				affixScheduleUnknown = false
 			end
 		end
 	end
