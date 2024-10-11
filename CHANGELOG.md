@@ -1,3 +1,7 @@
+## v.31.6
+
+* Update for schedule
+
 ## v0.31.5
 
 * Add option to use MDT on tooltips, via CruelDrool
