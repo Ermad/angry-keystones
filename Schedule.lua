@@ -22,7 +22,7 @@ local affixSchedule = {
 }
 
 local scheduleEnabled = true
-local affixScheduleUnknown = true
+local affixScheduleUnknown = false
 local currentWeek
 local currentKeystoneMapID
 local currentKeystoneLevel
