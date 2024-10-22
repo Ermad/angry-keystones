@@ -12,11 +12,15 @@ local requestPartyKeystones
 local affixSchedule = {
 	-- TWW Season 1 (Sort:[1](Level 2+);[2](Level 4+);[3](Level 7+);[4](Level 10+);[5](Level 12+))
 	-- Information from(资料来自)：https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-1/overview
-	[1]  = { [1]=148, [2]=9 , [3]=152, [4]=10, [5]=147, }, -- Xal’atath’s Bargain: Ascendant | Tyrannical | Challenger’s Peril | Fortified  | Xal’atath’s Guile
-	[2]  = { [1]=159, [2]=10, [3]=152, [4]=9 , [5]=147, }, -- Xal’atath’s Bargain: Oblivion  | Fortified  | Challenger’s Peril | Tyrannical | Xal’atath’s Guile
-	[3]  = { [1]=158, [2]=9 , [3]=152, [4]=10, [5]=147, }, -- Xal’atath’s Bargain: Voidbound | Tyrannical | Challenger’s Peril | Fortified  | Xal’atath’s Guile
-	[4]  = { [1]=160, [2]=10, [3]=152, [4]=9 , [5]=147, }, -- Xal’atath’s Bargain: Devour    | Fortified  | Challenger’s Peril | Tyrannical | Xal’atath’s Guile
-	[5]  = { [1]=159, [2]=9 , [3]=152, [4]=10, [5]=147, }, -- Xal’atath’s Bargain: Oblivion  | Tyrannical | Challenger’s Peril | Fortified  | Xal’atath’s Guile
+	{ [1]=148, [2] =9 , [3]=152, [4]=10, [5]=147, }, -- (1) Xal’atath’s Bargain: Ascendant | Tyrannical | Challenger’s Peril | Fortified  | Xal’atath’s Guile
+	{ [1]=159, [2] =10, [3]=152, [4]=9 , [5]=147, }, -- (2) Xal’atath’s Bargain: Oblivion  | Fortified  | Challenger’s Peril | Tyrannical | Xal’atath’s Guile
+	{ [1]=158, [2] =9 , [3]=152, [4]=10, [5]=147, }, -- (3) Xal’atath’s Bargain: Voidbound | Tyrannical | Challenger’s Peril | Fortified  | Xal’atath’s Guile
+	{ [1]=160, [2] =10, [3]=152, [4]=9 , [5]=147, }, -- (4) Xal’atath’s Bargain: Devour    | Fortified  | Challenger’s Peril | Tyrannical | Xal’atath’s Guile
+	{ [1]=159, [2] =9 , [3]=152, [4]=10, [5]=147, }, -- (5) Xal’atath’s Bargain: Oblivion  | Tyrannical | Challenger’s Peril | Fortified  | Xal’atath’s Guile
+	{ [1]=148, [2] =10, [3]=152, [4]=9 , [5]=147, }, -- (6) Xal’atath’s Bargain: Ascendant | Fortified  | Challenger’s Peril | Tyrannical | Xal’atath’s Guile
+	-- Predicted
+	{ [1]=160, [2] =9 , [3]=152, [4]=10, [5]=147, }, -- (7) Xal’atath’s Bargain: Devour    | Tyrannical | Challenger’s Peril | Fortified  | Xal’atath’s Guile
+	{ [1]=158, [2] =10, [3]=152, [4]=9 , [5]=147, }, -- (8) Xal’atath’s Bargain: Voidbound | Fortified  | Challenger’s Peril | Tyrannical | Xal’atath’s Guile
 }
 
 local scheduleEnabled = true
@@ -326,15 +330,10 @@ function Mod:CheckAffixes()
 
 	if currentAffixes then
 		for index, affixes in ipairs(affixSchedule) do
-			local matches = 0
-			for _, affix in ipairs(currentAffixes) do
-				if affix.id == affixes[1] or affix.id == affixes[2] or affix.id == affixes[3] or affix.id == affixes[4] or affix.id == affixes[5] then
-					matches = matches + 1
-				end
-			end
-			if matches == 5 then
+			if affixes[1] == currentAffixes[1].id and affixes[2] == currentAffixes[2].id and affixes[3] == currentAffixes[3].id and affixes[4] == currentAffixes[4].id and affixes[5] == currentAffixes[5].id then
 				currentWeek = index
-				affixScheduleUnknown = true
+				affixScheduleUnknown = false
+				break
 			end
 		end
 	end
