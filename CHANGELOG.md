@@ -1,3 +1,7 @@
+## v0.31.9
+
+* ToC bump
+
 ## v0.31.8
 
 * Update libs
