@@ -1,3 +1,7 @@
+## v0.31.11
+
+* Some locale updates
+
 ## v0.31.10
 
 * ToC bump
