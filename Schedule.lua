@@ -13,7 +13,7 @@ local requestPartyKeystones
 -- 9, 10, 147, 148, 158, 160, 162,
 local affixSchedule = {
 	-- TWW Season 2 (Sort:[1](Level 4+);[2](Level 7+);[3](Level 10+);[4](Level 12+))
-	-- Information from(资料来自)：https://www.wowhead.com/cn/guide/mythic-plus-dungeons/the-war-within-season-2/overview
+	-- Information from(资料来自)：https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-2/overview
 	{ [1]=148, [2] =9 , [3]=10, [4]=147, }, -- (1) Xal’atath’s Bargain: Ascendant | Tyrannical | Fortified  | Xal’atath’s Guile
 	{ [1]=159, [2] =10, [3]=9 , [4]=147, }, -- (2) Xal’atath’s Bargain: Oblivion  | Fortified  | Tyrannical | Xal’atath’s Guile
 	{ [1]=158, [2] =9 , [3]=10, [4]=147, }, -- (3) Xal’atath’s Bargain: Voidbound | Tyrannical | Fortified  | Xal’atath’s Guile
