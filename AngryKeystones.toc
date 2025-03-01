@@ -6,6 +6,7 @@
 ## SavedVariablesPerCharacter: AngryKeystones_CharacterConfig
 ## OptionalDeps: !KalielsTracker
 ## X-Packaged-Version: @project-version@
+## IconTexture: Interface\Icons\inv_relics_hourglass
 ## Category-enUS: Dungeons & Raids
 ## Category-deDE: Dungeons & Schlachtzüge
 ## Category-esES: Mazmorras y bandas
