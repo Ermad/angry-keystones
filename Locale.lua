@@ -267,7 +267,7 @@ langs.zhCN = {
 	["config_progressFormat_6"] = "24.19% (75.81%) - 90/372 (282)",
 	["config_progressTooltip"] = "鼠标提示中显示每个敌人给予的进度",
 	["config_resetPopup"] = "完成史诗钥石副本后显示重置副本的弹出信息",
-	["config_schedule"] = "显示钥石日程表和队伍钥石（需要重新加载 UI）",
+	["config_schedule"] = "显示钥石日程表和队伍钥石（重新加载后生效）",
 	["config_showSplits"] = "在任务列表的进度上显示单独的进度计时",
 	["config_silverGoldTimer"] = "同时显示+2和+3的计时",
 	["config_smallAffixes"] = "缩小进度条上的词缀图标大小",
@@ -288,7 +288,7 @@ langs.zhCN = {
 	["scheduleWeek3"] = "两周后",
 	["scheduleWeek4"] = "三周后",
 	["timeLimit"] = "限时 %s",
-	["timeLost"] = "损失时间"
+	["timeLost"] = "损失时间",
 	["dungeon_Shadowmoon Burial Grounds"] = "影月墓地",
 	["dungeon_Temple of the Jade Serpent"] = "青龙寺",
 }
