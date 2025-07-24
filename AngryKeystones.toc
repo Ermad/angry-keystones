@@ -4,7 +4,6 @@
 ## Author: Ermad
 ## SavedVariables: AngryKeystones_Config, AngryKeystones_Data
 ## SavedVariablesPerCharacter: AngryKeystones_CharacterConfig
-## OptionalDeps: !KalielsTracker
 ## X-Packaged-Version: @project-version@
 ## IconTexture: Interface\Icons\inv_relics_hourglass
 ## Category: Dungeons & Raids
