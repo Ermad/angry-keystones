@@ -70,7 +70,10 @@ function Mod:GOSSIP_SHOW()
 			local popupIsShown = IsStaticPopupShown()
 			if popupIsShown then
 				if not popupWasShown then
-					StaticPopup1Button1:Click()
+					local button = popupIsShown:GetButton1()
+					if button then
+						button:Click()
+					end
 					C_GossipInfo.CloseGossip()
 				end
 			else

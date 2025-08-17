@@ -1,3 +1,7 @@
+## v0.32.11
+
+* Bugfix for gossip dialog
+
 ## v0.32.9
 
 * Bug fix
