@@ -19,7 +19,13 @@ local function GossipNPCID()
 end
 
 local function IsStaticPopupShown()
-	return GetFirstShownDialog(true)
+	local dialog = nil
+	StaticPopup_ForEachShownDialog(function(d)
+		if dialog == nil and not d.hasFixedPosition then
+			dialog = d
+		end
+	end)
+	return dialog
 end
 
 local function IsInActiveChallengeMode()

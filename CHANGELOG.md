@@ -1,3 +1,7 @@
+## v0.32.12
+
+* Bugfix for last commit
+
 ## v0.32.11
 
 * Bugfix for gossip dialog
