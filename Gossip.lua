@@ -96,7 +96,7 @@ local function PlayCurrent()
 end
 
 function Mod:Blizzard_TalkingHeadUI()
-	hooksecurefunc("TalkingHeadFrame_PlayCurrent", PlayCurrent)
+	hooksecurefunc(TalkingHeadFrame, "PlayCurrent", PlayCurrent)
 end
 
 function Mod:Startup()

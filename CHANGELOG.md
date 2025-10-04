@@ -1,3 +1,7 @@
+## v0.32.13
+
+* Bugfix for hide disable talking head
+
 ## v0.32.12
 
 * Bugfix for last commit
