@@ -1,3 +1,7 @@
+## v0.32.14
+
+* Bump ToC
+
 ## v0.32.13
 
 * Bugfix for hide disable talking head
