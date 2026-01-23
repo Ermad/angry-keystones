@@ -1,3 +1,7 @@
+## v0.32.17
+
+* Some midnight fixes
+
 ## v0.32.16
 
 * Bump ToC
