@@ -199,7 +199,7 @@ function Mod:CHALLENGE_MODE_START(...) CheckTime(GetWorldElapsedTimers()) end
 function Mod:CHALLENGE_MODE_RESET(...) wipe(Mod.playerDeaths) end
 
 local function ProgressBar_SetValue(self, percent)
-	-- local _, _, _, _, totalQuantity, _, _, quantityString, _, _, _, _, _ = C_Scenario.GetCriteriaInfo(self.criteriaIndex)
+	local _, _, _, _, totalQuantity, _, _, quantityString, _, _, _, _, _ = C_Scenario.GetCriteriaInfo(self.criteriaIndex)
 
 	local scenarioType = select(10, C_Scenario.GetInfo())
 
@@ -290,7 +290,7 @@ local function DeathCount_OnEnter(self)
 end
 
 function Mod:Blizzard_ObjectiveTracker()
-	-- ScenarioObjectiveTracker.ChallengeModeBlock.DeathCount:SetScript("OnEnter", DeathCount_OnEnter)
+	ScenarioObjectiveTracker.ChallengeModeBlock.DeathCount:SetScript("OnEnter", DeathCount_OnEnter)
 end
 
 function Mod:Startup()
