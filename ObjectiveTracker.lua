@@ -157,7 +157,7 @@ function Mod:CHALLENGE_MODE_COMPLETED()
 	if not Addon.Config.completionMessage then return end
 	if not challengeMapID then return end
 
-	local info = C_ChallengeMode.GetCompletionInfo()
+	local info = C_ChallengeMode.GetChallengeCompletionInfo()
 	local name, _, timeLimit = C_ChallengeMode.GetMapUIInfo(info.mapChallengeModeID)
 	local time = info.time
 
