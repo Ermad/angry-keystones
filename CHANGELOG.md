@@ -1,3 +1,7 @@
+## v0.32.19
+
+* More fixes
+
 ## v0.32.18
 
 * More midnight fixes
