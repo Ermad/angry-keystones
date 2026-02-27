@@ -1,3 +1,7 @@
+## v0.32.20
+
+* Bump ToC
+
 ## v0.32.19
 
 * More fixes
