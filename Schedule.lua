@@ -6,22 +6,22 @@ local rowCount = 3
 local requestPartyKeystones
 
 -- 1:Overflowing, 2:Skittish, 3:Volcanic, 4:Necrotic, 5:Teeming, 6:Raging, 7:Bolstering, 8:Sanguine, 9:Tyrannical, 10:Fortified, 11:Bursting, 12:Grievous, 13:Explosive, 14:Quaking, 16:Infested, 117: Reaping, 119:Beguiling 120:Awakened, 121:Prideful, 122:Inspiring, 123:Spiteful, 124:Storming
--- 134:Entangling, 135：Afflicted, 136:Incorporeal
+-- 134:Entangling, 135:Afflicted, 136:Incorporeal
 -- TWW 
 -- 147:Xal’atath’s Guile, 148:Xal’atath’s Bargain: Ascendant,158:Xal'atath's Bargain: Voidbound, 159:Xal'atath's Bargain: Oblivion, 160:Xal’atath’s Bargain: Devour, 162:Xal’atath’s Bargain: Pulsar
--- Season 2  
--- 9, 10, 147, 148, 158, 160, 162,
+-- Midnight Season 1
+-- 148, 158, 160, 162, 9, 10, 147 
 local affixSchedule = {
-	-- TWW Season 3 (Sort:[1](Level 4+);[2](Level 7+);[3](Level 10+);[4](Level 12+))
-	-- Information from(资料来自)：https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-3/overview
-	{ [1]=148, [2] =9 , [3]=10, [4]=147, }, -- (1) Xal’atath’s Bargain: Ascendant | Tyrannical | Fortified  | Xal’atath’s Guile
-	{ [1]=162, [2] =10, [3]=9 , [4]=147, }, -- (2) Xal’atath’s Bargain: Pulsar    | Fortified  | Tyrannical | Xal’atath’s Guile
-	{ [1]=158, [2] =9 , [3]=10, [4]=147, }, -- (3) Xal’atath’s Bargain: Voidbound | Tyrannical | Fortified  | Xal’atath’s Guile
-	{ [1]=160, [2] =10, [3]=9 , [4]=147, }, -- (4) Xal’atath’s Bargain: Devour    | Fortified  | Tyrannical | Xal’atath’s Guile
-	{ [1]=162, [2] =9 , [3]=10, [4]=147, }, -- (5) Xal’atath’s Bargain: Pulsar    | Tyrannical | Fortified  | Xal’atath’s Guile
-	{ [1]=148, [2] =10, [3]=9 , [4]=147, }, -- (6) Xal’atath’s Bargain: Ascendant | Fortified  | Tyrannical | Xal’atath’s Guile
-	{ [1]=160, [2] =9 , [3]=10, [4]=147, }, -- (7) Xal’atath’s Bargain: Devour    | Tyrannical | Fortified  | Xal’atath’s Guile
-	{ [1]=158, [2] =10, [3]=9 , [4]=147, }, -- (8) Xal’atath’s Bargain: Voidbound | Fortified  | Tyrannical | Xal’atath’s Guile
+	-- Midnight Season 1 (Sort:[1](Level 5+);[2](Level 7+);[3](Level 10+);[4](Level 12+))
+	-- Information from(资料来自)：https://www.wowhead.com/guide/midnight/mythic-plus-season-1-overview
+	{ [1] = 162, [2] = 10, [3] = 9 , [4] = 147, }, -- (1) Xal’atath’s Bargain: Pulsar | Fortified | Tyrannical  | Xal’atath’s Guile
+	--{ [1] = , [2] = 9 , [3] = 10, [4] = 147, }, -- (2) Xal’atath’s Bargain:   | Tyrannical | Fortified  | Xal’atath’s Guile
+	--{ [1] = , [2] = 10, [3] = 9 , [4] = 147, }, -- (3) Xal’atath’s Bargain:   | Fortified  | Tyrannical | Xal’atath’s Guile
+	--{ [1] = , [2] = 9 , [3] = 10, [4] = 147, }, -- (4) Xal’atath’s Bargain:   | Tyrannical | Fortified  | Xal’atath’s Guile
+	--{ [1] = , [2] = 10, [3] = 9 , [4] = 147, }, -- (5) Xal’atath’s Bargain:   | Fortified  | Tyrannical | Xal’atath’s Guile
+	--{ [1] = , [2] = 9 , [3] = 10, [4] = 147, }, -- (6) Xal’atath’s Bargain:   | Tyrannical | Fortified  | Xal’atath’s Guile
+	--{ [1] = , [2] = 10, [3] = 9 , [4] = 147, }, -- (7) Xal’atath’s Bargain:   | Fortified  | Tyrannical | Xal’atath’s Guile
+	--{ [1] = , [2] = 9 , [3] = 10, [4] = 147, }, -- (8) Xal’atath’s Bargain:   | Tyrannical | Fortified  | Xal’atath’s Guile
 }
 
 local scheduleEnabled = true
