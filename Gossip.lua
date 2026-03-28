@@ -12,12 +12,6 @@ local npcWhitelist = {
 
 local cosRumorNPC = 107486
 
-local function GossipNPCID()
-	local guid = UnitGUID("npc")
-	local npcid = guid and select(6, strsplit("-", guid))
-	return tonumber(npcid)
-end
-
 local function IsStaticPopupShown()
 	local dialog = nil
 	StaticPopup_ForEachShownDialog(function(d)
@@ -64,7 +58,8 @@ function Mod:GOSSIP_SHOW()
 	local numOptions = #options
 	if numOptions ~= 1 then return end -- only automate one gossip option
 
-	local npcId = GossipNPCID()
+	local npcId = UnitCreatureID("npc")
+	if issecretvalue(npcId) then npcId = 0 end -- occasionally the npc is secret, hopefully blizzard fixes that, cause it's silly -.-
 
 	-- if Addon.Config.cosRumors and Addon.Locale:HasRumors() and npcId == cosRumorNPC and numOptions == 0 then
 	-- 	self:CoSRumor()
