@@ -14,8 +14,8 @@ local requestPartyKeystones
 local affixSchedule = {
 	-- Midnight Season 1 (Sort:[1](Level 5+);[2](Level 7+);[3](Level 10+);[4](Level 12+))
 	-- Information from(资料来自)：https://www.wowhead.com/guide/midnight/mythic-plus-season-1-overview
-	{ [1] = 162, [2] = 10, [3] = 9 , [4] = 147, }, -- (1) Xal’atath’s Bargain: Pulsar | Fortified | Tyrannical  | Xal’atath’s Guile
-	--{ [1] = , [2] = 9 , [3] = 10, [4] = 147, }, -- (2) Xal’atath’s Bargain:   | Tyrannical | Fortified  | Xal’atath’s Guile
+	{ [1] = 162, [2] = 10, [3] = 9 , [4] = 147, }, -- (1) Xal’atath’s Bargain: Pulsar    | Fortified  | Tyrannical | Xal’atath’s Guile
+	{ [1] = 158, [2] = 9 , [3] = 10, [4] = 147, }, -- (2) Xal'atath's Bargain: Voidbound | Tyrannical | Fortified  | Xal’atath’s Guile
 	--{ [1] = , [2] = 10, [3] = 9 , [4] = 147, }, -- (3) Xal’atath’s Bargain:   | Fortified  | Tyrannical | Xal’atath’s Guile
 	--{ [1] = , [2] = 9 , [3] = 10, [4] = 147, }, -- (4) Xal’atath’s Bargain:   | Tyrannical | Fortified  | Xal’atath’s Guile
 	--{ [1] = , [2] = 10, [3] = 9 , [4] = 147, }, -- (5) Xal’atath’s Bargain:   | Fortified  | Tyrannical | Xal’atath’s Guile
