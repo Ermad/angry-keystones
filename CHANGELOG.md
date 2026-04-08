@@ -1,3 +1,7 @@
+## v0.32.25
+
+* Update Schedule
+
 ## v0.32.24
 
 * Bug fix for Gossip secret values, via Numynum
