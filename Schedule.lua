@@ -333,7 +333,7 @@ function Mod:CheckAffixes()
 		for index, affixes in ipairs(affixSchedule) do
 			if #affixes == #currentAffixes and affixes[1] == currentAffixes[1].id and affixes[2] == currentAffixes[2].id and affixes[3] == currentAffixes[3].id and affixes[4] == currentAffixes[4].id and affixes[5] == currentAffixes[5].id then
 				currentWeek = index
-				affixScheduleUnknown = false
+				affixScheduleUnknown = true
 				break
 			end
 		end
