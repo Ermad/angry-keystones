@@ -23,7 +23,7 @@ embeds.xml
 Core.lua
 Locale.lua
 Config.lua
-
+ProgressTracker.lua
 ObjectiveTracker.lua
 Keystone.lua
 Gossip.lua
