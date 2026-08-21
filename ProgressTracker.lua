@@ -111,67 +111,32 @@ end
 local function OnTooltipSetUnit(tooltip)
 	local scenarioType = select(10, C_Scenario.GetInfo())
 	if scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE and Addon.Config.progressTooltip then
-		local name, unit = tooltip:GetUnit()
-		local guid = unit and UnitGUID(unit)
-		if guid then
-			local npc_id = select(6, strsplit("-", guid))
-			npc_id = tonumber(npc_id)
-			local value
 
-			if Addon.Config.progressTooltipMDT and MDT then
-				value = MDT:GetEnemyForces(npc_id)
+		local actualValue, percentValue, percentValueString = C_ScenarioInfo.GetUnitCriteriaProgressValues("mouseover")
+
+		if actualValue and percentValueString then
+			local forcesFormat = "(%s)"
+			local text
+			if Addon.Config.progressFormat == 1 or Addon.Config.progressFormat == 4 then
+				text = format( format(forcesFormat, "+%s%%"), percentValueString)
+			elseif Addon.Config.progressFormat == 2 or Addon.Config.progressFormat == 5 then
+				text = format( format(forcesFormat, "+%d"), actualValue)
+			elseif Addon.Config.progressFormat == 3 or Addon.Config.progressFormat == 6 then
+				text = format( format(forcesFormat, "+%s%% - +%d"), percentValueString, actualValue)
+			end
+
+			local tiptext = _G["GameTooltipTextLeft6"]
+			if tiptext then
+				-- Replace tooltip line.
+				tiptext:SetText(text)
 			else
-				local info = AngryKeystones_Data.progress[npc_id]
-
-				if info then
-					local valueCount
-					for amount, count in pairs(info) do
-						if not valueCount or count > valueCount or (count == valueCount and amount < value) then
-							value = amount
-							valueCount = count
-						end
-					end
-				end
+				-- Add tooltip line.
+				tooltip:AddLine(text, 1, 1, 1)
 			end
 
-			if value then
-				local numCriteria = select(3, C_Scenario.GetStepInfo())
-				local total
-				local progressName
-				for criteriaIndex = 1, numCriteria do
-					local criteriaInfo = C_ScenarioInfo.GetCriteriaInfo(criteriaIndex)
-					if criteriaInfo and criteriaInfo.isWeightedProgress then
-						progressName = criteriaInfo.description
-						total = criteriaInfo.totalQuantity
-						break
-					end
-				end
+			tooltip:Show()
 
-				if total then
-					local forcesFormat = format(" - %s: %%s", progressName)
-					local text
-					if Addon.Config.progressFormat == 1 or Addon.Config.progressFormat == 4 then
-						text = format( format(forcesFormat, "+%.2f%%"), value/total*100)
-					elseif Addon.Config.progressFormat == 2 or Addon.Config.progressFormat == 5 then
-						text = format( format(forcesFormat, "+%d"), value)
-					elseif Addon.Config.progressFormat == 3 or Addon.Config.progressFormat == 6 then
-						text = format( format(forcesFormat, "+%.2f%% - +%d"), value/total*100, value)
-					end
-
-					if text then
-						local matcher = format(forcesFormat, "%d+%%")
-						for i=2, tooltip:NumLines() do
-							local tiptext = _G["GameTooltipTextLeft"..i]
-							local linetext = tiptext and tiptext:GetText()
-
-							if linetext and linetext:match(matcher) then
-								tiptext:SetText(text)
-								tooltip:Show()
-							end
-						end
-					end
-				end
-			end
+			return
 		end
 	end
 end
@@ -199,8 +164,6 @@ function Mod:CHALLENGE_MODE_START(...) CheckTime(GetWorldElapsedTimers()) end
 function Mod:CHALLENGE_MODE_RESET(...) wipe(Mod.playerDeaths) end
 
 local function ProgressBar_SetValue(self, percent)
-	local _, _, _, _, totalQuantity, _, _, quantityString, _, _, _, _, _ = C_Scenario.GetCriteriaInfo(self.criteriaIndex)
-
 	local scenarioType = select(10, C_Scenario.GetInfo())
 
 	if scenarioType ~= LE_SCENARIO_TYPE_CHALLENGE_MODE then return end
@@ -266,6 +229,7 @@ local function DeathCount_OnEnter(self)
 	GameTooltip:SetText(CHALLENGE_MODE_DEATH_COUNT_TITLE:format(parent.deathCount), 1, 1, 1)
 	GameTooltip:AddLine(CHALLENGE_MODE_DEATH_COUNT_DESCRIPTION:format(SecondsToClock(parent.timeLost, false)))
 
+	--[[
 	GameTooltip:AddLine(" ")
 	local list = {}
 	local deathsCount = 0
@@ -286,6 +250,7 @@ local function DeathCount_OnEnter(self)
 		local color = RAID_CLASS_COLORS[item.class] or HIGHLIGHT_FONT_COLOR
 		GameTooltip:AddDoubleLine(item.unit, item.count, color.r, color.g, color.b, HIGHLIGHT_FONT_COLOR:GetRGB())
 	end
+	--]]
 	GameTooltip:Show()
 end
 
@@ -329,5 +294,3 @@ function Mod:Startup()
 		end
 	end)
 end
-
--- hooksecurefunc("ScenarioTrackerProgressBar_SetValue", ProgressBar_SetValue)
