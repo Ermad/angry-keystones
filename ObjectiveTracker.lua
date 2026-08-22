@@ -159,20 +159,20 @@ function Mod:CHALLENGE_MODE_COMPLETED()
 
 	local info = C_ChallengeMode.GetChallengeCompletionInfo()
 	local name, _, timeLimit = C_ChallengeMode.GetMapUIInfo(info.mapChallengeModeID)
-	local time = info.time
+	local elapsedTime, onTime = info.time, info.onTime
 
 	timeLimit = timeLimit * 1000
 	local timeLimit2 = timeLimit * TIME_FOR_2
 	local timeLimit3 = timeLimit * TIME_FOR_3
 
-	if time <= timeLimit3 then
-		print( format("|cff33ff99<%s>|r |cffffd700%s|r", ADDON, format(Addon.Locale.completion3, name, timeFormatMS(time), timeFormatMS(timeLimit3 - time))) )
-	elseif time <= timeLimit2 then
-		print( format("|cff33ff99<%s>|r |cffc7c7cf%s|r", ADDON, format(Addon.Locale.completion2, name, timeFormatMS(time), timeFormatMS(timeLimit2 - time), timeFormatMS(time - timeLimit3))) )
+	if elapsedTime <= timeLimit3 then
+		print( format("|cff33ff99<%s>|r |cffffd700%s|r", ADDON, format(Addon.Locale.completion3, name, timeFormatMS(elapsedTime), timeFormatMS(timeLimit3 - elapsedTime))) )
+	elseif elapsedTime <= timeLimit2 then
+		print( format("|cff33ff99<%s>|r |cffc7c7cf%s|r", ADDON, format(Addon.Locale.completion2, name, timeFormatMS(elapsedTime), timeFormatMS(timeLimit2 - elapsedTime), timeFormatMS(elapsedTime - timeLimit3))) )
 	elseif onTime then
-		print( format("|cff33ff99<%s>|r |cffeda55f%s|r", ADDON, format(Addon.Locale.completion1, name, timeFormatMS(time), timeFormatMS(timeLimit - time), timeFormatMS(time - timeLimit2))) )
+		print( format("|cff33ff99<%s>|r |cffeda55f%s|r", ADDON, format(Addon.Locale.completion1, name, timeFormatMS(elapsedTime), timeFormatMS(timeLimit - elapsedTime), timeFormatMS(elapsedTime - timeLimit2))) )
 	else
-		print( format("|cff33ff99<%s>|r |cffff2020%s|r", ADDON, format(Addon.Locale.completion0, name, timeFormatMS(time), timeFormatMS(time - timeLimit))) )
+		print( format("|cff33ff99<%s>|r |cffff2020%s|r", ADDON, format(Addon.Locale.completion0, name, timeFormatMS(elapsedTime), timeFormatMS(elapsedTime - timeLimit))) )
 	end
 
 	-- local splitMsg = Addon.Splits:SplitOutput()
