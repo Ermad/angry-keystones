@@ -1,112 +1,8 @@
 local ADDON, Addon = ...
 local Mod = Addon:NewModule('ProgressTracker')
-Mod.playerDeaths = {}
-
-local lastQuantity
-local lastDied
-local lastDiedName
-local lastDiedTime
-local lastAmount
-local lastAmountTime
-local lastQuantity
-
-local PRIDEFUL_AFFIX_ID = 121
-
-local progressPresets = {}
-
-local function ProcessLasts()
-	if lastDied and lastDiedTime and lastAmount and lastAmountTime then
-		if abs(lastAmountTime - lastDiedTime) < 0.1 then
-			if not AngryKeystones_Data.progress[lastDied] then AngryKeystones_Data.progress[lastDied] = {} end
-			if AngryKeystones_Data.progress[lastDied][lastAmount] then
-				AngryKeystones_Data.progress[lastDied][lastAmount] = AngryKeystones_Data.progress[lastDied][lastAmount] + 1
-			else
-				AngryKeystones_Data.progress[lastDied][lastAmount] = 1
-			end
-			lastDied, lastDiedTime, lastAmount, lastAmountTime, lastDiedName = nil, nil, nil, nil, nil
-		end
-	end
-end
-
-function Mod:COMBAT_LOG_EVENT_UNFILTERED()
-	local timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellID, spellName, spellSchool, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10 = CombatLogGetCurrentEventInfo()
-	if event == "UNIT_DIED" then
-		if bit.band(destFlags, COMBATLOG_OBJECT_TYPE_NPC) > 0
-				and bit.band(destFlags, COMBATLOG_OBJECT_CONTROL_NPC) > 0
-				and (bit.band(destFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) > 0 or bit.band(destFlags, COMBATLOG_OBJECT_REACTION_NEUTRAL) > 0) then
-			local npc_id = select(6, strsplit("-", destGUID))
-			lastDied = tonumber(npc_id)
-			lastDiedTime = GetTime()
-			lastDiedName = destName
-			ProcessLasts()
-		end
-		if bit.band(destFlags, COMBATLOG_OBJECT_TYPE_PLAYER) > 0 then
-			if UnitIsFeignDeath(destName) then
-				-- Feign Death
-			elseif Mod.playerDeaths[destName] then
-				Mod.playerDeaths[destName] = Mod.playerDeaths[destName] + 1
-			else
-				Mod.playerDeaths[destName] = 1
-			end
-			--Addon.ObjectiveTracker:UpdatePlayerDeaths()
-		end
-	end
-end
-
-function Mod:SCENARIO_CRITERIA_UPDATE()
-	local scenarioType = select(10, C_Scenario.GetInfo())
-	if scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE then
-		local numCriteria = select(3, C_Scenario.GetStepInfo())
-		for criteriaIndex = 1, numCriteria do
-			-- local criteriaString, criteriaType, _, quantity, totalQuantity, _, _, quantityString, _, _, _, _, isWeightedProgress = C_Scenario.GetCriteriaInfo(criteriaIndex)
-			local criteriaInfo = C_ScenarioInfo.GetCriteriaInfo(criteriaIndex)
-			if criteriaInfo and criteriaInfo.isWeightedProgress then
-				local quantityString = criteriaInfo.quantityString
-				local currentQuantity = quantityString and tonumber( quantityString:match("%d+") )
-				if lastQuantity and currentQuantity < criteriaInfo.totalQuantity and currentQuantity > lastQuantity then
-					lastAmount = currentQuantity - lastQuantity
-					lastAmountTime = GetTime()
-					ProcessLasts()
-				end
-				lastQuantity = currentQuantity
-				break
-			end
-		end
-	end
-end
-
-local function StartTime()
-	-- Mod:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-	local numCriteria = select(3, C_Scenario.GetStepInfo())
-	for criteriaIndex = 1, numCriteria do
-		-- local criteriaString, criteriaType, _, quantity, totalQuantity, _, _, quantityString, _, _, _, _, isWeightedProgress = C_Scenario.GetCriteriaInfo(criteriaIndex)
-		local criteriaInfo = C_ScenarioInfo.GetCriteriaInfo(criteriaIndex)
-		if criteriaInfo and criteriaInfo.isWeightedProgress then
-			local quantityString = criteriaInfo.quantityString
-			lastQuantity = quantityString and tonumber( quantityString:match("%d+") )
-			break
-		end
-	end
-end
-
-local function StopTime()
-	-- Mod:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-end
-
-local function CheckTime(...)
-	for i = 1, select("#", ...) do
-		local timerID = select(i, ...)
-		local _, elapsedTime, type = GetWorldElapsedTime(timerID)
-		if type == LE_WORLD_ELAPSED_TIMER_TYPE_CHALLENGE_MODE then
-			local mapID = C_ChallengeMode.GetActiveChallengeMapID()
-			if mapID then
-				StartTime()
-				return
-			end
-		end
-	end
-	StopTime()
-end
+local progressBar
+local playerGUIDs = {}
+local playerDeaths = {}
 
 local function OnTooltipSetUnit(tooltip)
 	local scenarioType = select(10, C_Scenario.GetInfo())
@@ -136,32 +32,9 @@ local function OnTooltipSetUnit(tooltip)
 
 			tooltip:Show()
 
-			return
 		end
 	end
 end
-
-function Mod:GeneratePreset()
-	local ret = {}
-	for npcID, info in pairs(AngryKeystones_Data.progress) do
-		local value, valueCount
-		for amount, count in pairs(info) do
-			if not valueCount or count > valueCount or (count == valueCount and amount < value) then
-				value = amount
-				valueCount = count
-			end
-		end
-		ret[npcID] = value
-	end
-	AngryKeystones_Data.preset = ret
-	return ret
-end
-
-function Mod:PLAYER_ENTERING_WORLD(...) CheckTime(GetWorldElapsedTimers()) end
-function Mod:WORLD_STATE_TIMER_START(...) local timerID = ...; CheckTime(timerID) end
-function Mod:WORLD_STATE_TIMER_STOP(...) local timerID = ...; StopTime(timerID) end
-function Mod:CHALLENGE_MODE_START(...) CheckTime(GetWorldElapsedTimers()) end
-function Mod:CHALLENGE_MODE_RESET(...) wipe(Mod.playerDeaths) end
 
 local function ProgressBar_SetValue(self, percent)
 	local scenarioType = select(10, C_Scenario.GetInfo())
@@ -170,10 +43,9 @@ local function ProgressBar_SetValue(self, percent)
 
 	local numCriteria = select(3, C_Scenario.GetStepInfo())
 	local criteriaInfo
-	local cInfo
 
 	for criteriaIndex = 1, numCriteria do
-		cInfo = C_ScenarioInfo.GetCriteriaInfo(criteriaIndex)
+		local cInfo = C_ScenarioInfo.GetCriteriaInfo(criteriaIndex)
 		if cInfo and cInfo.isWeightedProgress then
 			criteriaInfo = cInfo
 			break
@@ -203,24 +75,22 @@ local function ProgressBar_SetValue(self, percent)
 	end
 end
 
-local progressBarFound = false
+local function FindProgressBar()
 
-local function findProgressBar()
-
-	if progressBarFound then return end
+	if progressBar then return end
 
 	local usedBars = ScenarioObjectiveTracker.usedProgressBars or {}
 
 	for _, bar in pairs(usedBars) do
 		if bar.used then
+			progressBar = bar
 			hooksecurefunc(bar, "SetValue", ProgressBar_SetValue)
-			progressBarFound = true
 			break
 		end
 	end
 end
 
-hooksecurefunc(ScenarioObjectiveTracker.ObjectivesBlock, "AddProgressBar", findProgressBar )
+hooksecurefunc(ScenarioObjectiveTracker.ObjectivesBlock, "AddProgressBar", FindProgressBar )
 
 local function DeathCount_OnEnter(self)
 	local parent = self:GetParent()
@@ -228,30 +98,67 @@ local function DeathCount_OnEnter(self)
 	GameTooltip:SetOwner(self, "ANCHOR_LEFT")
 	GameTooltip:SetText(CHALLENGE_MODE_DEATH_COUNT_TITLE:format(parent.deathCount), 1, 1, 1)
 	GameTooltip:AddLine(CHALLENGE_MODE_DEATH_COUNT_DESCRIPTION:format(SecondsToClock(parent.timeLost, false)))
-
-	--[[
 	GameTooltip:AddLine(" ")
+
 	local list = {}
-	local deathsCount = 0
-	for unit,count in pairs(Mod.playerDeaths) do
-		local _, class = UnitClass(unit)
-		deathsCount = deathsCount + count
-		table.insert(list, { count = count, unit = unit, class = class })
+	for playerGUID, count in pairs(playerDeaths) do
+		local _, classFileName, _, _, _, name = GetPlayerInfoByGUID(playerGUID)
+		table.insert(list, { count = count, name = name, classFileName = classFileName })
 	end
+
 	table.sort(list, function(a, b)
 		if a.count ~= b.count then
 			return a.count > b.count
 		else
-			return a.unit < b.unit
+			return a.name < b.name
 		end
 	end)
 
 	for _,item in ipairs(list) do
-		local color = RAID_CLASS_COLORS[item.class] or HIGHLIGHT_FONT_COLOR
-		GameTooltip:AddDoubleLine(item.unit, item.count, color.r, color.g, color.b, HIGHLIGHT_FONT_COLOR:GetRGB())
+		local color = not issecretvalue(item.classFileName) and RAID_CLASS_COLORS[item.classFileName] or HIGHLIGHT_FONT_COLOR
+		GameTooltip:AddDoubleLine(item.name, item.count, color.r, color.g, color.b, HIGHLIGHT_FONT_COLOR:GetRGB())
 	end
-	--]]
+
 	GameTooltip:Show()
+end
+
+local function StorePlayerGUIDs()
+	wipe(playerGUIDs)
+
+	playerGUIDs[UnitGUID("player")] = "player"
+
+	for i = 1, 4 do
+		local unit = "party"..i
+		local playerGUID = UnitGUID(unit)
+		if playerGUID then
+			playerGUIDs[playerGUID] = unit
+		end
+	end
+end
+
+function Mod:PLAYER_ENTERING_WORLD()
+	if not C_ChallengeMode.IsChallengeModeActive() then return end
+	StorePlayerGUIDs()
+end
+
+function Mod:CHALLENGE_MODE_START()
+	StorePlayerGUIDs()
+end
+
+function Mod:CHALLENGE_MODE_RESET()
+	wipe(playerDeaths)
+end
+
+function Mod:UNIT_DIED(unitGUID)
+	if not C_ChallengeMode.IsChallengeModeActive() then return end
+	if issecretvalue(unitGUID) then return end
+	if not playerGUIDs[unitGUID] then return end
+	
+	local unit = playerGUIDs[unitGUID]
+	if UnitIsPlayer(unit) and not UnitIsFeignDeath(unit) then
+		playerDeaths[unitGUID] = playerDeaths[unitGUID] and playerDeaths[unitGUID]+1 or 1
+	end
+		
 end
 
 function Mod:Blizzard_ObjectiveTracker()
@@ -268,29 +175,22 @@ function Mod:Startup()
 	if not AngryKeystones_Data.state then AngryKeystones_Data.state = {} end
 	local mapID = C_ChallengeMode.GetActiveChallengeMapID()
 	if select(10, C_Scenario.GetInfo()) == LE_SCENARIO_TYPE_CHALLENGE_MODE and mapID and mapID == AngryKeystones_Data.state.mapID and AngryKeystones_Data.state.playerDeaths then
-		Mod.playerDeaths = AngryKeystones_Data.state.playerDeaths
+		playerDeaths = AngryKeystones_Data.state.playerDeaths
 	else
 		AngryKeystones_Data.state.mapID = nil
-		AngryKeystones_Data.state.playerDeaths = Mod.playerDeaths
+		AngryKeystones_Data.state.playerDeaths = playerDeaths
 	end
 
-	self:RegisterEvent("SCENARIO_CRITERIA_UPDATE")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
-	self:RegisterEvent("WORLD_STATE_TIMER_START")
-	self:RegisterEvent("WORLD_STATE_TIMER_STOP")
 	self:RegisterEvent("CHALLENGE_MODE_START")
 	self:RegisterEvent("CHALLENGE_MODE_RESET")
+	self:RegisterEvent("UNIT_DIED")
 	self:RegisterAddOnLoaded("Blizzard_ObjectiveTracker")
-	CheckTime(GetWorldElapsedTimers())
 	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetUnit)
 
 	Addon.Config:RegisterCallback('progressFormat', function()
-		local usedBars = ScenarioObjectiveTracker.usedProgressBars or {}
-		for _, bar in pairs(usedBars) do
-			if bar.used then
-				ProgressBar_SetValue(bar)
-				break
-			end
+		if progressBar then
+			ProgressBar_SetValue(progressBar)
 		end
 	end)
 end
