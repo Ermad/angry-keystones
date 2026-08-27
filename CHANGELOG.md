@@ -1,3 +1,7 @@
+## v0.33.0
+
+* Fixes for Progress Tracker and completion, thanks CruelDrool
+
 ## V0.32.29
 
 * ToC bump
