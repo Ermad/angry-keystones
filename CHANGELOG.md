@@ -1,3 +1,7 @@
+## v0.33.1
+
+* Update deps
+
 ## v0.33.0
 
 * Fixes for Progress Tracker and completion, thanks CruelDrool

@@ -42,3 +42,4 @@ function EasyMenu_Initialize( frame, level, menuList )
 	end
 end
 ]]
+
